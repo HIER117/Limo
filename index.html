@@ -140,67 +140,9 @@ header .container.hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap; /* sorgt dafür, dass Elemente umbrechen */
-  gap: 0.5rem;
-}
-
-header .container.hero h1 {
-  font-size: 1.6rem;
-  margin: 0;
-}
-
-header .call-button {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  background: linear-gradient(45deg, #28a745, #34d058);
-  color: #fff;
-  font-weight: bold;
-  text-decoration: none;
-  transition: transform 0.2s ease;
-}
-header .call-button:hover {
-  transform: scale(1.05);
-}
-
-/* --- Tabs Styling --- */
-.tabs {
-  display: flex;
-  gap: 0.3rem;
-  overflow-x: auto; /* bei kleinen Screens scrollbar */
   flex-wrap: wrap;
-}
-
-.tabs button {
-  flex: 1 1 auto;
-  padding: 0.5rem 1rem;
-  white-space: nowrap;
-}
-
-/* --- Mobile Anpassungen --- */
-@media (max-width: 768px) {
-  header .container.hero {
-    flex-direction: column; /* Truck, Text, Button untereinander */
-    align-items: flex-start;
-  }
-
-  header .container.hero h1 {
-    font-size: 1.3rem;
-  }
-
-  header .call-button {
-    width: 100%; /* auf Mobile schön breit */
-    justify-content: center;
-  }
-}/* --- Header Layout --- */
-header .container.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 1rem; /* mehr Abstand für mobile Entzerrung */
+  padding: 0.5rem 0;
 }
 
 header .container.hero h1 {
@@ -274,8 +216,7 @@ header .container.hero h1 {
 @media (max-width: 768px) {
   header .container.hero {
     flex-direction: column;
-    align-items: flex-start;
-
+    align-items: stretch;
   }
 
   header .container.hero h1 {
@@ -286,6 +227,7 @@ header .container.hero h1 {
     width: 100%;
     justify-content: center;
   }
+}
   </style>
 </head>
 <body>
@@ -373,7 +315,7 @@ header .container.hero h1 {
             </select>
           </div>
           <input type="hidden" id="orderDetails" name="orderDetails" />
-          <button class="submit" type="submit">Beslung absenden</button>
+          <button class="submit" type="submit">Bestellung absenden</button>
         </div>
       </form>
     </div>
@@ -538,44 +480,53 @@ header .container.hero h1 {
     }
   });
 
-const slider = document.getElementById('callSlider');
-const handle = document.getElementById('callHandle');
-let isDragging = false;
-let startX = 0;
-
-handle.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.clientX;
-});
-
-document.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-  let moveX = e.clientX - startX;
-  if (moveX < 0) moveX = 0;
-  if (moveX > slider.offsetWidth - handle.offsetWidth - 4) {
-    moveX = slider.offsetWidth - handle.offsetWidth - 4;
-  }
-  handle.style.left = moveX + 'px';
-});
-
-document.addEventListener('mouseup', () => {
-  if (!isDragging) return;
-  isDragging = false;
-
-  let currentX = parseInt(handle.style.left);
-  if (currentX > slider.offsetWidth * 0.6) {
-    // Anruf starten
-    window.location.href = "tel:+491632229705";
-  }
-  handle.style.left = "4px";
-});
-
   plzInput.addEventListener('input', ()=>{ if(plzError.style.display==='block') plzError.style.display='none'; });
 
   // -------- Init --------
   renderGrid();
   lucide.createIcons();
   updateCartUI();
+const slider = document.getElementById('callSlider');
+const handle = document.getElementById('callHandle');
+let isDragging = false;
+let startX = 0;
+
+function startDrag(x) {
+  isDragging = true;
+  startX = x;
+}
+
+function duringDrag(x) {
+  if (!isDragging) return;
+  let moveX = x - startX;
+  if (moveX < 0) moveX = 0;
+  if (moveX > slider.offsetWidth - handle.offsetWidth - 4) {
+    moveX = slider.offsetWidth - handle.offsetWidth - 4;
+  }
+  handle.style.left = moveX + 'px';
+}
+
+function endDrag() {
+  if (!isDragging) return;
+  isDragging = false;
+  let currentX = parseInt(handle.style.left);
+  if (currentX > slider.offsetWidth * 0.6) {
+    window.location.href = "tel:+491632229705";
+  }
+  handle.style.left = "4px";
+}
+
+// Maus-Events
+handle.addEventListener('mousedown', (e) => startDrag(e.clientX));
+document.addEventListener('mousemove', (e) => duringDrag(e.clientX));
+document.addEventListener('mouseup', endDrag);
+
+// Touch-Events
+handle.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX));
+document.addEventListener('touchmove', (e) => {
+  if (e.touches.length > 0) duringDrag(e.touches[0].clientX);
+});
+document.addEventListener('touchend', endDrag);
 </script>
 
 </body>
