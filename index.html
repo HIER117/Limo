@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -89,6 +91,52 @@
       .card .thumb{height:100px}
       .icon{width:44px;height:44px}
     }
+/* --- Buttons Desktop --- */
+.call-btn, .cart-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.call-btn {
+  background: #ff6600;
+  color: #fff;
+}
+
+.call-btn:hover {
+  background: #e55b00;
+}
+
+.cart-btn {
+  background: #0077cc;
+  color: #fff;
+}
+
+.cart-btn:hover {
+  background: #005fa3;
+}
+
+/* --- Mobile Ansicht --- */
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column; /* untereinander statt nebeneinander */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hero > div:last-child {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .call-btn, .cart-btn {
+    width: 100%;       /* volle Breite */
+    text-align: center;
+  }
+}
   </style>
 </head>
 <body>
@@ -126,6 +174,7 @@
     </div>
   </div>
 
+
   <!-- Cart Drawer / Checkout -->
   <div class="drawer" id="drawer">
     <div class="panel">
@@ -138,7 +187,7 @@
       <main>
         <div id="cartList"></div>
       </main>
-      <form id="checkoutForm" class="checkout" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form id="checkoutForm" class="checkout" action="https://formspree.io/f/xvgqjgrj" method="POST">
         <div class="container" style="padding:0">
           <div class="field">
             <label for="name">Name</label>
@@ -174,158 +223,171 @@
   </div>
 
   <script>
-    // -------- Produktdaten (alkoholfrei) --------
-    const PRODUCTS = [
-      { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
-      { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
-      { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
+  // -------- Produktdaten (alkoholfrei) --------
+  const PRODUCTS = [
+    { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
+    { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
+    { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
+    { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+    { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+    { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+    { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
+    { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
+    { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
+    { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
+    { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
+    { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
+    { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" }
+  ];
 
-      { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-      { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-      { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  const TAX = 0.19;
+  const DELIVERY = 4.90;
+  const MIN_ORDER = 10.0;
 
-      { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
-      { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
-      { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
+  const grid = document.getElementById('grid');
+  const tabs = document.getElementById('tabs');
+  const state = { cat:'wasser', cart:{} };
 
-      { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
-      { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
+  function format(n){return n.toFixed(2).replace('.',',')}
 
-      { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
-      { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" }
-    ];
-
-    // -------- Rendering --------
-    const grid = document.getElementById('grid');
-    const tabs = document.getElementById('tabs');
-    const state = { cat:'wasser', cart:{} };
-
-    function format(n){return n.toFixed(2).replace('.',',')}
-
-    function renderGrid(){
-      grid.innerHTML = '';
-      PRODUCTS.filter(p=>p.cat===state.cat).forEach(p=>{
-        const card = document.createElement('article');
-        card.className = 'card';
-        card.innerHTML = `
-          <div class="thumb"><i data-lucide="${p.icon}" class="icon"></i></div>
-          <div class="body">
-            <div>
-              <div class="title">${p.title}</div>
-              <div class="price">${format(p.price)} €</div>
-            </div>
-            <button class="add-btn" data-id="${p.id}"><i data-lucide="plus"></i> </button>
-          </div>`;
-        grid.appendChild(card);
-      });
-      lucide.createIcons();
-      grid.querySelectorAll('.add-btn').forEach(btn=>btn.addEventListener('click',onAdd));
-    }
-
-    tabs.addEventListener('click',e=>{
-      const b = e.target.closest('.tab');
-      if(!b) return;
-      tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
-      b.setAttribute('aria-selected','true');
-      state.cat = b.dataset.cat;
-      renderGrid();
+  // -------- Grid Rendering --------
+  function renderGrid(){
+    grid.innerHTML = '';
+    PRODUCTS.filter(p=>p.cat===state.cat).forEach(p=>{
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="thumb"><i data-lucide="${p.icon}" class="icon"></i></div>
+        <div class="body">
+          <div>
+            <div class="title">${p.title}</div>
+            <div class="price">${format(p.price)} €</div>
+          </div>
+          <button class="add-btn" data-id="${p.id}"><i data-lucide="plus"></i> </button>
+        </div>`;
+      grid.appendChild(card);
     });
-
-    function onAdd(e){
-      const id = e.currentTarget.dataset.id;
-      const prod = PRODUCTS.find(p=>p.id===id);
-      if(!state.cart[id]) state.cart[id] = { qty:0, ...prod };
-      state.cart[id].qty++;
-      updateCartUI();
-    }
-
-    function addQty(id,delta){
-      const line = state.cart[id];
-      if(!line) return;
-      line.qty = Math.max(0, line.qty + delta);
-      if(line.qty===0) delete state.cart[id];
-      updateCartUI();
-    }
-
-    // -------- Cart UI --------
-    const cartbar = document.getElementById('cartbar');
-    const cartCount = document.getElementById('cartCount');
-    const cartTotal = document.getElementById('cartTotal');
-    const drawer = document.getElementById('drawer');
-    const cartList = document.getElementById('cartList');
-    const openCart = document.getElementById('openCart');
-    const openCheckout = document.getElementById('openCheckout');
-    const closeDrawer = document.getElementById('closeDrawer');
-
-    openCart.addEventListener('click',()=>drawer.classList.add('open'));
-    openCheckout.addEventListener('click',()=>drawer.classList.add('open'));
-    closeDrawer.addEventListener('click',()=>drawer.classList.remove('open'));
-    drawer.addEventListener('click',e=>{ if(e.target===drawer) drawer.classList.remove('open') });
-
-    function updateCartUI(){
-      const lines = Object.values(state.cart);
-      const count = lines.reduce((s,l)=>s+l.qty,0);
-      const total = lines.reduce((s,l)=>s+l.qty*l.price,0);
-
-      if(count===0){
-        cartbar.style.display='none';
-      }else{
-        cartbar.style.display='block';
-      }
-      cartCount.textContent = count;
-      cartTotal.textContent = format(total);
-
-      cartList.innerHTML = count===0
-        ? `<div class="chip"><i data-lucide="info"></i><span>Ihr Warenkorb ist leer</span></div>`
-        : lines.map(l=>`
-            <div class="cart-item">
-              <div>${l.title}</div>
-              <div class="qtyctrl">
-                <button aria-label="entfernen" onclick="addQty('${l.id}',-1)">−</button>
-                <span>${l.qty}</span>
-                <button aria-label="" onclick="addQty('${l.id}',1)">+</button>
-              </div>
-              <div class="lineprice">${format(l.qty*l.price)} €</div>
-            </div>
-          `).join('');
-      lucide.createIcons();
-
-      // Update hidden order details string for Formspree
-      const summary = lines.map(l=>`${l.qty}× ${l.title} = ${format(l.qty*l.price)} €`).join(' | ');
-      document.getElementById('orderDetails').value = summary + (summary? ' | ':'') + `Gesamt: ${format(total)} €`;
-    }
-
-    // -------- Checkout Validation (PLZ 80xxx) --------
-    const checkoutForm = document.getElementById('checkoutForm');
-    const plzInput = document.getElementById('zipcode');
-    const plzError = document.getElementById('plzError');
-
-    function validPLZ(v){
-      const m = v.match(/\b(\d{5})\b/); // suche 5-stellige PLZ in Eingabe
-      if(!m) return false;
-      return /^80\d{3}$/.test(m[1]);
-    }
-
-    checkoutForm.addEventListener('submit', (e)=>{
-      if(Object.values(state.cart).length===0){
-        alert('Bitte fügen Sie Produkte hinzu.');
-        e.preventDefault();
-        return;
-      }
-      if(!validPLZ(plzInput.value.trim())){
-        plzError.style.display='block';
-        e.preventDefault();
-      } else {
-        plzError.style.display='none';
-      }
-    });
-
-    plzInput.addEventListener('input',()=>{ if(plzError.style.display==='block') plzError.style.display = 'none';});
-
-    // -------- Init --------
-    renderGrid();
     lucide.createIcons();
+    grid.querySelectorAll('.add-btn').forEach(btn=>btn.addEventListener('click',onAdd));
+  }
+
+  tabs.addEventListener('click', e=>{
+    const b = e.target.closest('.tab');
+    if(!b) return;
+    tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
+    b.setAttribute('aria-selected','true');
+    state.cat = b.dataset.cat;
+    renderGrid();
+  });
+
+  function onAdd(e){
+    const id = e.currentTarget.dataset.id;
+    const prod = PRODUCTS.find(p=>p.id===id);
+    if(!state.cart[id]) state.cart[id] = { qty:0, ...prod };
+    state.cart[id].qty++;
     updateCartUI();
-  </script>
+  }
+
+  function addQty(id, delta){
+    const line = state.cart[id];
+    if(!line) return;
+    line.qty = Math.max(0, line.qty + delta);
+    if(line.qty===0) delete state.cart[id];
+    updateCartUI();
+  }
+
+  // -------- Cart UI --------
+  const cartbar = document.getElementById('cartbar');
+  const cartCount = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
+  const drawer = document.getElementById('drawer');
+  const cartList = document.getElementById('cartList');
+  const openCart = document.getElementById('openCart');
+  const openCheckout = document.getElementById('openCheckout');
+  const closeDrawer = document.getElementById('closeDrawer');
+
+  openCart.addEventListener('click',()=>drawer.classList.add('open'));
+  openCheckout.addEventListener('click',()=>drawer.classList.add('open'));
+  closeDrawer.addEventListener('click',()=>drawer.classList.remove('open'));
+  drawer.addEventListener('click', e=>{ if(e.target===drawer) drawer.classList.remove('open') });
+
+  function updateCartUI(){
+    const lines = Object.values(state.cart);
+    const count = lines.reduce((s,l)=>s+l.qty,0);
+    const subtotal = lines.reduce((s,l)=>s+l.qty*l.price,0);
+    const tax = subtotal * TAX;
+    const total = subtotal + tax + (subtotal>0 ? DELIVERY : 0);
+
+    cartCount.textContent = count;
+    cartTotal.textContent = format(total);
+
+    cartbar.style.display = count>0 ? 'block' : 'none';
+
+    cartList.innerHTML = count===0
+      ? `<div class="chip"><i data-lucide="info"></i><span>Ihr Warenkorb ist leer</span></div>`
+      : lines.map(l=>`
+          <div class="cart-item">
+            <div>${l.title}</div>
+            <div class="qtyctrl">
+              <button aria-label="entfernen" onclick="addQty('${l.id}',-1)">−</button>
+              <span>${l.qty}</span>
+              <button aria-label="hinzufügen" onclick="addQty('${l.id}',1)">+</button>
+            </div>
+            <div class="lineprice">${format(l.qty*l.price)} €</div>
+          </div>
+        `).join('') +
+        `<div class="cart-summary">
+          <div>Zwischensumme: ${format(subtotal)} €</div>
+          <div>Steuer (19%): ${format(tax)} €</div>
+          <div>Lieferung: ${format(subtotal>0?DELIVERY:0)} €</div>
+          <div><strong>Gesamt: ${format(total)} €</strong></div>
+        </div>`;
+
+    lucide.createIcons();
+
+    // Update Formspree field
+    const summary = lines.map(l=>`${l.qty}× ${l.title} = ${format(l.qty*l.price)} €`).join(' | ');
+    document.getElementById('orderDetails').value = summary + (summary? ' | ':'') + `Gesamt: ${format(total)} €`;
+  }
+
+  // -------- Checkout Validation --------
+  const checkoutForm = document.getElementById('checkoutForm');
+  const plzInput = document.getElementById('zipcode');
+  const plzError = document.getElementById('plzError');
+
+  function validPLZ(v){
+    const m = v.match(/\b(\d{5})\b/);
+    if(!m) return false;
+    return /^80\d{3}$/.test(m[1]);
+  }
+
+  checkoutForm.addEventListener('submit', e=>{
+    const subtotal = Object.values(state.cart).reduce((s,l)=>s+l.qty*l.price,0);
+    if(subtotal < MIN_ORDER){
+      alert(`Mindestbestellwert ${format(MIN_ORDER)} € nicht erreicht.`);
+      e.preventDefault();
+      return;
+    }
+    if(Object.values(state.cart).length===0){
+      alert('Bitte fügen Sie Produkte hinzu.');
+      e.preventDefault();
+      return;
+    }
+    if(!validPLZ(plzInput.value.trim())){
+      plzError.style.display='block';
+      e.preventDefault();
+    } else {
+      plzError.style.display='none';
+    }
+  });
+
+  plzInput.addEventListener('input', ()=>{ if(plzError.style.display==='block') plzError.style.display='none'; });
+
+  // -------- Init --------
+  renderGrid();
+  lucide.createIcons();
+  updateCartUI();
+</script>
+
 </body>
 </html>
