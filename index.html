@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Getränke Lieferservice München – App Style</title>
+  <!-- Lucide Icons CDN (kostenlos, Open-Source) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{
+      --bg1:#a1c4fd; --bg2:#c2e9fb; --bg3:#fbc2eb; --bg4:#a6c0fe;
+      --card:#ffffff; --text:#1f2937; --muted:#6b7280; --primary:#2563eb; --primary-600:#1d4ed8;
+      --accent:#10b981; --danger:#ef4444; --shadow:0 8px 24px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));
+      background-size:400% 400%;
+      animation:bgMove 18s ease infinite;
+    }
+    @keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    header{
+      position:sticky; top:0; z-index:5;
+      backdrop-filter:saturate(140%) blur(6px);
+      background:rgba(255,255,255,.6);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:16px}
+    .hero{display:flex;align-items:center;gap:12px;padding:12px 0}
+    .hero h1{margin:0;font-size:1.4rem;font-weight:800}
+    .hero small{color:var(--muted)}
+
+    /* Kategorien Tabs */
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px}
+    .tab{border:none;border-radius:999px;padding:10px 14px;background:#fff;box-shadow:var(--shadow);cursor:pointer;font-weight:600}
+    .tab[aria-selected="true"]{background:var(--primary);color:white}
+
+    /* Produktgrid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card .thumb{display:flex;align-items:center;justify-content:center;height:120px;background:linear-gradient(135deg,#fff 0%, #f3f4f6 100%)}
+    .icon{width:56px;height:56px}
+    .card .body{padding:14px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+    .title{font-weight:700}
+    .price{font-weight:800;color:var(--primary)}
+    .add-btn{border:none;border-radius:999px;background:var(--accent);color:white;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700}
+    .add-btn:hover{filter:brightness(.95)}
+
+    /* Sticky Cart */
+    .cartbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;width:min(980px,94%);background:#111827;color:#f9fafb;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.35);z-index:20}
+    .cartbar .row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;gap:10px}
+    .cartbar .summary{font-weight:700}
+    .cartbar button{border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .cartbar .view{background:#fff}
+    .cartbar .checkout{background:var(--primary);color:#fff}
+
+    /* Cart Drawer */
+    .drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:30}
+    .drawer.open{display:block}
+    .panel{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(980px,100%);background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;max-height:80vh;display:flex;flex-direction:column}
+    .panel header{position:sticky;top:0;background:#fff;border-bottom:1px solid #e5e7eb}
+    .panel header .container{display:flex;align-items:center;justify-content:space-between}
+    .panel main{padding:8px 16px 16px;overflow:auto}
+
+    .cart-item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed #e5e7eb}
+    .qtyctrl{display:inline-flex;align-items:center;border:1px solid #e5e7eb;border-radius:999px}
+    .qtyctrl button{border:none;background:transparent;padding:8px 12px;font-size:1.1rem;cursor:pointer}
+    .qtyctrl span{min-width:24px;text-align:center;font-weight:700}
+    .lineprice{font-weight:800}
+
+    /* Checkout */
+    form.checkout{padding:12px 16px 20px;border-top:1px solid #e5e7eb;background:#fafafa;border-bottom-left-radius:16px;border-bottom-right-radius:16px}
+    .field{display:grid;gap:6px;margin:10px 0}
+    .field label{font-size:.9rem;color:#374151}
+    .field input,.field select{padding:12px;border-radius:10px;border:1px solid #d1d5db;font-size:1rem}
+    .error{color:var(--danger);font-weight:700;display:none}
+    .submit{width:100%;background:var(--primary);color:#fff;border:none;border-radius:12px;padding:14px 16px;font-weight:800;font-size:1rem;cursor:pointer}
+
+    /* Chips for empty cart */
+    .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;margin:4px 6px}
+
+    @media (max-width:640px){
+      .hero h1{font-size:1.2rem}
+      .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+      .card .thumb{height:100px}
+      .icon{width:44px;height:44px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container hero">
+      <i data-lucide="truck" class="icon"></i>
+      <div>
+        <h1>Getränke Lieferservice München</h1>
+        <small>Liefergebiet: nur PLZ <strong>80xxx</strong></small>
+      </div>
+    </div>
+    <div class="container">
+      <div class="tabs" id="tabs">
+        <button class="tab" aria-selected="true" data-cat="wasser">Wasser</button>
+        <button class="tab" data-cat="soft">Softdrinks</button>
+        <button class="tab" data-cat="saft">Säfte</button>
+        <button class="tab" data-cat="energy">Energy</button>
+        <button class="tab" data-cat="extras">Extras</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section id="grid" class="grid"></section>
+  </div>
+
+  <!-- Sticky Cart Bar -->
+  <div class="cartbar" id="cartbar" style="display:none">
+    <div class="row">
+      <div class="summary"><span id="cartCount">0</span> Artikel · <span id="cartTotal">0,00</span> €</div>
+      <div style="display:flex;gap:8px">
+        <button class="view" id="openCart">Warenkorb ansehen</button>
+        <button class="checkout" id="openCheckout">Zur Kasse</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer / Checkout -->
+  <div class="drawer" id="drawer">
+    <div class="panel">
+      <header>
+        <div class="container">
+          <strong>🛒 Ihr Warenkorb</strong>
+          <button id="closeDrawer" class="tab">Schließen</button>
+        </div>
+      </header>
+      <main>
+        <div id="cartList"></div>
+      </main>
+      <form id="checkoutForm" class="checkout" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="container" style="padding:0">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" placeholder="Ihr Name" required />
+          </div>
+          <div class="field">
+            <label for="address">Straße & Nr.</label>
+            <input id="address" name="address" placeholder="Straße, Nr." required />
+          </div>
+          <div class="field">
+            <label for="zipcode">PLZ, Ort (nur 80xxx)</label>
+            <input id="zipcode" name="zipcode" placeholder="z. B. 80331 München" required />
+            <div id="plzError" class="error">❌ Lieferung nur im PLZ‑Bereich <b>80xxx</b> möglich.</div>
+          </div>
+          <div class="field">
+            <label for="email">E‑Mail</label>
+            <input id="email" name="email" type="email" placeholder="mail@beispiel.de" required />
+          </div>
+          <div class="field">
+            <label for="time">Lieferzeit</label>
+            <select id="time" name="deliveryTime" required>
+              <option value="">Bitte wählen …</option>
+              <option value="asap">🚀 Schnellstmöglich</option>
+              <option value="18-20">18–20 Uhr</option>
+              <option value="20-22">20–22 Uhr</option>
+            </select>
+          </div>
+          <input type="hidden" id="orderDetails" name="orderDetails" />
+          <button class="submit" type="submit">Bestellung absenden</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // -------- Produktdaten (alkoholfrei) --------
+    const PRODUCTS = [
+      { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
+      { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
+      { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
+
+      { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+      { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+      { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+
+      { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
+      { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
+      { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
+
+      { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
+      { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
+
+      { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
+      { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" }
+    ];
+
+    // -------- Rendering --------
+    const grid = document.getElementById('grid');
+    const tabs = document.getElementById('tabs');
+    const state = { cat:'wasser', cart:{} };
+
+    function format(n){return n.toFixed(2).replace('.',',')}
+
+    function renderGrid(){
+      grid.innerHTML = '';
+      PRODUCTS.filter(p=>p.cat===state.cat).forEach(p=>{
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb"><i data-lucide="${p.icon}" class="icon"></i></div>
+          <div class="body">
+            <div>
+              <div class="title">${p.title}</div>
+              <div class="price">${format(p.price)} €</div>
+            </div>
+            <button class="add-btn" data-id="${p.id}"><i data-lucide="plus"></i> </button>
+          </div>`;
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+      grid.querySelectorAll('.add-btn').forEach(btn=>btn.addEventListener('click',onAdd));
+    }
+
+    tabs.addEventListener('click',e=>{
+      const b = e.target.closest('.tab');
+      if(!b) return;
+      tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
+      b.setAttribute('aria-selected','true');
+      state.cat = b.dataset.cat;
+      renderGrid();
+    });
+
+    function onAdd(e){
+      const id = e.currentTarget.dataset.id;
+      const prod = PRODUCTS.find(p=>p.id===id);
+      if(!state.cart[id]) state.cart[id] = { qty:0, ...prod };
+      state.cart[id].qty++;
+      updateCartUI();
+    }
+
+    function addQty(id,delta){
+      const line = state.cart[id];
+      if(!line) return;
+      line.qty = Math.max(0, line.qty + delta);
+      if(line.qty===0) delete state.cart[id];
+      updateCartUI();
+    }
+
+    // -------- Cart UI --------
+    const cartbar = document.getElementById('cartbar');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const drawer = document.getElementById('drawer');
+    const cartList = document.getElementById('cartList');
+    const openCart = document.getElementById('openCart');
+    const openCheckout = document.getElementById('openCheckout');
+    const closeDrawer = document.getElementById('closeDrawer');
+
+    openCart.addEventListener('click',()=>drawer.classList.add('open'));
+    openCheckout.addEventListener('click',()=>drawer.classList.add('open'));
+    closeDrawer.addEventListener('click',()=>drawer.classList.remove('open'));
+    drawer.addEventListener('click',e=>{ if(e.target===drawer) drawer.classList.remove('open') });
+
+    function updateCartUI(){
+      const lines = Object.values(state.cart);
+      const count = lines.reduce((s,l)=>s+l.qty,0);
+      const total = lines.reduce((s,l)=>s+l.qty*l.price,0);
+
+      if(count===0){
+        cartbar.style.display='none';
+      }else{
+        cartbar.style.display='block';
+      }
+      cartCount.textContent = count;
+      cartTotal.textContent = format(total);
+
+      cartList.innerHTML = count===0
+        ? `<div class="chip"><i data-lucide="info"></i><span>Ihr Warenkorb ist leer</span></div>`
+        : lines.map(l=>`
+            <div class="cart-item">
+              <div>${l.title}</div>
+              <div class="qtyctrl">
+                <button aria-label="entfernen" onclick="addQty('${l.id}',-1)">−</button>
+                <span>${l.qty}</span>
+                <button aria-label="" onclick="addQty('${l.id}',1)">+</button>
+              </div>
+              <div class="lineprice">${format(l.qty*l.price)} €</div>
+            </div>
+          `).join('');
+      lucide.createIcons();
+
+      // Update hidden order details string for Formspree
+      const summary = lines.map(l=>`${l.qty}× ${l.title} = ${format(l.qty*l.price)} €`).join(' | ');
+      document.getElementById('orderDetails').value = summary + (summary? ' | ':'') + `Gesamt: ${format(total)} €`;
+    }
+
+    // -------- Checkout Validation (PLZ 80xxx) --------
+    const checkoutForm = document.getElementById('checkoutForm');
+    const plzInput = document.getElementById('zipcode');
+    const plzError = document.getElementById('plzError');
+
+    function validPLZ(v){
+      const m = v.match(/\b(\d{5})\b/); // suche 5-stellige PLZ in Eingabe
+      if(!m) return false;
+      return /^80\d{3}$/.test(m[1]);
+    }
+
+    checkoutForm.addEventListener('submit', (e)=>{
+      if(Object.values(state.cart).length===0){
+        alert('Bitte fügen Sie Produkte hinzu.');
+        e.preventDefault();
+        return;
+      }
+      if(!validPLZ(plzInput.value.trim())){
+        plzError.style.display='block';
+        e.preventDefault();
+      } else {
+        plzError.style.display='none';
+      }
+    });
+
+    plzInput.addEventListener('input',()=>{ if(plzError.style.display==='block') plzError.style.display = 'none';});
+
+    // -------- Init --------
+    renderGrid();
+    lucide.createIcons();
+    updateCartUI();
+  </script>
+</body>
+</html>
