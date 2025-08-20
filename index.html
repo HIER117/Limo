@@ -1,22 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Getränke Lieferservice München – App Style</title>
-  <!-- Lucide Icons CDN (kostenlos, Open-Source) -->
+  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root{
       --bg1:#a1c4fd; --bg2:#c2e9fb; --bg3:#fbc2eb; --bg4:#a6c0fe;
-      --card:#ffffff; --text:#1f2937; --muted:#6b7280; --primary:#2563eb; --primary-600:#1d4ed8;
+      --card:#ffffff; --text:#0f172a; --muted:#64748b; --primary:#2563eb; --primary-600:#1d4ed8;
       --accent:#10b981; --danger:#ef4444; --shadow:0 8px 24px rgba(0,0,0,.12);
+      --ring: 0 0 0 3px rgba(37,99,235,.18);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
       background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));
       background-size:400% 400%;
@@ -24,130 +24,169 @@
     }
     @keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
+    /* ===== Header / Hero ===== */
     header{
       position:sticky; top:0; z-index:5;
       backdrop-filter:saturate(140%) blur(6px);
-      background:rgba(255,255,255,.6);
+      background:rgba(255,255,255,.55);
       border-bottom:1px solid rgba(0,0,0,.06);
     }
     .container{max-width:1100px;margin:0 auto;padding:16px}
-    .hero{display:flex;align-items:center;gap:12px;padding:12px 0}
-    .hero h1{margin:0;font-size:1.4rem;font-weight:800}
-    .hero small{color:var(--muted)}
+    .header-row{display:flex;align-items:center;gap:12px}
+    .hero{display:flex;align-items:center;gap:14px;padding:10px 0}
+    .logo-badge{
+      width:56px;height:56px;border-radius:14px;display:grid;place-items:center;
+      background:radial-gradient(120px 120px at -20% -20%, #fff, #f1f5f9);
+      box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0;font-size:1.5rem;font-weight:900;letter-spacing:.2px}
+    .tagline{margin-top:2px;color:var(--muted);font-weight:600}
+    .usp-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;background:#fff}
+    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-weight:700;background:#e0f2fe;color:#075985}
 
-    /* Kategorien Tabs */
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 16px}
-    .tab{border:none;border-radius:999px;padding:10px 14px;background:#fff;box-shadow:var(--shadow);cursor:pointer;font-weight:600}
+    .header-actions{margin-left:auto;display:flex;gap:8px}
+    .call-btn, .cart-btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+    .call-btn {background:#ff6600;color:#fff;}
+    .call-btn:hover{background:#e55b00}
+    .cart-btn {background:#0077cc;color:#fff;}
+    .cart-btn:hover{background:#005fa3}
+
+    /* Suche */
+    .searchbar{
+      display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e5e7eb;
+      border-radius:14px;padding:10px 12px;margin-top:12px;box-shadow:var(--shadow)
+    }
+    .searchbar input{flex:1;border:none;outline:none;font-size:1rem}
+    .searchbar:focus-within{box-shadow:var(--ring)}
+
+    /* Tabs */
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
+    .tab{border:none;border-radius:999px;padding:10px 14px;background:#fff;box-shadow:var(--shadow);cursor:pointer;font-weight:700}
     .tab[aria-selected="true"]{background:var(--primary);color:white}
 
     /* Produktgrid */
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-    .card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+    .card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .12s ease}
+    .card:hover{transform:translateY(-2px)}
     .card .thumb{display:flex;align-items:center;justify-content:center;height:120px;background:linear-gradient(135deg,#fff 0%, #f3f4f6 100%)}
     .icon{width:56px;height:56px}
     .card .body{padding:14px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
-    .title{font-weight:700}
-    .price{font-weight:800;color:var(--primary)}
-    .add-btn{border:none;border-radius:999px;background:var(--accent);color:white;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700}
+    .title{font-weight:800}
+    .price{font-weight:900;color:var(--primary)}
+    .add-btn{border:none;border-radius:999px;background:var(--accent);color:white;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:800}
     .add-btn:hover{filter:brightness(.95)}
 
     /* Sticky Cart */
     .cartbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;width:min(980px,94%);background:#111827;color:#f9fafb;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.35);z-index:20}
     .cartbar .row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;gap:10px}
-    .cartbar .summary{font-weight:700}
-    .cartbar button{border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}
+    .cartbar .summary{font-weight:800}
+    .cartbar button{border:none;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
     .cartbar .view{background:#fff}
     .cartbar .checkout{background:var(--primary);color:#fff}
 
-    /* Cart Drawer */
+    /* ===== Drawer (Warenkorb + Daten) ===== */
     .drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:30}
     .drawer.open{display:block}
-    .panel{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:min(980px,100%);background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;max-height:80vh;display:flex;flex-direction:column}
+    .panel{
+      position:absolute;left:50%;transform:translateX(-50%);
+      width:min(980px,100%);background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;
+      bottom:0;max-height:80vh;display:flex;flex-direction:column;
+      box-shadow:0 -16px 40px rgba(0,0,0,.2)
+    }
     .panel header{position:sticky;top:0;background:#fff;border-bottom:1px solid #e5e7eb}
-    .panel header .container{display:flex;align-items:center;justify-content:space-between}
-    .panel main{padding:8px 16px 16px;overflow:auto}
+    .panel header .header-row{justify-content:space-between}
+    .seg{
+      display:inline-flex;background:#f1f5f9;border-radius:999px;padding:4px;gap:4px
+    }
+    .seg button{
+      border:none;border-radius:999px;padding:8px 12px;font-weight:800;background:transparent;cursor:pointer
+    }
+    .seg .active{background:#fff;box-shadow:var(--shadow)}
+    .panel main{
+      padding:12px 16px 16px;overflow:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:16px;
+    }
+    .hidden{display:none !important}
 
     .cart-item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed #e5e7eb}
     .qtyctrl{display:inline-flex;align-items:center;border:1px solid #e5e7eb;border-radius:999px}
     .qtyctrl button{border:none;background:transparent;padding:8px 12px;font-size:1.1rem;cursor:pointer}
-    .qtyctrl span{min-width:24px;text-align:center;font-weight:700}
-    .lineprice{font-weight:800}
+    .qtyctrl span{min-width:24px;text-align:center;font-weight:800}
+    .lineprice{font-weight:900}
+
+    .summaryBox{
+      background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:12px;position:sticky;top:6px
+    }
 
     /* Checkout */
-    form.checkout{padding:12px 16px 20px;border-top:1px solid #e5e7eb;background:#fafafa;border-bottom-left-radius:16px;border-bottom-right-radius:16px}
-    .field{display:grid;gap:6px;margin:10px 0}
+    form.checkout{display:grid;gap:8px}
+    .field{display:grid;gap:6px}
     .field label{font-size:.9rem;color:#374151}
     .field input,.field select{padding:12px;border-radius:10px;border:1px solid #d1d5db;font-size:1rem}
-    .error{color:var(--danger);font-weight:700;display:none}
-    .submit{width:100%;background:var(--primary);color:#fff;border:none;border-radius:12px;padding:14px 16px;font-weight:800;font-size:1rem;cursor:pointer}
+    .field input:focus,.field select:focus{outline:none;box-shadow:var(--ring)}
+    .error{color:var(--danger);font-weight:800;display:none}
+    .submit{width:100%;background:var(--primary);color:#fff;border:none;border-radius:12px;padding:14px 16px;font-weight:900;font-size:1rem;cursor:pointer}
 
-    /* Chips for empty cart */
-    .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 10px;margin:4px 6px}
+    /* ===== Responsive: Vollbild-Drawer auf Mobile ===== */
+    @media (max-width:900px){
+      .panel{position:fixed;inset:0;transform:none;left:0;width:100%;border-radius:0;max-height:100vh;height:100dvh}
+      .panel main{display:block}
+      #viewForm,#viewCart{display:block}
+      /* per JS wird .hidden gesetzt */
+    }
 
+    /* Kleineres Grid */
     @media (max-width:640px){
-      .hero h1{font-size:1.2rem}
+      .hero h1{font-size:1.25rem}
       .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
       .card .thumb{height:100px}
       .icon{width:44px;height:44px}
     }
-/* --- Buttons Desktop --- */
-.call-btn, .cart-btn {
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-}
 
-.call-btn {
-  background: #ff6600;
-  color: #fff;
-}
-
-.call-btn:hover {
-  background: #e55b00;
-}
-
-.cart-btn {
-  background: #0077cc;
-  color: #fff;
-}
-
-.cart-btn:hover {
-  background: #005fa3;
-}
-
-/* --- Mobile Ansicht --- */
-@media (max-width: 600px) {
-  .hero {
-    flex-direction: column; /* untereinander statt nebeneinander */
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .hero > div:last-child {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .call-btn, .cart-btn {
-    width: 100%;       /* volle Breite */
-    text-align: center;
-  }
-}
+    /* Mobile Header Buttons stapeln */
+    @media (max-width: 600px) {
+      .header-row{flex-direction:column;align-items:flex-start}
+      .header-actions{width:100%;display:flex;gap:8px}
+      .call-btn, .cart-btn {flex:1;text-align:center}
+    }
   </style>
 </head>
 <body>
+  <!-- ===== Header / Hero ===== -->
   <header>
-    <div class="container hero">
-      <i data-lucide="truck" class="icon"></i>
-      <div>
-        <h1>Getränke Lieferservice München</h1>
-        <small>Liefergebiet: nur PLZ <strong>80xxx</strong></small>
+    <div class="container">
+      <div class="header-row">
+        <div class="hero">
+          <div class="logo-badge"><i data-lucide="bike" class="icon"></i></div>
+          <div>
+            <h1>Getränke Lieferservice München</h1>
+            <div class="tagline">Schnell & freundlich – heute bis 22:00 Uhr</div>
+            <div class="usp-row">
+              <span class="badge"><i data-lucide="map-pin"></i> PLZ 80xxx</span>
+              <span class="chip"><i data-lucide="clock-7"></i> Lieferung ab 30 Min*</span>
+              <span class="chip"><i data-lucide="shield-check"></i> Kontaktlose Zahlung</span>
+            </div>
+            <div class="searchbar">
+              <i data-lucide="search"></i>
+              <input id="search" placeholder="Suche (z. B. Cola, Wasser, Saft) …" />
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="tel:+49891234567" class="call-btn">📞 Anrufen</a>
+          <button id="openCheckoutTop" class="cart-btn">🛒 Zur Kasse</button>
+        </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container" style="padding-top:0">
       <div class="tabs" id="tabs">
         <button class="tab" aria-selected="true" data-cat="wasser">Wasser</button>
         <button class="tab" data-cat="soft">Softdrinks</button>
@@ -158,14 +197,15 @@
     </div>
   </header>
 
-  <div class="container">
+  <!-- ===== Produktliste ===== -->
+  <div class="container" style="padding-top:8px">
     <section id="grid" class="grid"></section>
   </div>
 
-  <!-- Sticky Cart Bar -->
+  <!-- ===== Sticky Cart Bar ===== -->
   <div class="cartbar" id="cartbar" style="display:none">
     <div class="row">
-      <div class="summary"><span id="cartCount">0</span> Artikel · <span id="cartTotal">0,00</span> €</div>
+      <div class="summary"><span id="cartCount">0</span> Artikel · <span id="cartTotal">0,00 €</span></div>
       <div style="display:flex;gap:8px">
         <button class="view" id="openCart">Warenkorb ansehen</button>
         <button class="checkout" id="openCheckout">Zur Kasse</button>
@@ -173,70 +213,108 @@
     </div>
   </div>
 
-
-  <!-- Cart Drawer / Checkout -->
-  <div class="drawer" id="drawer">
-    <div class="panel">
+  <!-- ===== Drawer: Warenkorb + Daten (Tabs) ===== -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="panel" role="dialog" aria-modal="true">
       <header>
-        <div class="container">
-          <strong>🛒 Ihr Warenkorb</strong>
+        <div class="container header-row" style="padding:10px 16px">
+          <strong style="font-size:1.05rem">🛒 Bestellen</strong>
+          <div class="seg" role="tablist" aria-label="Bestellschritte">
+            <button class="active" id="tabCart" data-seg="cart" role="tab" aria-selected="true">Warenkorb</button>
+            <button id="tabData" data-seg="data" role="tab" aria-selected="false">Daten</button>
+          </div>
           <button id="closeDrawer" class="tab">Schließen</button>
         </div>
       </header>
-      <main>
-        <div id="cartList"></div>
+      <main id="drawerMain">
+        <!-- Linke Spalte: Warenkorb -->
+        <section id="viewCart" aria-labelledby="tabCart">
+          <div id="cartList"></div>
+          <div class="summaryBox" id="cartSummaryBox">
+            <div id="cartSummaryRows"></div>
+            <button id="toData" class="cart-btn" style="margin-top:8px">Weiter zu Daten</button>
+          </div>
+        </section>
+
+        <!-- Rechte Spalte: Daten -->
+        <section id="viewForm" aria-labelledby="tabData">
+          <form id="checkoutForm" class="checkout" action="https://formspree.io/f/xvgqjgrj" method="POST">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" placeholder="Ihr Name" required />
+            </div>
+            <div class="field">
+              <label for="address">Straße & Nr.</label>
+              <input id="address" name="address" placeholder="Straße, Nr." required />
+            </div>
+            <div class="field">
+              <label for="zipcode">PLZ, Ort (nur 80xxx)</label>
+              <input id="zipcode" name="zipcode" placeholder="z. B. 80331 München" required />
+              <div id="plzError" class="error">❌ Lieferung nur im PLZ-Bereich <b>80xxx</b> möglich.</div>
+            </div>
+            <div class="field">
+              <label for="email">E-Mail</label>
+              <input id="email" name="email" type="email" placeholder="mail@beispiel.de" required />
+            </div>
+            <div class="field">
+              <label for="time">Lieferzeit</label>
+              <select id="time" name="deliveryTime" required>
+                <option value="">Bitte wählen …</option>
+                <option value="asap">🚀 Schnellstmöglich</option>
+                <option value="18-20">18–20 Uhr</option>
+                <option value="20-22">20–22 Uhr</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="payment">Bezahlmethode</label>
+              <select id="payment" name="payment" required>
+                <option value="">Bitte wählen …</option>
+                <option value="bar">Barzahlung bei Lieferung</option>
+                <option value="ueberweisung">Vorab-Überweisung</option>
+                <option value="paypal">PayPal</option>
+              </select>
+            </div>
+            <input type="hidden" id="orderDetails" name="orderDetails" />
+            <button class="submit" type="submit">Bestellung absenden</button>
+          </form>
+        </section>
       </main>
-      <form id="checkoutForm" class="checkout" action="https://formspree.io/f/xvgqjgrj" method="POST">
-        <div class="container" style="padding:0">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="name" placeholder="Ihr Name" required />
-          </div>
-          <div class="field">
-            <label for="address">Straße & Nr.</label>
-            <input id="address" name="address" placeholder="Straße, Nr." required />
-          </div>
-          <div class="field">
-            <label for="zipcode">PLZ, Ort (nur 80xxx)</label>
-            <input id="zipcode" name="zipcode" placeholder="z. B. 80331 München" required />
-            <div id="plzError" class="error">❌ Lieferung nur im PLZ‑Bereich <b>80xxx</b> möglich.</div>
-          </div>
-          <div class="field">
-            <label for="email">E‑Mail</label>
-            <input id="email" name="email" type="email" placeholder="mail@beispiel.de" required />
-          </div>
-          <div class="field">
-            <label for="time">Lieferzeit</label>
-            <select id="time" name="deliveryTime" required>
-              <option value="">Bitte wählen …</option>
-              <option value="asap">🚀 Schnellstmöglich</option>
-              <option value="18-20">18–20 Uhr</option>
-              <option value="20-22">20–22 Uhr</option>
-            </select>
-          </div>
-          <input type="hidden" id="orderDetails" name="orderDetails" />
-          <button class="submit" type="submit">Bestellung absenden</button>
-        </div>
-      </form>
     </div>
   </div>
 
   <script>
-  // -------- Produktdaten (alkoholfrei) --------
+  /* ===== Produktdaten ===== */
   const PRODUCTS = [
-    { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
-    { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
-    { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
-    { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-    { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-    { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-    { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
-    { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
-    { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
-    { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
-    { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
-    { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
-    { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" }
+  // Wasser
+  { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
+  { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
+  { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
+
+  // Softdrinks
+  { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  { id:"s4", cat:"soft", title:"Mezzo Mix (12×1,0 L)", price:14.9, icon:"cup-soda" },
+
+  // Säfte
+  { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
+  { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
+  { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
+  { id:"j4", cat:"saft", title:"Traubensaft (6×1,0 L)", price:11.9, icon:"grape" },
+
+  // Energy Drinks
+  { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
+  { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
+  { id:"e3", cat:"energy", title:"Rockstar Energy (12×0,5 L)", price:18.9, icon:"flash" },
+  { id:"e4", cat:"energy", title:"Effect Energy (24×0,25 L)", price:22.9, icon:"bolt" },
+
+  // Extras
+  { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
+  { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" },
+  { id:"x3", cat:"extras", title:"Chips Paprika (200 g)", price:2.5, icon:"package" },
+  { id:"x4", cat:"extras", title:"Chips gesalzen (200 g)", price:2.5, icon:"package" },
+  { id:"x5", cat:"extras", title:"Kaugummi 5er-Pack", price:1.5, icon:"candy" },
+  { id:"x6", cat:"extras", title:"Schokoriegel Mix (10 Stück)", price:5.9, icon:"chocolate" }
   ];
 
   const TAX = 0.19;
@@ -245,14 +323,47 @@
 
   const grid = document.getElementById('grid');
   const tabs = document.getElementById('tabs');
-  const state = { cat:'wasser', cart:{} };
+  const search = document.getElementById('search');
+  const state = { cat:'wasser', cart:{}, q:'' };
 
-  function format(n){return n.toFixed(2).replace('.',',')}
+  const cartbar = document.getElementById('cartbar');
+  const cartCount = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
 
-  // -------- Grid Rendering --------
+  const drawer = document.getElementById('drawer');
+  const drawerMain = document.getElementById('drawerMain');
+  const viewCart = document.getElementById('viewCart');
+  const viewForm = document.getElementById('viewForm');
+  const tabCart = document.getElementById('tabCart');
+  const tabData = document.getElementById('tabData');
+  const closeDrawer = document.getElementById('closeDrawer');
+  const openCartBtn = document.getElementById('openCart');
+  const openCheckout = document.getElementById('openCheckout');
+  const openCheckoutTop = document.getElementById('openCheckoutTop');
+  const toData = document.getElementById('toData');
+
+  const cartList = document.getElementById('cartList');
+  const cartSummaryRows = document.getElementById('cartSummaryRows');
+
+  /* ===== Helpers ===== */
+  function format(n){
+    return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(n);
+  }
+  function lockScroll(lock){
+    document.documentElement.style.overflow = lock ? 'hidden' : '';
+    document.body.style.overflow = lock ? 'hidden' : '';
+  }
+
+  /* ===== Grid Rendering + Suche ===== */
+  function filteredProducts(){
+    return PRODUCTS
+      .filter(p=>p.cat===state.cat)
+      .filter(p=>!state.q || p.title.toLowerCase().includes(state.q));
+  }
+
   function renderGrid(){
     grid.innerHTML = '';
-    PRODUCTS.filter(p=>p.cat===state.cat).forEach(p=>{
+    filteredProducts().forEach(p=>{
       const card = document.createElement('article');
       card.className = 'card';
       card.innerHTML = `
@@ -260,9 +371,9 @@
         <div class="body">
           <div>
             <div class="title">${p.title}</div>
-            <div class="price">${format(p.price)} €</div>
+            <div class="price">${format(p.price)}</div>
           </div>
-          <button class="add-btn" data-id="${p.id}"><i data-lucide="plus"></i> </button>
+          <button class="add-btn" data-id="${p.id}"><i data-lucide="plus"></i></button>
         </div>`;
       grid.appendChild(card);
     });
@@ -276,6 +387,11 @@
     tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
     b.setAttribute('aria-selected','true');
     state.cat = b.dataset.cat;
+    renderGrid();
+  });
+
+  search.addEventListener('input', ()=>{
+    state.q = search.value.trim().toLowerCase();
     renderGrid();
   });
 
@@ -294,22 +410,49 @@
     if(line.qty===0) delete state.cart[id];
     updateCartUI();
   }
+  window.addQty = addQty;
 
-  // -------- Cart UI --------
-  const cartbar = document.getElementById('cartbar');
-  const cartCount = document.getElementById('cartCount');
-  const cartTotal = document.getElementById('cartTotal');
-  const drawer = document.getElementById('drawer');
-  const cartList = document.getElementById('cartList');
-  const openCart = document.getElementById('openCart');
-  const openCheckout = document.getElementById('openCheckout');
-  const closeDrawer = document.getElementById('closeDrawer');
+  /* ===== Drawer Steuerung (Tabs) ===== */
+  function setSegment(seg){
+    // Desktop: beide sichtbar; Mobile: jeweils nur eins
+    const mobile = window.matchMedia('(max-width:900px)').matches;
+    tabCart.classList.toggle('active', seg==='cart');
+    tabData.classList.toggle('active', seg==='data');
+    tabCart.setAttribute('aria-selected', seg==='cart');
+    tabData.setAttribute('aria-selected', seg==='data');
 
-  openCart.addEventListener('click',()=>drawer.classList.add('open'));
-  openCheckout.addEventListener('click',()=>drawer.classList.add('open'));
-  closeDrawer.addEventListener('click',()=>drawer.classList.remove('open'));
-  drawer.addEventListener('click', e=>{ if(e.target===drawer) drawer.classList.remove('open') });
+    if(mobile){
+      viewCart.classList.toggle('hidden', seg!=='cart');
+      viewForm.classList.toggle('hidden', seg!=='data');
+    } else {
+      viewCart.classList.remove('hidden');
+      viewForm.classList.remove('hidden');
+    }
+  }
 
+  function openDrawer(seg='cart'){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    lockScroll(true);
+    setSegment(seg);
+  }
+  function closeDrawerFn(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    lockScroll(false);
+  }
+
+  ;[openCartBtn,openCheckout,openCheckoutTop].forEach(btn=>{
+    if(btn) btn.addEventListener('click',()=>openDrawer('data')); // Direkt zu Daten ist meist gewünscht
+  });
+  // eigener Button im Warenkorb
+  toData.addEventListener('click',()=>setSegment('data'));
+  tabCart.addEventListener('click',()=>setSegment('cart'));
+  tabData.addEventListener('click',()=>setSegment('data'));
+  closeDrawer.addEventListener('click',closeDrawerFn);
+  drawer.addEventListener('click', e=>{ if(e.target===drawer) closeDrawerFn(); });
+
+  /* ===== Cart UI ===== */
   function updateCartUI(){
     const lines = Object.values(state.cart);
     const count = lines.reduce((s,l)=>s+l.qty,0);
@@ -319,9 +462,9 @@
 
     cartCount.textContent = count;
     cartTotal.textContent = format(total);
-
     cartbar.style.display = count>0 ? 'block' : 'none';
 
+    // List
     cartList.innerHTML = count===0
       ? `<div class="chip"><i data-lucide="info"></i><span>Ihr Warenkorb ist leer</span></div>`
       : lines.map(l=>`
@@ -332,24 +475,27 @@
               <span>${l.qty}</span>
               <button aria-label="hinzufügen" onclick="addQty('${l.id}',1)">+</button>
             </div>
-            <div class="lineprice">${format(l.qty*l.price)} €</div>
+            <div class="lineprice">${format(l.qty*l.price)}</div>
           </div>
-        `).join('') +
-        `<div class="cart-summary">
-          <div>Zwischensumme: ${format(subtotal)} €</div>
-          <div>Steuer (19%): ${format(tax)} €</div>
-          <div>Lieferung: ${format(subtotal>0?DELIVERY:0)} €</div>
-          <div><strong>Gesamt: ${format(total)} €</strong></div>
-        </div>`;
+        `).join('');
+
+    // Summary Box
+    cartSummaryRows.innerHTML = `
+      <div>Zwischensumme: <strong>${format(subtotal)}</strong></div>
+      <div>Steuer (19%): <strong>${format(tax)}</strong></div>
+      <div>Lieferung: <strong>${format(subtotal>0?DELIVERY:0)}</strong></div>
+      <div style="margin-top:6px;font-size:1.05rem"><strong>Gesamt: ${format(total)}</strong></div>
+      ${subtotal < MIN_ORDER && subtotal>0 ? `<div style="color:#b91c1c;font-weight:800;margin-top:4px">Mindestbestellwert ${format(MIN_ORDER)}!</div>` : ``}
+    `;
+
+    // Formspree payload
+    const summary = lines.map(l=>`${l.qty}× ${l.title} = ${format(l.qty*l.price)}`).join(' | ');
+    document.getElementById('orderDetails').value = summary + (summary? ' | ':'') + `Gesamt: ${format(total)}`;
 
     lucide.createIcons();
-
-    // Update Formspree field
-    const summary = lines.map(l=>`${l.qty}× ${l.title} = ${format(l.qty*l.price)} €`).join(' | ');
-    document.getElementById('orderDetails').value = summary + (summary? ' | ':'') + `Gesamt: ${format(total)} €`;
   }
 
-  // -------- Checkout Validation --------
+  /* ===== Checkout Validation ===== */
   const checkoutForm = document.getElementById('checkoutForm');
   const plzInput = document.getElementById('zipcode');
   const plzError = document.getElementById('plzError');
@@ -363,7 +509,7 @@
   checkoutForm.addEventListener('submit', e=>{
     const subtotal = Object.values(state.cart).reduce((s,l)=>s+l.qty*l.price,0);
     if(subtotal < MIN_ORDER){
-      alert(`Mindestbestellwert ${format(MIN_ORDER)} € nicht erreicht.`);
+      alert(`Mindestbestellwert ${format(MIN_ORDER)} nicht erreicht.`);
       e.preventDefault();
       return;
     }
@@ -377,16 +523,16 @@
       e.preventDefault();
     } else {
       plzError.style.display='none';
+      closeDrawerFn(); // Drawer schließen nach Absenden
     }
   });
 
   plzInput.addEventListener('input', ()=>{ if(plzError.style.display==='block') plzError.style.display='none'; });
 
-  // -------- Init --------
+  /* ===== Init ===== */
   renderGrid();
   lucide.createIcons();
   updateCartUI();
-</script>
-
+  </script>
 </body>
 </html>
