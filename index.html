@@ -291,37 +291,38 @@
   <script>
   /* ===== Produktdaten ===== */
   const PRODUCTS = [
-  // Wasser
-  { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
-  { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
-  { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
+  { id:"w1", cat:"wasser", title:"Mineralwasser Classic (6×1,5 L)", price:5.9, pfand:1.5, icon:"droplets" },
+  { id:"w2", cat:"wasser", title:"Mineralwasser Medium (6×1,5 L)", price:5.9, pfand:1.5, icon:"droplet" },
+  { id:"w3", cat:"wasser", title:"Stillwasser (12×1,5 L)", price:5.9, pfand:1.5, icon:"droplet" },
 
   // Softdrinks
-  { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-  { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-  { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
-  { id:"s4", cat:"soft", title:"Mezzo Mix (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
+  { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
+  { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
+  { id:"s4", cat:"soft", title:"Mezzo Mix (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
+  { id:"s5", cat:"soft", title:"LIFT (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
 
   // Säfte
-  { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
-  { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
-  { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
-  { id:"j4", cat:"saft", title:"Traubensaft (6×1,0 L)", price:11.9, icon:"grape" },
+  { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:11.9,pfand:0, icon:"citrus" },
+  { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9,pfand:0, icon:"vegan" },
+  { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:11.9,pfand:0, icon:"apple" },
+  { id:"j4", cat:"saft", title:"Traubensaft (6×1,0 L)", price:11.9,pfand:0, icon:"grape" },
+  { id:"j5", cat:"saft", title:"Kirschsaft (6×1,0 L)", price:11.9,pfand:0, icon:"cherry" },
 
   // Energy Drinks
-  { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
-  { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
-  { id:"e3", cat:"energy", title:"Rockstar Energy (12×0,5 L)", price:18.9, icon:"flash" },
-  { id:"e4", cat:"energy", title:"Effect Energy (24×0,25 L)", price:22.9, icon:"bolt" },
+  { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9,pfand:6.0, icon:"zap" },
+  { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9,pfand:3.0 icon:"battery-charging" },
+  { id:"e3", cat:"energy", title:"Rockstar Energy (12×0,5 L)", price:18.9,pfand:3.0 icon:"hand-metal" },
+  { id:"e4", cat:"energy", title:"Effect Energy (24×0,25 L)", price:22.9,pfand:6.0 icon:"bolt" },
 
   // Extras
-  { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
-  { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" },
+  { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"citrus" },
+  { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"citrus" },
   { id:"x3", cat:"extras", title:"Chips Paprika (200 g)", price:2.5, icon:"package" },
   { id:"x4", cat:"extras", title:"Chips gesalzen (200 g)", price:2.5, icon:"package" },
   { id:"x5", cat:"extras", title:"Kaugummi 5er-Pack", price:1.5, icon:"candy" },
   { id:"x6", cat:"extras", title:"Schokoriegel Mix (10 Stück)", price:5.9, icon:"chocolate" }
-  ];
+  { id:"x7", cat:"extras", title:"Capri Sonne (10 Stück)", price:7.9, icon:"sun" }
 
   const TAX = 0.19;
   const DELIVERY = 4.90;
