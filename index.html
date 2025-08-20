@@ -158,45 +158,49 @@
       .call-btn, .cart-btn {flex:1;text-align:center}
     }
   </style>
-</head>
 <body>
   <!-- ===== Header / Hero ===== -->
-  <header>
-    <div class="container">
-      <div class="header-row">
-        <div class="hero">
-          <div class="logo-badge"><i data-lucide="bike" class="icon"></i></div>
-          <div>
-            <h1>Getränke Lieferservice München</h1>
-            <div class="tagline">Schnell & freundlich – heute bis 22:00 Uhr</div>
-            <div class="usp-row">
-              <span class="badge"><i data-lucide="map-pin"></i> PLZ 80xxx</span>
-              <span class="chip"><i data-lucide="clock-7"></i> Lieferung ab 30 Min*</span>
-              <span class="chip"><i data-lucide="shield-check"></i> Kontaktlose Zahlung</span>
-            </div>
-            <div class="searchbar">
-              <i data-lucide="search"></i>
-              <input id="search" placeholder="Suche (z. B. Cola, Wasser, Saft) …" />
-            </div>
+ <header>
+  <div class="container">
+    <div class="header-row">
+      <!-- Hero Left -->
+      <div class="hero">
+        <div class="logo-badge">
+          <i data-lucide="bike" class="icon"></i>
+        </div>
+        <div>
+          <h1>Getränke Lieferservice München</h1>
+          <div class="tagline">Schnell & freundlich – heute bis 22:00 Uhr</div>
+          <div class="usp-row">
+            <span class="badge"><i data-lucide="map-pin"></i> PLZ 80xxx</span>
+            <span class="chip"><i data-lucide="clock-7"></i> Lieferung ab 30 Min*</span>
+            <span class="chip"><i data-lucide="shield-check"></i> Kontaktlose Zahlung</span>
+          </div>
+          <div class="searchbar">
+            <i data-lucide="search"></i>
+            <input id="search" placeholder="Suche (z. B. Cola, Wasser, Saft) …" />
           </div>
         </div>
-        <div class="header-actions">
-          <a href="tel:+491632229705" class="call-btn">📞 Anrufen</a>
-          <button id="openCheckoutTop" class="cart-btn">🛒 Zur Kasse</button>
-        </div>
+      </div>
+      <!-- Actions Right -->
+      <div class="header-actions">
+        <a href="tel:+491632229705" class="call-btn"><i data-lucide="phone"></i> Anrufen</a>
+        <button id="openCheckoutTop" class="cart-btn"><i data-lucide="shopping-cart"></i> Zur Kasse</button>
       </div>
     </div>
-    <div class="container" style="padding-top:0">
-      <div class="tabs" id="tabs">
-        <button class="tab" aria-selected="true" data-cat="wasser">Wasser</button>
-        <button class="tab" data-cat="soft">Softdrinks</button>
-        <button class="tab" data-cat="saft">Säfte</button>
-        <button class="tab" data-cat="energy">Energy</button>
-        <button class="tab" data-cat="extras">Extras</button>
-      </div>
-    </div>
-  </header>
+  </div>
 
+  <!-- Tabs -->
+  <div class="container" style="padding-top:0">
+    <div class="tabs" id="tabs">
+      <button class="tab" aria-selected="true" data-cat="wasser"><i data-lucide="droplets"></i> Wasser</button>
+      <button class="tab" data-cat="soft"><i data-lucide="cup-soda"></i> Softdrinks</button>
+      <button class="tab" data-cat="saft"><i data-lucide="apple"></i> Säfte</button>
+      <button class="tab" data-cat="energy"><i data-lucide="zap"></i> Energy</button>
+      <button class="tab" data-cat="extras"><i data-lucide="package"></i> Extras</button>
+    </div>
+  </div>
+</header>
   <!-- ===== Produktliste ===== -->
   <div class="container" style="padding-top:8px">
     <section id="grid" class="grid"></section>
