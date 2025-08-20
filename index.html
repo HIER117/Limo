@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -158,6 +160,107 @@
       .header-actions{width:100%;display:flex;gap:8px}
       .call-btn, .cart-btn {flex:1;text-align:center}
     }
+/* Tabs Container */
+.tabs {
+  display:flex;
+  overflow-x:auto;
+  gap:12px;
+  padding:10px 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Tabs Button */
+.tab {
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  background:#f9f9f9;
+  border:none;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:13px;
+  color:#333;
+  min-width:80px;
+  scroll-snap-align: start;
+  transition:all 0.2s ease;
+}
+
+.tab i {
+  width:20px;
+  height:20px;
+}
+
+/* Aktiver Tab */
+.tab[aria-selected="true"] {
+  background:#c62828;
+  color:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Hover Effekt */
+.tab:hover {
+  background:#eee;
+}
+.product-tabs {
+  margin-top:40px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.product-tabs .tab-headline {
+  font-size:1.4rem;
+  margin-bottom:15px;
+  color:#222;
+  font-weight:600;
+}
+
+.tabs {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+}
+
+.tab {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background:#fff;
+  border:2px solid #eee;
+  padding:12px 16px;
+  border-radius:14px;
+  cursor:pointer;
+  font-size:14px;
+  color:#444;
+  min-width:90px;
+  transition:all 0.25s ease;
+}
+
+.tab i {
+  width:24px;
+  height:24px;
+}
+
+/* Aktiver Tab */
+.tab[aria-selected="true"] {
+  border-color:#c62828;
+  background:#fff5f5;
+  color:#c62828;
+  font-weight:600;
+  transform:translateY(-3px);
+  box-shadow:0 3px 8px rgba(0,0,0,0.12);
+}
+
+.tab:hover {
+  border-color:#bbb;
+}
   </style>
 <body>
   <!-- ===== Header / Hero ===== -->
@@ -192,14 +295,29 @@
   </div>
 
   <!-- Tabs -->
-  <div class="container" style="padding-top:0">
-    <div class="tabs" id="tabs">
-      <button class="tab" aria-selected="true" data-cat="wasser"><i data-lucide="droplets"></i> Wasser</button>
-      <button class="tab" data-cat="soft"><i data-lucide="cup-soda"></i> Softdrinks</button>
-      <button class="tab" data-cat="saft"><i data-lucide="apple"></i> Säfte</button>
-      <button class="tab" data-cat="energy"><i data-lucide="zap"></i> Energy</button>
-      <button class="tab" data-cat="extras"><i data-lucide="package"></i> Extras</button>
-    </div>
+<div class="container product-tabs">
+  <h2 class="tab-headline">Unsere Kategorien</h2>
+  <div class="tabs" id="tabs">
+    <button class="tab" aria-selected="true" data-cat="wasser">
+      <i data-lucide="droplets"></i>
+      <span>Wasser</span>
+    </button>
+    <button class="tab" data-cat="soft">
+      <i data-lucide="cup-soda"></i>
+      <span>Softdrinks</span>
+    </button>
+    <button class="tab" data-cat="saft">
+      <i data-lucide="apple"></i>
+      <span>Säfte</span>
+    </button>
+    <button class="tab" data-cat="energy">
+      <i data-lucide="zap"></i>
+      <span>Energy</span>
+    </button>
+    <button class="tab" data-cat="extras">
+      <i data-lucide="package"></i>
+      <span>Extras</span>
+    </button>
   </div>
 </header>
 
@@ -291,38 +409,37 @@
   <script>
   /* ===== Produktdaten ===== */
   const PRODUCTS = [
-  { id:"w1", cat:"wasser", title:"Mineralwasser Classic (6×1,5 L)", price:5.9, pfand:1.5, icon:"droplets" },
-  { id:"w2", cat:"wasser", title:"Mineralwasser Medium (6×1,5 L)", price:5.9, pfand:1.5, icon:"droplet" },
-  { id:"w3", cat:"wasser", title:"Stillwasser (12×1,5 L)", price:5.9, pfand:1.5, icon:"droplet" },
+  // Wasser
+  { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
+  { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
+  { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
 
   // Softdrinks
-  { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
-  { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
-  { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
-  { id:"s4", cat:"soft", title:"Mezzo Mix (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
-  { id:"s5", cat:"soft", title:"LIFT (12×1,0 L)", price:17.9,pfand:3.3, icon:"cup-soda" },
+  { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+  { id:"s4", cat:"soft", title:"Mezzo Mix (12×1,0 L)", price:14.9, icon:"cup-soda" },
 
   // Säfte
-  { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:11.9,pfand:0, icon:"citrus" },
-  { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9,pfand:0, icon:"vegan" },
-  { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:11.9,pfand:0, icon:"apple" },
-  { id:"j4", cat:"saft", title:"Traubensaft (6×1,0 L)", price:11.9,pfand:0, icon:"grape" },
-  { id:"j5", cat:"saft", title:"Kirschsaft (6×1,0 L)", price:11.9,pfand:0, icon:"cherry" },
+  { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
+  { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
+  { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
+  { id:"j4", cat:"saft", title:"Traubensaft (6×1,0 L)", price:11.9, icon:"grape" },
 
   // Energy Drinks
-  { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9,pfand:6.0, icon:"zap" },
-  { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9,pfand:3.0 icon:"battery-charging" },
-  { id:"e3", cat:"energy", title:"Rockstar Energy (12×0,5 L)", price:18.9,pfand:3.0 icon:"hand-metal" },
-  { id:"e4", cat:"energy", title:"Effect Energy (24×0,25 L)", price:22.9,pfand:6.0 icon:"bolt" },
+  { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
+  { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
+  { id:"e3", cat:"energy", title:"Rockstar Energy (12×0,5 L)", price:18.9, icon:"flash" },
+  { id:"e4", cat:"energy", title:"Effect Energy (24×0,25 L)", price:22.9, icon:"bolt" },
 
   // Extras
-  { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"citrus" },
-  { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"citrus" },
+  { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
+  { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" },
   { id:"x3", cat:"extras", title:"Chips Paprika (200 g)", price:2.5, icon:"package" },
   { id:"x4", cat:"extras", title:"Chips gesalzen (200 g)", price:2.5, icon:"package" },
   { id:"x5", cat:"extras", title:"Kaugummi 5er-Pack", price:1.5, icon:"candy" },
   { id:"x6", cat:"extras", title:"Schokoriegel Mix (10 Stück)", price:5.9, icon:"chocolate" }
-  { id:"x7", cat:"extras", title:"Capri Sonne (10 Stück)", price:7.9, icon:"sun" }
+  ];
 
   const TAX = 0.19;
   const DELIVERY = 4.90;
