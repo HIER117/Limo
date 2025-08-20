@@ -136,126 +136,26 @@
     text-align: center;
   }
 }
-header .container.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem; /* mehr Abstand für mobile Entzerrung */
-  padding: 0.5rem 0;
-}
-
-header .container.hero h1 {
-  font-size: 1.6rem;
-  margin: 0;
-}
-
-/* --- Call Slider --- */
-.call-slider {
-  position: relative;
-  width: 220px;
-  height: 44px;
-  background: linear-gradient(90deg, #ff7043, #ff5722);
-  border-radius: 25px;
-  overflow: hidden;
-  cursor: pointer;
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.call-text {
-  pointer-events: none;
-  animation: slideText 2s infinite linear;
-  white-space: nowrap;
-}
-
-@keyframes slideText {
-  0% { transform: translateX(20px); opacity: 0; }
-  30% { opacity: 1; }
-  70% { opacity: 1; }
-  100% { transform: translateX(-20px); opacity: 0; }
-}
-
-.call-handle {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 36px;
-  height: 36px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ff5722;
-  font-size: 18px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  transition: left 0.2s;
-}
-
-/* --- Tabs Styling --- */
-.tabs {
-  display: flex;
-  gap: 0.3rem;
-  overflow-x: auto;
-  flex-wrap: wrap;
-}
-
-.tabs button {
-  flex: 1 1 auto;
-  padding: 0.5rem 1rem;
-  white-space: nowrap;
-}
-
-/* --- Mobile Anpassungen --- */
-@media (max-width: 768px) {
-  header .container.hero {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  header .container.hero h1 {
-    font-size: 1.3rem;
-  }
-
-  .call-slider {
-    width: 100%;
-    justify-content: center;
-  }
-}
   </style>
 </head>
 <body>
   <header>
     <div class="container hero">
-    <i data-lucide="truck" class="icon"></i>
-    <div>
-      <h1>Getränke Lieferservice München</h1>
-      <small>Liefergebiet: nur PLZ <strong>80xxx</strong></small>
-    </div>
-    <!-- Call Slider Button -->
-    <div class="call-slider" id="callSlider">
-      <span class="call-text">👉 Zum Anrufen nach rechts ziehen</span>
-      <div class="call-handle" id="callHandle">
-        <i data-lucide="phone"></i>
+      <i data-lucide="truck" class="icon"></i>
+      <div>
+        <h1>Getränke Lieferservice München</h1>
+        <small>Liefergebiet: nur PLZ <strong>80xxx</strong></small>
       </div>
     </div>
-  </div>
-
-  <div class="container">
-    <div class="tabs" id="tabs">
-      <button class="tab" aria-selected="true" data-cat="wasser">Wasser</button>
-      <button class="tab" data-cat="soft">Softdrinks</button>
-      <button class="tab" data-cat="saft">Säfte</button>
-      <button class="tab" data-cat="energy">Energy</button>
-      <button class="tab" data-cat="extras">Extras</button>
+    <div class="container">
+      <div class="tabs" id="tabs">
+        <button class="tab" aria-selected="true" data-cat="wasser">Wasser</button>
+        <button class="tab" data-cat="soft">Softdrinks</button>
+        <button class="tab" data-cat="saft">Säfte</button>
+        <button class="tab" data-cat="energy">Energy</button>
+        <button class="tab" data-cat="extras">Extras</button>
+      </div>
     </div>
-  </div>
   </header>
 
   <div class="container">
@@ -286,7 +186,7 @@ header .container.hero h1 {
       <main>
         <div id="cartList"></div>
       </main>
-      <form id="checkoutForm" class="checkout" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form id="checkoutForm" class="checkout" action="https://formspree.io/f/xvgqjgrj" method="POST">
         <div class="container" style="padding:0">
           <div class="field">
             <label for="name">Name</label>
@@ -486,47 +386,6 @@ header .container.hero h1 {
   renderGrid();
   lucide.createIcons();
   updateCartUI();
-const slider = document.getElementById('callSlider');
-const handle = document.getElementById('callHandle');
-let isDragging = false;
-let startX = 0;
-
-function startDrag(x) {
-  isDragging = true;
-  startX = x;
-}
-
-function duringDrag(x) {
-  if (!isDragging) return;
-  let moveX = x - startX;
-  if (moveX < 0) moveX = 0;
-  if (moveX > slider.offsetWidth - handle.offsetWidth - 4) {
-    moveX = slider.offsetWidth - handle.offsetWidth - 4;
-  }
-  handle.style.left = moveX + 'px';
-}
-
-function endDrag() {
-  if (!isDragging) return;
-  isDragging = false;
-  let currentX = parseInt(handle.style.left);
-  if (currentX > slider.offsetWidth * 0.6) {
-    window.location.href = "tel:+491632229705";
-  }
-  handle.style.left = "4px";
-}
-
-// Maus-Events
-handle.addEventListener('mousedown', (e) => startDrag(e.clientX));
-document.addEventListener('mousemove', (e) => duringDrag(e.clientX));
-document.addEventListener('mouseup', endDrag);
-
-// Touch-Events
-handle.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX));
-document.addEventListener('touchmove', (e) => {
-  if (e.touches.length > 0) duringDrag(e.touches[0].clientX);
-});
-document.addEventListener('touchend', endDrag);
 </script>
 
 </body>
