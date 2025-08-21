@@ -86,11 +86,11 @@
     .add-btn{border:none;border-radius:999px;background:var(--accent);color:white;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:800}
     .add-btn:hover{filter:brightness(.95)}
 
-    /* ===== Sticky Cart ===== */
-    .cartbar{
-      position:fixed; left:50%; transform:translateX(-50%);
-      bottom:calc(env(safe-area-inset-bottom) + 12px);
-      width:min(980px,94%); background:#111827; color:#f9fafb; border-radius:16px; box-shadow:0 16px 40px rgba(0,0,0,.35); z-index:950;
+.cartbar {
+  position: sticky;
+  bottom: 0;
+  margin-top: 40px; /* Luft über der Bar */
+}
     }
     .cartbar .row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;gap:10px}
     .cartbar .summary{font-weight:800}
@@ -98,8 +98,9 @@
     .cartbar .view{background:#fff}
     .cartbar .checkout{background:var(--primary);color:#fff}
 
-    /* Wenn Cartbar sichtbar: Platz unten schaffen */
-    body.has-cartbar{padding-bottom:auto px}
+body.has-cartbar {
+  padding-bottom: 120px; /* Höhe der Cartbar (anpassen!) */
+}
 
     /* ===== Drawer ===== */
     .drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:1000}
@@ -334,7 +335,7 @@ body {
   const PRODUCTS = [
     { id:"w1", cat:"wasser", title:" Mineralwasser Classic (1,5 L)", price:1.5, icon:"bubbles" },
     { id:"w2", cat:"wasser", title:" Mineralwasser Medium (1,5 L)", price:1.5, icon:"droplets" },
-    { id:"w3", cat:"wasser", title:" Stillwasser (1,5 L)", price:1.5, icon:"waves" },
+    { id:"w3", cat:"wasser", title:" Stillwasser (6×1,5 L)", price:1.5, icon:"waves" },
 
     { id:"s1", cat:"soft", title:"Cola  (1,5 L)", price:2.9, icon:"cup-soda" },
     { id:"s2", cat:"soft", title:"Fanta  (1,5 L)", price:2.9, icon:"cup-soda" },
@@ -616,6 +617,7 @@ body {
   renderGrid();
   lucide.createIcons();
   updateCartUI();
+
   </script>
 </body>
 </html>
