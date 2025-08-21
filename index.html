@@ -28,7 +28,628 @@
 
     /* ===== Minimal Header ===== */
     .main-header{
+      position:sticky; top:0; z-index:1000; height:var(--heade
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Getränke Lieferservice München – App Style</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root{
+      --bg1:#a1c4fd; --bg2:#c2e9fb; --bg3:#fbc2eb; --bg4:#a6c0fe;
+      --card:#ffffff; --text:#0f172a; --muted:#64748b; --primary:#2563eb;
+      --accent:#10b981; --danger:#ef4444; --shadow:0 8px 24px rgba(0,0,0,.12);
+      --ring:0 0 0 3px rgba(37,99,235,.18);
+      --header-h:56px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));
+      background-size:400% 400%;
+      animation:bgMove 18s ease infinite;
+      transition:padding-bottom .2s ease;
+    }
+    @keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .container{max-width:1100px;margin:0 auto;padding:16px}
+
+    /* ===== Minimal Header ===== */
+    .main-header{
       position:sticky; top:0; z-index:1000; height:var(--header-h);
+      background:rgba(255,255,255,.9); backdrop-filter:saturate(140%) blur(6px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+      display:flex; align-items:center;
+    }
+    .header-row{display:flex;align-items:center;gap:12px;justify-content:space-between}
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;
+    }
+    .brand .city{display:inline-flex; align-items:center; gap:6px}
+    .brand .city i{width:20px;height:20px; /* Icon übernimmt Textfarbe */ color:inherit}
+    .brand .name{white-space:nowrap}
+    .header-actions{display:flex; gap:8px}
+    .call-btn,.cart-btn{
+      padding:8px 14px; border-radius:999px; font-weight:800; border:none; cursor:pointer; text-decoration:none;
+      background:#111827; color:#fff;
+    }
+
+    /* ===== Tabs (sticky unter Header) ===== */
+    .tabs-bar{
+      position:sticky; top:var(--header-h); z-index:900;
+      background:#fff; border-bottom:1px solid #eee; padding:8px 0;
+    }
+    .tabs{display:flex; overflow-x:auto; gap:10px; padding:0 10px; scrollbar-width:none}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{
+      flex:0 0 auto; display:flex; align-items:center; gap:6px;
+      background:#f5f5f5; border:none; padding:8px 14px; border-radius:20px; cursor:pointer; font-size:.95rem;
+      transition:background .2s ease, transform .1s ease;
+    }
+    .tab[aria-selected="true"]{background:#2563eb; color:#fff; font-weight:700}
+    .tab:active{transform:translateY(1px)}
+    .tab i{width:18px;height:18px}
+
+    /* ===== Suche (unter den Tabs) ===== */
+    .search-wrap{background:transparent}
+    .searchbar{
+      display:flex; align-items:center; gap:8px; background:#fff; border:1px solid #e5e7eb;
+      border-radius:14px; padding:10px 12px; box-shadow:var(--shadow)
+    }
+    .searchbar input{flex:1;border:none;outline:none;font-size:1rem}
+    .searchbar:focus-within{box-shadow:var(--ring)}
+    .searchbar .clear{border:none;background:transparent;cursor:pointer}
+    .search-info{margin-top:8px;color:var(--muted);font-size:.95rem}
+
+    /* ===== Produktgrid ===== */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .12s ease}
+    .card:hover{transform:translateY(-2px)}
+    .card .thumb{display:flex;align-items:center;justify-content:center;height:120px;background:linear-gradient(135deg,#fff 0%, #f3f4f6 100%)}
+    .icon{width:56px;height:56px}
+    .card .body{padding:14px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+    .title{font-weight:800}
+    .price{font-weight:900;color:var(--primary)}
+    .add-btn{border:none;border-radius:999px;background:var(--accent);color:white;padding:10px 14px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:800}
+    .add-btn:hover{filter:brightness(.95)}
+
+    /* ===== Sticky Cart ===== */
+    .cartbar{
+      position:fixed; left:50%; transform:translateX(-50%);
+      bottom:calc(env(safe-area-inset-bottom) + 12px);
+      width:min(980px,94%); background:#111827; color:#f9fafb; border-radius:16px; box-shadow:0 16px 40px rgba(0,0,0,.35); z-index:950;
+    }
+    .cartbar .row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;gap:10px}
+    .cartbar .summary{font-weight:800}
+    .cartbar button{border:none;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
+    .cartbar .view{background:#fff}
+    .cartbar .checkout{background:var(--primary);color:#fff}
+
+    /* Wenn Cartbar sichtbar: Platz unten schaffen */
+    body.has-cartbar{padding-bottom:910px}
+
+    /* ===== Drawer ===== */
+    .drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:1000}
+    .drawer.open{display:block}
+    .panel{
+      position:absolute;left:50%;transform:translateX(-50%);bottom:0;
+      width:min(980px,100%);background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;
+      max-height:80vh;display:flex;flex-direction:column;box-shadow:0 -16px 40px rgba(0,0,0,.2)
+    }
+    .panel header{position:sticky;top:0;background:#fff;border-bottom:1px solid #e5e7eb}
+    .panel header .header-row{justify-content:space-between}
+    .seg{display:inline-flex;background:#f1f5f9;border-radius:999px;padding:4px;gap:4px}
+    .seg button{border:none;border-radius:999px;padding:8px 12px;font-weight:800;background:transparent;cursor:pointer}
+    .seg .active{background:#fff;box-shadow:var(--shadow)}
+    .panel main{padding:12px 16px 16px;overflow:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+    .hidden{display:none !important}
+    .cart-item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed #e5e7eb}
+    .qtyctrl{display:inline-flex;align-items:center;border:1px solid #e5e7eb;border-radius:999px}
+    .qtyctrl button{border:none;background:transparent;padding:8px 12px;font-size:1.1rem;cursor:pointer}
+    .qtyctrl span{min-width:24px;text-align:center;font-weight:800}
+    .lineprice{font-weight:900}
+    .summaryBox{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:12px;position:sticky;top:6px}
+
+    form.checkout{display:grid;gap:8px}
+    .field{display:grid;gap:6px}
+    .field label{font-size:.9rem;color:#374151}
+    .field input,.field select{padding:12px;border-radius:10px;border:1px solid #d1d5db;font-size:1rem}
+    .field input:focus,.field select:focus{outline:none;box-shadow:var(--ring)}
+    .error{color:var(--danger);font-weight:800;display:none}
+    .submit{width:100%;background:var(--primary);color:#fff;border:none;border-radius:12px;padding:14px 16px;font-weight:900;font-size:1rem;cursor:pointer}
+
+    /* ===== Responsive ===== */
+    @media (max-width:900px){
+      .panel{position:fixed;inset:0;transform:none;left:0;width:100%;border-radius:0;max-height:100vh;height:100dvh}
+      .panel main{display:block}
+      #viewForm,#viewCart{display:block}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+      .card .thumb{height:100px}
+      .icon{width:44px;height:44px}
+      .brand{font-size:1rem}
+      .call-btn,.cart-btn{padding:8px 10px}
+    }
+/* Bessere mobile Typografie */
+body {
+  font-size: 15px;
+}
+
+/* Header: Elemente enger anordnen */
+.header-row {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.brand {
+  font-size: 16px;
+}
+.header-actions a, .header-actions button {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+/* Tabs: mehr Scrollbarkeit */
+.tabs {
+  gap: 6px;
+  padding: 6px 4px;
+}
+.tab {
+  font-size: 13px;
+  padding: 5px 10px;
+}
+
+/* Produkte: kleinere Karten auf sehr kleinen Screens */
+.products {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+.product {
+  padding: 10px;
+}
+.product h4 {
+  font-size: 13px;
+}
+.product p {
+  font-size: 13px;
+}
+.add-btn {
+  width: 48px;
+  height: 28px;
+  font-size: 18px;
+}
+
+/* Warenkorb-Popup für Handy */
+.cart-popup {
+  right: 50%;
+  transform: translateX(50%);
+  bottom: 15px;
+  width: calc(100% - 30px);
+  max-width: 320px;
+  text-align: center;
+}
+
+/* Checkout-Overlay: Vollbreite für Handy */
+#checkoutOverlay .box {
+  width: 95%;
+  max-width: 360px;
+  padding: 15px;
+}
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header class="main-header">
+    <div class="container header-row">
+      <div class="brand">
+        <span class="name">Getränke Lieferservice</span>
+        <span class="city"><i data-lucide="bike"></i> München</span>
+      </div>
+      <div class="header-actions">
+        <a href="tel:+491632229705" class="call-btn">📞 Anrufen</a>
+        <button id="openCheckoutTop" class="cart-btn">🛒 Zur Kasse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Sticky Tabs ===== -->
+  <div class="tabs-bar">
+    <div class="tabs" id="tabs">
+      <button class="tab" aria-selected="true" data-cat="wasser"><i data-lucide="droplets"></i> Wasser</button>
+      <button class="tab" data-cat="soft"><i data-lucide="cup-soda"></i> Softdrinks</button>
+      <button class="tab" data-cat="saft"><i data-lucide="apple"></i> Säfte</button>
+      <button class="tab" data-cat="energy"><i data-lucide="zap"></i> Energy</button>
+      <button class="tab" data-cat="extras"><i data-lucide="package"></i> Extras</button>
+    </div>
+  </div>
+
+  <!-- ===== Suche (global) ===== -->
+  <div class="container search-wrap">
+    <div class="searchbar">
+      <i data-lucide="search"></i>
+      <input id="search" placeholder="Suche (z. B. Cola, Wasser, Saft) …" />
+      <button id="clearSearch" class="clear" aria-label="Suche leeren"><i data-lucide="x"></i></button>
+    </div>
+    <div id="searchInfo" class="search-info" aria-live="polite"></div>
+  </div>
+
+  <!-- ===== Produktliste ===== -->
+  <div class="container" style="padding-top:8px">
+    <section id="grid" class="grid"></section>
+  </div>
+
+  <!-- ===== Sticky Cart Bar ===== -->
+  <div class="cartbar" id="cartbar" style="display:none">
+    <div class="row">
+      <div class="summary"><span id="cartCount">0</span> Artikel · <span id="cartTotal">0,00 €</span></div>
+      <div style="display:flex;gap:8px">
+        <button class="view" id="openCart">Warenkorb ansehen</button>
+        <button class="checkout" id="openCheckout">Zur Kasse</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Drawer: Warenkorb + Daten ===== -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="panel" role="dialog" aria-modal="true">
+      <header>
+        <div class="container header-row" style="padding:10px 16px">
+          <strong style="font-size:1.05rem">🛒 Bestellen</strong>
+          <div class="seg" role="tablist" aria-label="Bestellschritte">
+            <button class="active" id="tabCart" data-seg="cart" role="tab" aria-selected="true">Warenkorb</button>
+            <button id="tabData" data-seg="data" role="tab" aria-selected="false">Daten</button>
+          </div>
+          <button id="closeDrawer" class="tab">Schließen</button>
+        </div>
+      </header>
+      <main id="drawerMain">
+        <section id="viewCart" aria-labelledby="tabCart">
+          <div id="cartList"></div>
+          <div class="summaryBox" id="cartSummaryBox">
+            <div id="cartSummaryRows"></div>
+            <button id="toData" class="cart-btn" style="margin-top:8px">Weiter zu Daten</button>
+          </div>
+        </section>
+
+        <section id="viewForm" aria-labelledby="tabData">
+          <form id="checkoutForm" class="checkout" action="https://formspree.io/f/xvgqjgrj" method="POST">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" placeholder="Ihr Name" required />
+            </div>
+            <div class="field">
+              <label for="address">Straße & Nr.</label>
+              <input id="address" name="address" placeholder="Straße, Nr." required />
+            </div>
+            <div class="field">
+              <label for="zipcode">PLZ, Ort (nur 80xxx)</label>
+              <input id="zipcode" name="zipcode" placeholder="z. B. 80331 München" required />
+              <div id="plzError" class="error">❌ Lieferung nur im PLZ-Bereich <b>80xxx</b> möglich.</div>
+            </div>
+            <div class="field">
+              <label for="email">E-Mail</label>
+              <input id="email" name="email" type="email" placeholder="mail@beispiel.de" required />
+            </div>
+            <div class="field">
+              <label for="time">Lieferzeit</label>
+              <select id="time" name="deliveryTime" required>
+                <option value="">Bitte wählen …</option>
+                <option value="asap">🚀 Schnellstmöglich</option>
+                <option value="18-20">18–20 Uhr</option>
+                <option value="20-22">20–22 Uhr</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="payment">Bezahlmethode</label>
+              <select id="payment" name="payment" required>
+                <option value="">Bitte wählen …</option>
+                <option value="bar">Barzahlung bei Lieferung</option>
+                <option value="ueberweisung">Vorab-Überweisung</option>
+                <option value="paypal">PayPal</option>
+              </select>
+            </div>
+            <input type="hidden" id="orderDetails" name="orderDetails" />
+            <button class="submit" type="submit">Bestellung absenden</button>
+          </form>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+  /* ===== Produktdaten ===== */
+  const PRODUCTS = [
+    { id:"w1", cat:"wasser", title:"Kiste Mineralwasser Classic (12×1,0 L)", price:8.9, icon:"droplets" },
+    { id:"w2", cat:"wasser", title:"Kiste Mineralwasser Medium (12×1,0 L)", price:8.9, icon:"droplet" },
+    { id:"w3", cat:"wasser", title:"Kiste Stillwasser (12×1,0 L)", price:9.9, icon:"bottle" },
+
+    { id:"s1", cat:"soft", title:"Cola Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+    { id:"s2", cat:"soft", title:"Fanta Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+    { id:"s3", cat:"soft", title:"Sprite Kiste (12×1,0 L)", price:14.9, icon:"cup-soda" },
+    { id:"s4", cat:"soft", title:"Mezzo Mix (12×1,0 L)", price:14.9, icon:"cup-soda" },
+
+    { id:"j1", cat:"saft", title:"Orangensaft (6×1,0 L)", price:10.9, icon:"citrus" },
+    { id:"j2", cat:"saft", title:"Multivitaminsaft (6×1,0 L)", price:11.9, icon:"citrus" },
+    { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (6×1,0 L)", price:9.9, icon:"apple" },
+    { id:"j4", cat:"saft", title:"Traubensaft (6×1,0 L)", price:11.9, icon:"grape" },
+
+    { id:"e1", cat:"energy", title:"Red Bull (24×0,25 L)", price:29.9, icon:"zap" },
+    { id:"e2", cat:"energy", title:"Monster Energy (12×0,5 L)", price:19.9, icon:"battery-charging" },
+    { id:"e3", cat:"energy", title:"Rockstar Energy (12×0,5 L)", price:18.9, icon:"zap" },
+    { id:"e4", cat:"energy", title:"Effect Energy (24×0,25 L)", price:22.9, icon:"bolt" },
+
+    { id:"x1", cat:"extras", title:"Eistee Pfirsich (12×0,5 L)", price:11.9, icon:"tea" },
+    { id:"x2", cat:"extras", title:"Eistee Zitrone (12×0,5 L)", price:11.9, icon:"tea" },
+    { id:"x3", cat:"extras", title:"Chips Paprika (200 g)", price:2.5, icon:"package" },
+    { id:"x4", cat:"extras", title:"Chips gesalzen (200 g)", price:2.5, icon:"package" },
+    { id:"x5", cat:"extras", title:"Kaugummi 5er-Pack", price:1.5, icon:"candy" },
+    { id:"x6", cat:"extras", title:"Schokoriegel Mix (10 Stück)", price:5.9, icon:"package" }
+  ];
+
+  const TAX = 0.19;
+  const DELIVERY = 4.90;
+  const MIN_ORDER = 10.0;
+
+  /* DOM */
+  const grid = document.getElementById('grid');
+  const tabs = document.getElementById('tabs');
+  const search = document.getElementById('search');
+  const clearSearch = document.getElementById('clearSearch');
+  const searchInfo = document.getElementById('searchInfo');
+
+  const cartbar = document.getElementById('cartbar');
+  const cartCount = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
+
+  const drawer = document.getElementById('drawer');
+  const viewCart = document.getElementById('viewCart');
+  const viewForm = document.getElementById('viewForm');
+  const tabCart = document.getElementById('tabCart');
+  const tabData = document.getElementById('tabData');
+  const closeDrawer = document.getElementById('closeDrawer');
+  const openCartBtn = document.getElementById('openCart');
+  const openCheckout = document.getElementById('openCheckout');
+  const openCheckoutTop = document.getElementById('openCheckoutTop');
+  const toData = document.getElementById('toData');
+
+  const cartList = document.getElementById('cartList');
+  const cartSummaryRows = document.getElementById('cartSummaryRows');
+
+  const state = { cat:'wasser', cart:{}, q:'' };
+
+  /* Helpers */
+  function format(n){
+    return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(n);
+  }
+  function lockScroll(lock){
+    document.documentElement.style.overflow = lock ? 'hidden' : '';
+    document.body.style.overflow = lock ? 'hidden' : '';
+  }
+
+  /* Filter (global bei Suche, sonst nach Kategorie) */
+  function filteredProducts(){
+    const q = state.q;
+    if(q){ // global search
+      return PRODUCTS.filter(p => p.title.toLowerCase().includes(q));
+    }
+    return PRODUCTS.filter(p => p.cat === state.cat);
+  }
+
+  /* Grid Rendering */
+  function renderGrid(){
+    const items = filteredProducts();
+    grid.innerHTML = '';
+
+    if(items.length===0){
+      grid.innerHTML = `<div class="chip" style="background:#fff"><i data-lucide="info"></i> Keine Treffer.</div>`;
+      lucide.createIcons();
+      updateSearchInfo(0);
+      return;
+    }
+
+    items.forEach(p=>{
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="thumb"><i data-lucide="${p.icon}" class="icon"></i></div>
+        <div class="body">
+          <div>
+            <div class="title">${p.title}</div>
+            <div class="price">${format(p.price)}</div>
+          </div>
+          <button class="add-btn" data-id="${p.id}"><i data-lucide="plus"></i></button>
+        </div>`;
+      grid.appendChild(card);
+    });
+    lucide.createIcons();
+    grid.querySelectorAll('.add-btn').forEach(btn=>btn.addEventListener('click',onAdd));
+    updateSearchInfo(items.length);
+  }
+
+  function updateSearchInfo(count){
+    if(state.q){
+      searchInfo.textContent = `${count} Treffer für „${state.q}“ – Kategorien werden ignoriert.`;
+    } else {
+      searchInfo.textContent = '';
+    }
+  }
+
+  /* Tabs */
+  tabs.addEventListener('click', e=>{
+    const b = e.target.closest('.tab');
+    if(!b) return;
+    tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
+    b.setAttribute('aria-selected','true');
+    state.cat = b.dataset.cat;
+    renderGrid();
+    // beim Wechsel der Kategorie Suche leeren
+    if(state.q){ state.q=''; search.value=''; updateSearchInfo(0); }
+  });
+
+  /* Suche */
+  if(search){
+    search.addEventListener('input', ()=>{
+      state.q = search.value.trim().toLowerCase();
+      renderGrid();
+    });
+  }
+  if(clearSearch){
+    clearSearch.addEventListener('click', ()=>{
+      state.q=''; search.value=''; renderGrid();
+      search.focus();
+    });
+  }
+
+  /* Cart ops */
+  function onAdd(e){
+    const id = e.currentTarget.dataset.id;
+    const prod = PRODUCTS.find(p=>p.id===id);
+    if(!state.cart[id]) state.cart[id] = { qty:0, ...prod };
+    state.cart[id].qty++;
+    updateCartUI();
+  }
+  function addQty(id, delta){
+    const line = state.cart[id];
+    if(!line) return;
+    line.qty = Math.max(0, line.qty + delta);
+    if(line.qty===0) delete state.cart[id];
+    updateCartUI();
+  }
+  window.addQty = addQty;
+
+  /* Drawer Steuerung */
+  function setSegment(seg){
+    const mobile = window.matchMedia('(max-width:900px)').matches;
+    tabCart.classList.toggle('active', seg==='cart');
+    tabData.classList.toggle('active', seg==='data');
+    tabCart.setAttribute('aria-selected', seg==='cart');
+    tabData.setAttribute('aria-selected', seg==='data');
+
+    if(mobile){
+      viewCart.classList.toggle('hidden', seg!=='cart');
+      viewForm.classList.toggle('hidden', seg!=='data');
+    } else {
+      viewCart.classList.remove('hidden');
+      viewForm.classList.remove('hidden');
+    }
+  }
+  function openDrawer(seg='cart'){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    lockScroll(true);
+    setSegment(seg);
+  }
+  function closeDrawerFn(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    lockScroll(false);
+  }
+
+  if(openCartBtn) openCartBtn.addEventListener('click',()=>openDrawer('cart'));
+  if(openCheckout) openCheckout.addEventListener('click',()=>openDrawer('data'));
+  if(openCheckoutTop) openCheckoutTop.addEventListener('click',()=>openDrawer('data'));
+
+  document.getElementById('toData').addEventListener('click',()=>setSegment('data'));
+  tabCart.addEventListener('click',()=>setSegment('cart'));
+  tabData.addEventListener('click',()=>setSegment('data'));
+  closeDrawer.addEventListener('click',closeDrawerFn);
+  drawer.addEventListener('click', e=>{ if(e.target===drawer) closeDrawerFn(); });
+
+  /* Cart UI */
+  function updateCartUI(){
+    const lines = Object.values(state.cart);
+    const count = lines.reduce((s,l)=>s+l.qty,0);
+    const subtotal = lines.reduce((s,l)=>s+l.qty*l.price,0);
+    const tax = subtotal * TAX;
+    const total = subtotal + tax + (subtotal>0 ? DELIVERY : 0);
+
+    cartCount.textContent = count;
+    cartTotal.textContent = format(total);
+
+    // Cartbar Sichtbarkeit + Body-Padding für Mobile
+    if(count>0){
+      cartbar.style.display = 'block';
+      document.body.classList.add('has-cartbar');
+    } else {
+      cartbar.style.display = 'none';
+      document.body.classList.remove('has-cartbar');
+    }
+
+    // Liste
+    cartList.innerHTML = count===0
+      ? `<div class="chip" style="background:#fff"><i data-lucide="info"></i><span>Ihr Warenkorb ist leer</span></div>`
+      : lines.map(l=>`
+          <div class="cart-item">
+            <div>${l.title}</div>
+            <div class="qtyctrl">
+              <button aria-label="entfernen" onclick="addQty('${l.id}',-1)">−</button>
+              <span>${l.qty}</span>
+              <button aria-label="hinzufügen" onclick="addQty('${l.id}',1)">+</button>
+            </div>
+            <div class="lineprice">${format(l.qty*l.price)}</div>
+          </div>
+        `).join('');
+
+    // Summary
+    cartSummaryRows.innerHTML = `
+      <div>Zwischensumme: <strong>${format(subtotal)}</strong></div>
+      <div>Steuer (19%): <strong>${format(tax)}</strong></div>
+      <div>Lieferung: <strong>${format(subtotal>0?DELIVERY:0)}</strong></div>
+      <div style="margin-top:6px;font-size:1.05rem"><strong>Gesamt: ${format(total)}</strong></div>
+      ${subtotal < MIN_ORDER && subtotal>0 ? `<div style="color:#b91c1c;font-weight:800;margin-top:4px">Mindestbestellwert ${format(MIN_ORDER)}!</div>` : ``}
+    `;
+
+    // Formspree payload
+    const summary = lines.map(l=>`${l.qty}× ${l.title} = ${format(l.qty*l.price)}`).join(' | ');
+    document.getElementById('orderDetails').value = summary + (summary? ' | ':'') + `Gesamt: ${format(total)}`;
+
+    lucide.createIcons();
+  }
+
+  /* Checkout Validation */
+  const checkoutForm = document.getElementById('checkoutForm');
+  const plzInput = document.getElementById('zipcode');
+  const plzError = document.getElementById('plzError');
+
+  function validPLZ(v){
+    const m = v.match(/\b(\d{5})\b/);
+    if(!m) return false;
+    return /^80\d{3}$/.test(m[1]);
+  }
+
+  checkoutForm.addEventListener('submit', e=>{
+    const subtotal = Object.values(state.cart).reduce((s,l)=>s+l.qty*l.price,0);
+    if(subtotal < MIN_ORDER){
+      alert(`Mindestbestellwert ${format(MIN_ORDER)} nicht erreicht.`);
+      e.preventDefault();
+      return;
+    }
+    if(Object.values(state.cart).length===0){
+      alert('Bitte fügen Sie Produkte hinzu.');
+      e.preventDefault();
+      return;
+    }
+    if(!validPLZ(plzInput.value.trim())){
+      plzError.style.display='block';
+      e.preventDefault();
+    } else {
+      plzError.style.display='none';
+      closeDrawerFn();
+    }
+  });
+  plzInput.addEventListener('input', ()=>{ if(plzError.style.display==='block') plzError.style.display='none'; });
+
+  /* Init */
+  renderGrid();
+  lucide.createIcons();
+  updateCartUI();
+  </script>
+</body>
+</html>
+r-h);
       background:rgba(255,255,255,.9); backdrop-filter:saturate(140%) blur(6px);
       border-bottom:1px solid rgba(0,0,0,.06);
       display:flex; align-items:center;
