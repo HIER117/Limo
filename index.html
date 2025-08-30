@@ -227,15 +227,17 @@ body {
   </header>
 
   <!-- ===== Sticky Tabs ===== -->
-  <div class="tabs-bar">
-    <div class="tabs" id="tabs">
-      <button class="tab" aria-selected="true" data-cat="wasser"><i data-lucide="droplets"></i> Wasser</button>
-      <button class="tab" data-cat="soft"><i data-lucide="cup-soda"></i> Softdrinks</button>
-      <button class="tab" data-cat="saft"><i data-lucide="apple"></i> Säfte</button>
-      <button class="tab" data-cat="energy"><i data-lucide="zap"></i> Energy</button>
-      <button class="tab" data-cat="extras"><i data-lucide="package"></i> Extras</button>
-    </div>
+<div class="container">
+  <div class="tabs" id="tabs">
+    <button class="tab" aria-selected="true" data-cat="wasser">Wasser</button>
+    <button class="tab" data-cat="soft">Softdrinks</button>
+    <button class="tab" data-cat="saft">Säfte</button>
+    <button class="tab" data-cat="energy">Energy</button>
+    <button class="tab" data-cat="salziges">Salziges</button>
+    <button class="tab" data-cat="suess">Süßes</button>
   </div>
+</div>
+
 
   <!-- ===== Suche (global) ===== -->
   <div class="container search-wrap">
@@ -331,35 +333,44 @@ body {
   </div>
 
   <script>
-  /* ===== Produktdaten ===== */
-  const PRODUCTS = [
-    { id:"w1", cat:"wasser", title:" Mineralwasser Classic (1,5 L)", price:1.5, icon:"bubbles" },
-    { id:"w2", cat:"wasser", title:" Mineralwasser Medium (1,5 L)", price:1.5, icon:"droplets" },
-    { id:"w3", cat:"wasser", title:" Stillwasser (6×1,5 L)", price:1.5, icon:"waves" },
+const PRODUCTS = [
+  // Wasser
+  { id:"w1", cat:"wasser", title:"Mineralwasser Classic (1,5 L)", price:1.5, icon:"bubbles" },
+  { id:"w2", cat:"wasser", title:"Mineralwasser Medium (1,5 L)", price:1.5, icon:"droplets" },
+  { id:"w3", cat:"wasser", title:"Stillwasser (6×1,5 L)", price:1.5, icon:"waves" },
 
-    { id:"s1", cat:"soft", title:"Cola  (1,5 L)", price:2.9, icon:"cup-soda" },
-    { id:"s2", cat:"soft", title:"Fanta  (1,5 L)", price:2.9, icon:"cup-soda" },
-    { id:"s3", cat:"soft", title:"Sprite  (1,5 L)", price:2.9, icon:"cup-soda" },
-    { id:"s4", cat:"soft", title:"Mezzo Mix (1,5 L)", price:2.9, icon:"cup-soda" },
+  // Softdrinks
+  { id:"s1", cat:"soft", title:"Cola (1,5 L)", price:2.9, icon:"cup-soda" },
+  { id:"s2", cat:"soft", title:"Fanta (1,5 L)", price:2.9, icon:"cup-soda" },
+  { id:"s3", cat:"soft", title:"Sprite (1,5 L)", price:2.9, icon:"cup-soda" },
+  { id:"s4", cat:"soft", title:"Mezzo Mix (1,5 L)", price:2.9, icon:"cup-soda" },
+  { id:"s5", cat:"soft", title:"Eistee Pfirsich (1,5 L)", price:2.9, icon:"cup-soda" },
+  { id:"s6", cat:"soft", title:"Eistee Zitrone (1,5 L)", price:2.9, icon:"cup-soda" },
 
-    { id:"j1", cat:"saft", title:"Orangensaft (1,0 L)", price:2.9, icon:"vegan" },
-    { id:"j2", cat:"saft", title:"Multivitaminsaft (1,0 L)", price:2.9, icon:"citrus" },
-    { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (1,0 L)", price:2.9, icon:"apple" },
-    { id:"j4", cat:"saft", title:"Traubensaft (1,0 L)", price:2.9, icon:"grape" },
+  // Säfte
+  { id:"j1", cat:"saft", title:"Orangensaft (1,0 L)", price:2.9, icon:"citrus" },
+  { id:"j2", cat:"saft", title:"Multivitaminsaft (1,0 L)", price:2.9, icon:"apple" },
+  { id:"j3", cat:"saft", title:"Apfelsaft naturtrüb (1,0 L)", price:2.9, icon:"apple" },
+  { id:"j4", cat:"saft", title:"Traubensaft (1,0 L)", price:2.9, icon:"grape" },
 
-    { id:"e1", cat:"energy", title:"Red Bull (0,25 L)", price:3.9, icon:"zap" },
-    { id:"e2", cat:"energy", title:"Monster Energy (0,5 L)", price:3.9, icon:"battery-charging" },
-    { id:"e3", cat:"energy", title:"Rockstar Energy (0,5 L)", price:3.9, icon:"zap" },
-    { id:"e4", cat:"energy", title:"Effect Energy (0,25 L)", price:3.9, icon:"bolt" },
+  // Energy
+  { id:"e1", cat:"energy", title:"Red Bull (0,25 L)", price:3.9, icon:"zap" },
+  { id:"e2", cat:"energy", title:"Monster Energy (0,5 L)", price:3.9, icon:"battery-charging" },
+  { id:"e3", cat:"energy", title:"Rockstar Energy (0,5 L)", price:3.9, icon:"zap" },
+  { id:"e4", cat:"energy", title:"Effect Energy (0,25 L)", price:3.9, icon:"bolt" },
 
-    { id:"x1", cat:"extras", title:"Eistee Pfirsich (1,5 L)", price:2.9, icon:"vegan" },
-    { id:"x2", cat:"extras", title:"Eistee Zitrone (1,5 L)", price:2.9, icon:"citrus" },
-    { id:"x3", cat:"extras", title:"Chips Paprika (200 g)", price:2.5, icon:"package" },
-    { id:"x4", cat:"extras", title:"Chips gesalzen (200 g)", price:2.5, icon:"package" },
-    { id:"x5", cat:"extras", title:"Kaugummi", price:1.5, icon:"candy" },
-    { id:"x6", cat:"extras", title:"Schokoriegel (10 Stück)", price:2.9, icon:"grid-3x3" }
-  ];
+  // Salziges
+  { id:"sal1", cat:"salziges", title:"Chips Paprika (200 g)", price:2.5, icon:"package" },
+  { id:"sal2", cat:"salziges", title:"Chips gesalzen (200 g)", price:2.5, icon:"package" },
+  { id:"sal3", cat:"salziges", title:"Erdnüsse geröstet (200 g)", price:2.5, icon:"nut" },
+  { id:"sal4", cat:"salziges", title:"Salzstangen (150 g)", price:1.5, icon:"bread" },
 
+  // Süßes
+  { id:"sue1", cat:"suess", title:"Schokoriegel (10 Stück)", price:2.9, icon:"grid-3x3" },
+  { id:"sue2", cat:"suess", title:"Kaugummi", price:1.5, icon:"candy" },
+  { id:"sue3", cat:"suess", title:"Kekse (200 g)", price:2.5, icon:"cookie" },
+  { id:"sue4", cat:"suess", title:"Gummibärchen (200 g)", price:2.5, icon:"smile" }
+];
   const TAX = 0.19;
   const DELIVERY = 4.90;
   const MIN_ORDER = 15.0;
