@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -331,7 +332,7 @@
           <div class="row" style="font-size:1.05rem"><span>Gesamt</span><strong id="sumTotal">0,00 €</strong></div>
           <p style="color:var(--muted);font-size:.95rem;margin:6px 0 12px">Mindestbestellwert <strong>15,00 €</strong> · Lieferung kostenlos</p>
 
-          <form id="checkoutForm" action="https://formspree.io/f/xvgqjgrj" method="POST">
+          <form id="checkoutForm" action="https://formspree.io/f/DEIN-ENDPOINT" method="POST">
  <div class="checkout-card">
     <h2>📝 Lieferdetails</h2>
     <form id="orderForm" action="https://formspree.io/f/xvgqjgrj" method="POST">
@@ -418,8 +419,14 @@ const PRODUCTS = [
   { id:"ex3", cat:"extras", title:"UNO Kartenspiel", price:9.9, img:"img/extras/uno.jpg" },
   { id:"ex4", cat:"extras", title:"Skat Kartenspiel", price:4.9, img:"img/extras/skat.jpg" },
 
-  { id:"af1", cat:"affiliate", title:"Amazon Bestseller (Affiliate)", price:null, url:"https://amzn.to/4mHElLl", img:"img/affiliate/ama.jpg" },
-  { id:"af2", cat:"affiliate", title:"Amazon Angebote (Affiliate)", price:null, url:"https://amzn.to/4na8kvc", img:"img/affiliate/ama.jpg" },
+  { id:"af1", cat:"Empfehlung", title:"Amazon Bestseller (Empfehlung)", price:null, url:"https://amzn.to/4mHElLl", img:"img/affiliate/ama.jpg" },
+  { id:"af2", cat:"Empfehlung", title:"Amazon Angebote (Empfehlung)", price:null, url:"https://amzn.to/4na8kvc", img:"img/affiliate/ama.jpg" },
+
+  { id:"af3", cat:"Essen", title:"Lahmacunexpress.de", price:null, url:"https://www.lahmacunexpress.de", img:"img/affiliate/lahmacunexpress.jpg" },
+
+  { id:"af4", cat:"Reisen&Immobilie", title:"Immobillien Urlaub", price:null, url:"https://immotours-tuerkei.de", img:"img/affiliate/immo.jpg" },
+
+  { id:"af5", cat:"IT", title:"IT-Support", price:null, url:"https://www.veyfkon.de", img:"img/affiliate/veyfkon.jpg" },
 ];
 
 const TAX = 0.19;
@@ -671,5 +678,4 @@ renderGrid();
 </script>
 </body>
 </html>
-
 
