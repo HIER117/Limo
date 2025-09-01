@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Impressum – Express München</title>
+<style>
+  :root{--bg:#f7fafc;--card:#fff;--muted:#6b7280;--accent:#2563eb}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#0f172a;background:var(--bg);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:28px auto;padding:20px}
+  .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,.08)}
+  h1{margin:0 0 8px;font-size:1.4rem}
+  h2{margin:18px 0 6px;font-size:1rem;color:var(--accent)}
+  p{margin:8px 0;color:var(--muted)}
+  dl{display:grid;grid-template-columns:150px 1fr;gap:6px 18px}
+  dt{font-weight:700;color:#0f172a}
+  dd{margin:0;color:var(--muted)}
+  a{color:var(--accent);text-decoration:none}
+  footer{margin-top:18px;font-size:.85rem;color:var(--muted)}
+  .note{margin-top:12px;padding:10px;background:#fffbeb;border-left:4px solid #f59e0b;border-radius:6px;color:#92400e}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Impressum</h1>
+      <p>Angaben gemäß § 5 TMG </p>
+
+      <h2>Anbieter</h2>
+      <dl>
+        <dt>Name / Firma</dt><dd>Veyfkon</dd>
+        <dt>Adresse</dt><dd>München-Neuhausen<br>80637 München<br>Deutschland</dd>
+        <dt>Telefon</dt><dd><a href="tel:+491632229705>+491632229705</a></dd>
+        <dt>E-Mail</dt><dd><a href="mailto:veyfkon@kontakt.de">veyfkon@kontakt.de</a></dd>
+        <dt>Website</dt><dd><a href="https://www.lieferautomat.de">www.lieferautomat.de</a></dd>
+      </dl>
+
+
+      <h2>Haftung für Inhalte</h2>
+      <p>Die Inhalte dieser Webseite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehmen wir jedoch keine Gewähr. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf dieser Seite nach den allgemeinen Gesetzen verantwortlich.</p>
+
+      <h2>Haftung für Links</h2>
+      <p>Unser Angebot enthält Links zu externen Webseiten Dritter. Für deren Inhalte sind ausschließlich die Betreiber der jeweiligen Seiten verantwortlich.</p>
+
+      <h2>Streitschlichtung</h2>
+      <p>Die EU-Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>. Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit.</p>
+
+      <footer>
+        <p>&copy; <span id="year"></span> Veyfkon. Alle Rechte vorbehalten.</p>
+      </footer>
+    </div>
+  </div>
+
+<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+</body>
+</html>
