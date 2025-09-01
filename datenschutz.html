@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Datenschutz – Express München</title>
+<style>
+  :root{--bg:#f7fafc;--card:#fff;--muted:#6b7280;--accent:#2563eb}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#0f172a;background:var(--bg)}
+  .wrap{max-width:900px;margin:28px auto;padding:20px}
+  .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,.06)}
+  h1{margin:0 0 8px;font-size:1.4rem}
+  h2{margin:18px 0 6px;color:var(--accent)}
+  p{color:var(--muted);line-height:1.5}
+  ul{color:var(--muted)}
+  a{color:var(--accent)}
+  .small{font-size:.9rem;color:#475569;margin-top:8px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Datenschutzerklärung</h1>
+      <p>Wir freuen uns sehr über Ihr Interesse an unserem Unternehmen. Datenschutz hat einen hohen Stellenwert für uns. Im Folgenden informieren wir Sie über die Erhebung personenbezogener Daten bei Nutzung unserer Website und unserer Dienste.</p>
+
+      <h2>Verantwortlicher</h2>
+      <p>Veyfkon<br>
+      München-Neuhausen<br>80637<br>
+      E-Mail: <a href="mailto:mail@beispiel.de">veyfkon@kontakt.de</a></p>
+
+      <h2>Welche Daten wir verarbeiten</h2>
+      <ul>
+        <li>Kontakt- und Bestelldaten (Name, Adresse, Telefonnummer, E-Mail, Bestellinhalt) bei Auftragserteilung</li>
+        <li>Technische Daten (IP-Adresse, Datum/Uhrzeit, Browser-Typ) beim Besuch der Website</li>
+        <li>ggf. Kommunikationsdaten bei Kontaktaufnahme (z. B. per E-Mail oder WhatsApp)</li>
+      </ul>
+
+      <h2>Wofür wir die Daten nutzen (Zwecke)</h2>
+      <p>Die Daten werden verwendet zur Bearbeitung von Bestellungen, zur Abwicklung von Zahlungen (Barzahlung vor Ort: nur Vermerk), zur Versendung von Bestellbestätigungen und zur Erfüllung gesetzlicher Pflichten (z. B. Rechnungsstellung).</p>
+
+      <h2>Rechtsgrundlagen</h2>
+      <p>Rechtsgrundlage für die Verarbeitung Ihrer Daten ist i. d. R. die Erfüllung eines Vertrags (§ 6 Abs.1 lit. b DSGVO) oder Ihre Einwilligung (§ 6 Abs.1 lit. a DSGVO), z. B. bei Kontakt per Formular.</p>
+
+      <h2>Formularverarbeitung / Formspree</h2>
+      <p>Für das Formularversenden nutzen wir [Formspree / Drittanbieter]. Beim Absenden übermitteln Sie die eingegebenen Daten an diesen Dienst, der die Nachricht an uns weiterleitet. Bitte prüfe den Anbieter-Datenschutz (Formspree) für Details.</p>
+
+      <h2>WhatsApp-Hinweis</h2>
+      <p>Wenn Sie optional Ihren Standort oder Nachrichten per WhatsApp teilen, findet die Verarbeitung durch WhatsApp/Meta statt. Das Weiterleiten von Standortdaten oder Nachrichten an unsere Nummer erfolgt auf Ihre ausdrückliche Handlung hin und außerhalb unserer Website.</p>
+
+      <h2>Cookies & Tracking</h2>
+      <p>Wir verwenden nur notwendige Cookies für den Betrieb der Website. Externe Tracking- oder Analyse-Tools sind standardmäßig deaktiviert (sofern nicht gesondert aktiviert). Falls Sie Tools wie Google Analytics nutzen wollen, bitten wir um Hinweis — wir integrieren diese dann DSGVO-konform (mit Opt-Out / IP-Anonymisierung).</p>
+
+      <h2>Weitergabe an Dritte</h2>
+      <p>Eine Weitergabe personenbezogener Daten an Dritte erfolgt nur, wenn dies zur Vertragserfüllung erforderlich ist (z. B. Lieferdienstpartner) oder wir gesetzlich dazu verpflichtet sind. Affiliate-Links (z. B. Amazon) leiten auf externe Anbieter — klicken Sie nur, wenn Sie damit einverstanden sind.</p>
+
+      <h2>Dauer der Speicherung</h2>
+      <p>Wir speichern Bestelldaten so lange wie zur Erfüllung gesetzlicher Aufbewahrungsfristen nötig (z. B. steuerrechtlich bis zu 10 Jahre). Sonstige Daten werden nur so lange aufbewahrt wie nötig.</p>
+
+      <h2>Ihre Rechte</h2>
+      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen die Verarbeitung. Zur Ausübung Ihrer Rechte kontaktieren Sie uns bitte per E-Mail an <a href="mailto:veyfkon@kontakt.de">veyfkon@kontakt.de</a>.</p>
+
+      <h2>Beschwerderecht</h2>
+      <p>Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren (z. B. Landesdatenschutzbehörde).</p>
+
+      <div class="small">
+        <p>Stand: <span id="today"></span></p>
+        <p>Hinweis: Diese Datenschutzerklärung ist eine Vorlage und keine Rechtsberatung. Für spezielle Anforderungen (z. B. Einsatz von Analyse-/Marketingtools, Auftragsverarbeitung) empfehlen wir eine rechtliche Prüfung.</p>
+      </div>
+    </div>
+  </div>
+
+<script>document.getElementById('today').textContent=new Date().toLocaleDateString('de-DE')</script>
+</body>
+</html>
