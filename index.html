@@ -417,8 +417,11 @@ const PRODUCTS = [
   { id:"ex3", cat:"extras", title:"UNO Kartenspiel", price:9.9, img:"img/extras/uno.jpg" },
   { id:"ex4", cat:"extras", title:"Skat Kartenspiel", price:4.9, img:"img/extras/skat.jpg" },
 
-  { id:"af1", cat:"affiliate", title:"Amazon Bestseller (Affiliate)", price:null, url:"https://amzn.to/4mHElLl", img:"img/affiliate/ama.jpg" },
-  { id:"af2", cat:"affiliate", title:"Amazon Angebote (Affiliate)", price:null, url:"https://amzn.to/4na8kvc", img:"img/affiliate/ama.jpg" },
+  { id:"af1", cat:"Empfehlungen", title:"Amazon Bestseller🔖", price:null, url:"https://amzn.to/4mHElLl", img:"img/affiliate/ama1.jpg" },
+  { id:"af2", cat:"Empfehlungen", title:"Amazon Angebote🔖", price:null, url:"https://amzn.to/4na8kvc", img:"img/affiliate/ama2.jpg" },
+{ id:"af2", cat:"Empfehlungen", title:"Lahmacun Express", price:null, url:"https://www.lahmacunexpress.de", img:"img/affiliate/lahmacunexpress.jpg" },
+{ id:"af2", cat:"Empfehlungen", title:"IT-Unterstützung", price:null, url:"https://www.veyfkon.de", img:"img/affiliate/veyfkon.jpg" },
+{ id:"af2", cat:"Empfehlungen", title:"Immobilien Reisen/Urlaub ", price:null, url:"https://www.immotours-tuerkei.de", img:"img/affiliate/immo.jpg" },
 ];
 
 const TAX = 0.19;
@@ -510,9 +513,9 @@ function renderGrid(){
       <div class="body">
         <div>
           <div class="title">${p.title}</div>
-          <div class="price">${p.price!==null ? formatEUR(p.price) : '<em>Affiliate</em>'}</div>
+          <div class="price">${p.price!==null ? formatEUR(p.price) : '<em>empfehlung</em>'}</div>
         </div>
-        ${p.cat === 'affiliate'
+        ${p.cat === 'Empfehlungen'
           ? `<a class="link-ext" href="${p.url}" target="_blank" rel="noopener nofollow sponsored">Öffnen</a>`
           : `<button class="add" data-id="${p.id}">+</button>`
         }
@@ -670,3 +673,4 @@ renderGrid();
 </script>
 </body>
 </html>
+
