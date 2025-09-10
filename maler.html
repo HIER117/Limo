@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maler-Service</title>
+  <style>
+    body {font-family: Arial, sans-serif;margin:0;padding:0;background:#f5f5f5;color:#333;scroll-behavior:smooth;}
+    nav {position:fixed;top:0;left:0;width:100%;background:#2a4d69;color:white;display:flex;justify-content:space-between;align-items:center;padding:10px 20px;z-index:1000;}
+    nav .logo {font-weight:bold;font-size:1.2rem;}
+    nav ul {list-style:none;margin:0;padding:0;display:flex;gap:20px;}
+    nav a {color:white;text-decoration:none;transition:color .3s;}
+    nav a:hover {color:#f0c040;}
+    header {background:url('hero.jpg') center/cover no-repeat;color:white;padding:150px 20px;text-align:center;}
+    header h1 {font-size:3rem;text-shadow:2px 2px 6px rgba(0,0,0,0.6);}
+    header p {font-size:1.3rem;margin-top:15px;}
+    .hero-btn {margin-top:30px;display:inline-block;background:#e84545;color:white;padding:15px 30px;font-size:1.2rem;border-radius:8px;text-decoration:none;transition:background .3s;}
+    .hero-btn:hover {background:#d13434;}
+    section {padding:80px 20px;max-width:1100px;margin:auto;}
+    h2 {text-align:center;color:#2a4d69;margin-bottom:40px;font-size:2rem;}
+    .angebote,.bewertungen,.steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .angebot,.bewertung,.step {background:white;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);text-align:center;}
+    .angebot img {width:60px;margin-bottom:10px;}
+    .about,.kontakt-box{background:#fff;padding:30px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);line-height:1.6;}
+    .galerie {display:grid;gap:15px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .galerie img {width:100%;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition:transform .3s;}
+    .galerie img:hover {transform:scale(1.05);}
+    .bewertung {font-style:italic;}
+    .stars {color:#f0c040;font-size:1.2rem;}
+    form {display:grid;gap:15px;}
+    input,textarea {width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;font-size:1rem;}
+    button {background:#2a4d69;color:white;padding:12px;font-size:1rem;border:none;border-radius:6px;cursor:pointer;transition:background .3s;}
+    button:hover {background:#1f364d;}
+    .call-btn {display:block;width:fit-content;margin:30px auto;background:#e84545;color:white;padding:15px 30px;text-decoration:none;font-size:1.2rem;border-radius:8px;transition:background .3s;}
+    .call-btn:hover {background:#d13434;}
+    footer {text-align:center;padding:30px;background:#2a4d69;color:white;margin-top:40px;}
+    footer p {margin:5px;}
+
+.galerie video {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">🎨 Maler-Service</div>
+    <ul>
+      <li><a href="#angebote">Angebote</a></li>
+      <li><a href="#about">Über uns</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#bewertungen">Bewertungen</a></li>
+      <li><a href="#ablauf">Ablauf</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+
+
+
+  <!-- Angebote -->
+  <section id="angebote">
+    <h2>Unsere Angebote & Preise</h2>
+    <div class="angebote">
+      <div class="angebot"><h3>Zimmer streichen</h3><p>Ab 120 € pro Zimmer</p></div>
+      <div class="angebot"><h3>Fassadenarbeiten</h3><p>Ab 25 € pro m²</p></div>
+      <div class="angebot"><h3>Tapetenarbeiten</h3><p>Ab 15 € pro m²</p></div>
+      <div class="angebot"><h3>Lackierarbeiten</h3><p>Auf Anfrage</p></div>
+    </div>
+  </section>
+
+  <!-- Über uns -->
+  <section id="about">
+    <h2>Über uns</h2>
+    <div class="about">
+     
+      <p>Seit über 15 Jahren steht <strong>Maler-Service</strong> für Qualität, Zuverlässigkeit und faire Preise. Unser erfahrenes Team bringt Farbe in Ihr Leben – egal ob Innenräume, Fassaden oder kreative Wandgestaltungen.</p>
+    </div>
+  </section>
+
+<!-- Galerie -->
+<section id="galerie">
+  <h2>Galerie / Videos</h2>
+  <div class="galerie">
+    <video controls>
+      <source src="video/Maler.mp4" type="video/mp4">
+      Ihr Browser unterstützt das Video-Tag nicht.
+    </video>
+  </div>
+</section>
+
+
+  <!-- Bewertungen -->
+  <section id="bewertungen">
+    <h2>Kundenbewertungen</h2>
+    <div class="bewertungen">
+      <div class="bewertung">"Sehr zuverlässig und super Arbeit!" <div class="stars">★★★★★</div> <strong>- Familie Schmidt</strong></div>
+      <div class="bewertung">"Top Preis-Leistung, gerne wieder." <div class="stars">★★★★★</div> <strong>- Herr Weber</strong></div>
+      <div class="bewertung">"Unsere Wohnung sieht wie neu aus!" <div class="stars">★★★★★</div> <strong>- Frau Klein</strong></div>
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section id="ablauf">
+    <h2>So läuft es ab</h2>
+    <div class="steps">
+      <div class="step"><h3>1. Anfrage</h3><p>Sie rufen uns an oder schreiben uns eine Nachricht.</p></div>
+      <div class="step"><h3>2. Besichtigung</h3><p>Wir schauen uns Ihr Objekt an und erstellen ein Angebot.</p></div>
+      <div class="step"><h3>3. Ausführung</h3><p>Unsere Profis erledigen die Arbeit sauber & zuverlässig.</p></div>
+      <div class="step"><h3>4. Abnahme</h3><p>Sie prüfen alles – erst wenn Sie zufrieden sind, sind wir es auch.</p></div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section id="kontakt">
+    <h2>Kontakt</h2>
+    <div class="kontakt-box">
+      <form action="https://formspree.io/f/xvgqjgrj" method="POST">
+        <input type="text" name="name" placeholder="Ihr Name" required>
+        <input type="email" name="email" placeholder="Ihre E-Mail" required>
+        <textarea name="nachricht" rows="5" placeholder="Ihre Nachricht" required></textarea>
+        <button type="submit">Nachricht senden</button>
+      </form>
+      <a class="call-btn" href="tel:+491632229705">📞 Direkt anrufen</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Maler-Service – Alle Rechte vorbehalten</p>
+    <p>Neuhausen München, 80637 München
+    <p>Öffnungszeiten: Mo-Fr 8:00 – 18:00 Uhr</p>
+  </footer>
+</body>
+</html>
