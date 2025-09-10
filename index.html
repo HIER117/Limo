@@ -1,695 +1,136 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5XSLXYTFBH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5XSLXYTFBH');
-</script>
-<!-- End Google Tag Manager -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Mini-Shop – Getränke & mehr (Demo)</title>
-<style>
-  :root{
-    --bg1:#a1c4fd; --bg2:#c2e9fb; --bg3:#fbc2eb; --bg4:#a6c0fe;
-    --card:#fff; --ink:#0f172a; --muted:#64748b; --primary:#2563eb;
-    --accent:#10b981; --danger:#ef4444; --shadow:0 10px 30px rgba(0,0,0,.12);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--ink);
-    background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));background-size:400% 400%;animation:bgMove 18s linear infinite;}
-  @keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-  .container{max-width:1100px;margin:0 auto;padding:16px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maler-Service</title>
+  <style>
+    body {font-family: Arial, sans-serif;margin:0;padding:0;background:#f5f5f5;color:#333;scroll-behavior:smooth;}
+    nav {position:fixed;top:0;left:0;width:100%;background:#2a4d69;color:white;display:flex;justify-content:space-between;align-items:center;padding:10px 20px;z-index:1000;}
+    nav .logo {font-weight:bold;font-size:1.2rem;}
+    nav ul {list-style:none;margin:0;padding:0;display:flex;gap:20px;}
+    nav a {color:white;text-decoration:none;transition:color .3s;}
+    nav a:hover {color:#f0c040;}
+    header {background:url('hero.jpg') center/cover no-repeat;color:white;padding:150px 20px;text-align:center;}
+    header h1 {font-size:3rem;text-shadow:2px 2px 6px rgba(0,0,0,0.6);}
+    header p {font-size:1.3rem;margin-top:15px;}
+    .hero-btn {margin-top:30px;display:inline-block;background:#e84545;color:white;padding:15px 30px;font-size:1.2rem;border-radius:8px;text-decoration:none;transition:background .3s;}
+    .hero-btn:hover {background:#d13434;}
+    section {padding:80px 20px;max-width:1100px;margin:auto;}
+    h2 {text-align:center;color:#2a4d69;margin-bottom:40px;font-size:2rem;}
+    .angebote,.bewertungen,.steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .angebot,.bewertung,.step {background:white;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);text-align:center;}
+    .angebot img {width:60px;margin-bottom:10px;}
+    .about,.kontakt-box{background:#fff;padding:30px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.1);line-height:1.6;}
+    .galerie {display:grid;gap:15px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+    .galerie img {width:100%;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition:transform .3s;}
+    .galerie img:hover {transform:scale(1.05);}
+    .bewertung {font-style:italic;}
+    .stars {color:#f0c040;font-size:1.2rem;}
+    form {display:grid;gap:15px;}
+    input,textarea {width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;font-size:1rem;}
+    button {background:#2a4d69;color:white;padding:12px;font-size:1rem;border:none;border-radius:6px;cursor:pointer;transition:background .3s;}
+    button:hover {background:#1f364d;}
+    .call-btn {display:block;width:fit-content;margin:30px auto;background:#e84545;color:white;padding:15px 30px;text-decoration:none;font-size:1.2rem;border-radius:8px;transition:background .3s;}
+    .call-btn:hover {background:#d13434;}
+    footer {text-align:center;padding:30px;background:#2a4d69;color:white;margin-top:40px;}
+    footer p {margin:5px;}
 
-  /* header */
-  .main-header{position:sticky;top:0;z-index:1000;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:12px 16px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom-left-radius:12px;border-bottom-right-radius:12px}
-  .brand{font-weight:800;letter-spacing:.6px}
-  .searchwrap{display:flex;align-items:center;gap:8px}
-  .search{width:min(360px,66vw);padding:10px 14px;border-radius:999px;border:none;outline:none;background:#fff;color:#0f172a;box-shadow:0 6px 18px rgba(0,0,0,.12)}
-  .header-actions{display:flex;gap:8px}
-  .header-btn{background:rgba(255,255,255,.12);color:#fff;border:none;padding:8px 12px;border-radius:999px;cursor:pointer;font-weight:700}
-  .header-btn:hover{background:rgba(255,255,255,.22)}
-
-  /* promo */
-  .promo{max-width:1100px;margin:12px auto;padding:0 16px}
-  .promo a{display:block;background:#111827;color:#fff;padding:12px;border-radius:12px;text-decoration:none;box-shadow:var(--shadow)}
-  .promo-inner{display:flex;gap:12px;align-items:center}
-  .promo-img{width:64px;height:64px;border-radius:8px;background:linear-gradient(135deg,#334155,#0ea5e9);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
-
-  /* tabs */
-  .tabs{position:sticky;top:64px;z-index:900;background:rgba(255,255,255,.95);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid rgba(0,0,0,.06)}
-  .tabs .row{display:flex;gap:8px;overflow:auto;padding:10px 16px;scrollbar-width:none}
-  .tabs .row::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;padding:8px 14px;border-radius:999px;border:none;background:#f3f4f6;cursor:pointer;font-weight:700}
-  .tab.active{background:var(--primary);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.12)}
-
-  /* grid/cards */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;padding:16px}
-  .card{background:var(--card);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
-  .thumb{height:140px;background:repeating-linear-gradient(45deg,#e5e7eb,#e5e7eb 10px,#f3f4f6 10px,#f3f4f6 20px);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800}
-  .card .body{padding:12px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
-  .title{font-weight:800;font-size:0.95rem}
-  .price{color:var(--primary);font-weight:900}
-  .add{border:none;background:linear-gradient(90deg,var(--accent),var(--primary));color:#fff;padding:8px 12px;border-radius:9px;cursor:pointer;font-weight:800}
-  .link-ext{border:1px solid #e6eef9;background:#fff;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--primary);font-weight:700}
-
-  /* flyball */
-  .flyball{position:fixed;width:16px;height:16px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:2000;box-shadow:0 8px 18px rgba(0,0,0,.2);transform:translate(-50%,-50%)}
-
-  /* cartbar */
-  .cartbar{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:1100;display:flex;align-items:center;gap:12px;background:#fff;padding:10px 14px;border-radius:999px;box-shadow:0 12px 40px rgba(0,0,0,.16)}
-  .cartbar .count{font-weight:900}
-  .cartbar .btn{background:var(--primary);color:#fff;border:none;padding:8px 12px;border-radius:10px;font-weight:900;cursor:pointer}
-  .count.bump{animation:bump .36s ease}
-  @keyframes bump{0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)}}
-
-  /* drawer */
-  .drawer{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:1200}
-  .drawer.open{display:block}
-  .panel{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:min(980px,100%);background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 -24px 80px rgba(0,0,0,.25)}
-  .panel header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #eef2f7}
-  .panel main{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;padding:12px 16px;overflow:auto}
-  .cart-item{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed #eef2f7}
-  .qty{display:inline-flex;align-items:center;border-radius:999px;overflow:hidden;border:1px solid #eef2f7}
-  .qty button{border:none;background:transparent;padding:8px 10px;cursor:pointer}
-  .line{font-weight:900}
-  .summary{background:#fbfdff;border:1px solid #eef2f7;border-radius:12px;padding:12px;position:sticky;top:8px}
-  .summary .row{display:flex;justify-content:space-between;margin:8px 0}
-  .submit{width:100%;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:10px 12px;font-weight:900;cursor:pointer}
-  .submit:disabled{background:#cbd5e1;cursor:not-allowed}
-
-  /* footer placeholders */
-  footer{background:#0b1220;color:#d1d5db;padding:20px;margin-top:18px}
-  .foot{max-width:1100px;margin:0 auto;display:flex;gap:12px;justify-content:space-between;align-items:center}
-  .placeholder{width:48%;height:120px;border-radius:12px;background:repeating-linear-gradient(45deg,#e5e7eb,#e5e7eb 10px,#f3f4f6 10px,#f3f4f6 20px);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800}
-  a.clean{color:inherit;text-decoration:none}
-
-  @media (max-width:900px){ .panel main{display:block} .cartbar{left:12px;transform:none} .search{width:220px} .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))} }
-.checkout {
-  padding: 30px 15px;
-  display: flex;
-  justify-content: center;
-}
-
-.checkout-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.1);
-  padding: 20px;
-  max-width: 500px;
+.galerie video {
   width: 100%;
-  animation: fadeInUp 0.6s ease;
-}
-
-.checkout-card h2 {
-  margin-bottom: 20px;
-  color: #2563eb;
-  text-align: center;
-}
-
-.form-group {
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 10px 14px;
   border-radius: 10px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border: 1px solid #2563eb;
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
-}
-
-.payment-method {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.checkout-btn {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #2563eb, #10b981);
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.15s ease, filter 0.2s ease;
-}
-
-.checkout-btn:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.card.added {
-  transform: scale(1.05);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.25);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.thumb img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.placeholder {
-  width: 100%;
-  height: 120px;
-  background: #e5e7eb;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #64748b;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-#grid {
-  display: grid;
-  gap: 1.2rem;         /* Abstand, aber ohne Striche */
-  background: none;    /* sicherstellen, dass kein Muster da ist */
-}
-.thumb {
-  width: 100%;
-  height: 160px;       /* feste Höhe */
-  background: #f3f4f6; /* grauer Platzhalter-Hintergrund */
-  border-radius: 12px;
-  overflow: hidden;    /* verhindert weiße Ränder */
-}
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;   /* Bild füllt die Box */
-  display: block;      /* entfernt kleine Striche durch Inline-Rendering */
-  border-radius: 12px; /* abgerundete Ecken */
-}
-.thumb {
-  width: 100%;
-  height: 160px;
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;   /* kein Hintergrund */
-  border: none;       /* keine Umrandung */
-}
-
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.thumb {
-  width: 100%;
-  height: 160px;
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  position: relative;
-}
-
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-/* Hover-Effekt */
-.thumb:hover img {
-  transform: scale(1.08);   /* leichtes Zoomen */
-  filter: brightness(1.1);  /* Bild heller machen */
-}
-.thumb {
-  width: 100%;
-  aspect-ratio: 3 / 4; /* alle gleich hochkant, 3:4 Format */
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f9f9f9; /* optional neutraler Hintergrund */
-}
-
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;   /* schneidet gleichmäßig zu */
-  display: block;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.thumb:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.1);
-}
-
-</style>
+  </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <header class="main-header">
-    <div class="brand">🚚 Getränke & mehr</div>
-    <div class="searchwrap">
-      <input id="search" class="search" placeholder="Suche: Cola, UNO, Nudeln …" />
-      <div class="header-actions">
-        <button id="openCheckoutTop" class="header-btn">🛒 Zur Kasse</button>
-      </div>
-    </div>
-  </header>
-
-  <div class="promo container">
-    <a class="clean" href="https://amzn.to/4na8kvc" target="_blank" rel="noopener nofollow sponsored">
-      <div class="promo-inner">
-        <div class="promo-img">Deal</div>
-        <div>
-          <h3 style="margin:0;color:#fff">🔥 Aktuelle Amazon Angebote</h3>
-          <p style="margin:4px 0 0;color:#d1d5db">Schnell zugreifen — Top-Deals</p>
-        </div>
-      </div>
-    </a>
-  </div>
-
-  <nav class="tabs">
-    <div class="row" id="tabs"></div>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">🎨 Maler-Service</div>
+    <ul>
+      <li><a href="#angebote">Angebote</a></li>
+      <li><a href="#about">Über uns</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#bewertungen">Bewertungen</a></li>
+      <li><a href="#ablauf">Ablauf</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
   </nav>
 
-  <div class="container">
-    <section id="grid" class="grid"></section>
-  </div>
 
-  <div class="cartbar" aria-live="polite">
-    <div><span id="cartCount" class="count">0</span> Artikel · <strong id="cartTotal">0,00 €</strong></div>
-    <div style="display:flex;gap:8px">
-      <button class="btn" id="openCart">Warenkorb</button>
-      <button class="btn" id="openCheckout">Zur Kasse</button>
+
+  <!-- Angebote -->
+  <section id="angebote">
+    <h2>Unsere Angebote & Preise</h2>
+    <div class="angebote">
+      <div class="angebot"><h3>Zimmer streichen</h3><p>Ab 120 € pro Zimmer</p></div>
+      <div class="angebot"><h3>Fassadenarbeiten</h3><p>Ab 25 € pro m²</p></div>
+      <div class="angebot"><h3>Tapetenarbeiten</h3><p>Ab 15 € pro m²</p></div>
+      <div class="angebot"><h3>Lackierarbeiten</h3><p>Auf Anfrage</p></div>
     </div>
-  </div>
+  </section>
 
-  <div class="drawer" id="drawer" aria-hidden="true">
-    <div class="panel" role="dialog" aria-modal="true">
-      <header>
-        <strong style="font-size:1.05rem">🛒 Bestellen</strong>
-        <div>
-          <button id="closeDrawer" class="header-btn" style="background:#f3f4f6;color:#0f172a">Schließen</button>
-        </div>
-      </header>
-
-      <main>
-        <section id="viewCart">
-          <div id="cartList"></div>
-        </section>
-
-        <aside class="summary">
-          <div class="row"><span>Zwischensumme</span><strong id="sumSubtotal">0,00 €</strong></div>
-          <div class="row"><span>MwSt. (19%)</span><strong id="sumTax">0,00 €</strong></div>
-          <div class="row"><span>Lieferung</span><strong id="sumShip">0,00 €</strong></div>
-          <div class="row" style="font-size:1.05rem"><span>Gesamt</span><strong id="sumTotal">0,00 €</strong></div>
-          <p style="color:var(--muted);font-size:.95rem;margin:6px 0 12px">Mindestbestellwert <strong>15,00 €</strong> · Lieferung kostenlos</p>
-
-          <form id="checkoutForm" action="https://formspree.io/f/DEIN-ENDPOINT" method="POST">
- <div class="checkout-card">
-    <h2>📝 Lieferdetails</h2>
-    <form id="orderForm" action="https://formspree.io/f/xvgqjgrj" method="POST">
-      
-      <div class="form-group">
-        <label for="name">Name *</label>
-        <input type="text" id="name" name="name" required placeholder="Max Mustermann">
-      </div>
-
-      <div class="form-group">
-        <label for="address">Adresse *</label>
-        <input type="text" id="address" name="address" required placeholder="Musterstraße 1, 12345 Stadt">
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Telefon *</label>
-        <input type="tel" id="phone" name="phone" required placeholder="+49 123 456789">
-      </div>
-
-      <div class="form-group">
-        <label for="notes">Hinweise</label>
-        <textarea id="notes" name="notes" rows="3" placeholder="z.B. Klingeln bei Nachbarn, Etage 3..."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>Zahlungsmethode</label>
-        <div class="payment-method">
-          <input type="radio" id="cash" name="payment" value="Barzahlung bei Lieferung" checked>
-          <label for="cash">💶 Barzahlung bei Lieferung</label>
-        </div>
-      </div>
-
-      <button type="submit" class="checkout-btn">✅ Bestellung abschicken</button>
-          </form>
-
-          <p style="margin-top:8px;color:var(--muted)">📍 Standort per WhatsApp?
-            <a href="https://wa.me/491632229705" target="_blank" rel="noopener">Jetzt teilen</a>
-          </p>
-        </aside>
-      </main>
+  <!-- Über uns -->
+  <section id="about">
+    <h2>Über uns</h2>
+    <div class="about">
+     
+      <p>Seit über 15 Jahren steht <strong>Maler-Service</strong> für Qualität, Zuverlässigkeit und faire Preise. Unser erfahrenes Team bringt Farbe in Ihr Leben – egal ob Innenräume, Fassaden oder kreative Wandgestaltungen.</p>
     </div>
+  </section>
+
+<!-- Galerie -->
+<section id="galerie">
+  <h2>Galerie / Videos</h2>
+  <div class="galerie">
+    <video controls>
+      <source src="video/Maler.mp4" type="video/mp4">
+      Ihr Browser unterstützt das Video-Tag nicht.
+    </video>
   </div>
+</section>
 
-<footer>
-  <div class="foot container">
-    <div><a href="impressum.html">Impressum</a></div>
-    <div><a href="datenschutz.html">Datenschutz</a></div>
-  </div>
-</footer>
 
-<script>
-/* ===== Daten ===== */
-const PRODUCTS = [
-  { id:"w1", cat:"Wasser", title:"Wasser Classic (1,5 L)", price:1.2, img:"img/wasser/classic.jpg" },
-  { id:"w2", cat:"Wasser", title:"Wasser Medium (1,5 L)", price:1.2, img:"img/wasser/medium.jpg" },
-  { id:"w3", cat:"Wasser", title:"Stillwasser (1,5 L)", price:1.2, img:"img/wasser/still.jpg" },
+  <!-- Bewertungen -->
+  <section id="bewertungen">
+    <h2>Kundenbewertungen</h2>
+    <div class="bewertungen">
+      <div class="bewertung">"Sehr zuverlässig und super Arbeit!" <div class="stars">★★★★★</div> <strong>- Familie Schmidt</strong></div>
+      <div class="bewertung">"Top Preis-Leistung, gerne wieder." <div class="stars">★★★★★</div> <strong>- Herr Weber</strong></div>
+      <div class="bewertung">"Unsere Wohnung sieht wie neu aus!" <div class="stars">★★★★★</div> <strong>- Frau Klein</strong></div>
+    </div>
+  </section>
 
-  { id:"s1", cat:"Softdrink", title:"Cola (1,5L)", price:2.9, img:"img/soft/cola.jpg" },
-  { id:"s2", cat:"Softdrink", title:"Fanta (1,5L)", price:2.9, img:"img/soft/fanta.jpg" },
-  { id:"s3", cat:"Softdrink", title:"Sprite (1,5L)", price:2.9, img:"img/soft/sprite.jpg" },
-  { id:"s4", cat:"Softdrink", title:"Mezzo Mix (1,5L)", price:2.9, img:"img/soft/mezzo.jpg" },
-  { id:"s5", cat:"Softdrink", title:"Eistee Pfirsich (1,5L)", price:2.9, img:"img/soft/pfirsich.jpg" },
-  { id:"s6", cat:"Softdrink", title:"Eistee Zitrone (1,5L)", price:2.9, img:"img/soft/zitrone.jpg" },
+  <!-- Ablauf -->
+  <section id="ablauf">
+    <h2>So läuft es ab</h2>
+    <div class="steps">
+      <div class="step"><h3>1. Anfrage</h3><p>Sie rufen uns an oder schreiben uns eine Nachricht.</p></div>
+      <div class="step"><h3>2. Besichtigung</h3><p>Wir schauen uns Ihr Objekt an und erstellen ein Angebot.</p></div>
+      <div class="step"><h3>3. Ausführung</h3><p>Unsere Profis erledigen die Arbeit sauber & zuverlässig.</p></div>
+      <div class="step"><h3>4. Abnahme</h3><p>Sie prüfen alles – erst wenn Sie zufrieden sind, sind wir es auch.</p></div>
+    </div>
+  </section>
 
-  { id:"j1", cat:"Säfte", title:"Orangensaft (1,0L)", price:2.9, img:"img/saft/osaft.jpg" },
-  { id:"j2", cat:"Säfte", title:"Multivitamin (1,0L)", price:2.9, img:"img/saft/msaft.jpg" },
-  { id:"j3", cat:"Säfte", title:"Apfelsaft naturtrüb (1,0L)", price:2.9, img:"img/saft/asaft.jpg" },
-  { id:"j4", cat:"Säfte", title:"Traubensaft (1,0L)", price:2.9, img:"img/saft/tsaft.jpg" },
+  <!-- Kontakt -->
+  <section id="kontakt">
+    <h2>Kontakt</h2>
+    <div class="kontakt-box">
+      <form action="https://formspree.io/f/xvgqjgrj" method="POST">
+        <input type="text" name="name" placeholder="Ihr Name" required>
+        <input type="email" name="email" placeholder="Ihre E-Mail" required>
+        <textarea name="nachricht" rows="5" placeholder="Ihre Nachricht" required></textarea>
+        <button type="submit">Nachricht senden</button>
+      </form>
+      <a class="call-btn" href="tel:+491632229705">📞 Direkt anrufen</a>
+    </div>
+  </section>
 
-  { id:"e1", cat:"Energy", title:"Red Bull (0,25L)", price:3.9, img:"img/energy/redbull.jpg" },
-  { id:"e2", cat:"Energy", title:"Monster Energy (0,5L)", price:3.9, img:"img/energy/monster.jpg" },
-  { id:"e3", cat:"Energy", title:"Rockstar Energy (0,5L)", price:3.9, img:"img/energy/rock.jpg" },
-  { id:"e4", cat:"Energy", title:"Effect Energy (0,25L)", price:3.9, img:"img/energy/effect.jpg" },
-
-  { id:"sal1", cat:"Snacks", title:"Chips Paprika (200g)", price:2.5, img:"img/snacks/paprika.jpg" },
-  { id:"sal2", cat:"Snacks", title:"Chips gesalzen (200g)", price:2.5, img:"img/snacks/gesalzen.jpg" },
-  { id:"sue1", cat:"Snacks", title:"Snickers", price:2.9, img:"img/snacks/snickers.jpg" },
-  { id:"sue4", cat:"Snacks", title:"Haribo (300g)", price:3.2, img:"img/snacks/haribo.jpg" },
-
-  { id:"ex1", cat:"Extras", title:"Jahresvorrat Nudeln (10kg)", price:29.9, img:"img/extras/24nudeln.jpg" },
-  { id:"ex2", cat:"Extras", title:"Konserven-Set (20x)", price:24.9, img:"img/extras/chinas.jpg" },
-
-  { id:"ex3", cat:"Extras", title:"UNO Kartenspiel", price:9.9, img:"img/extras/uno.jpg" },
-  { id:"ex4", cat:"Extras", title:"Skat Kartenspiel", price:4.9, img:"img/extras/skat.jpg" },
-
-  { id:"af1", cat:"Empfehlungen", title:"Amazon Bestseller🔖", price:null, url:"https://amzn.to/4mHElLl", img:"img/affiliate/ama1.jpg" },
-  { id:"af2", cat:"Empfehlungen", title:"Amazon Angebote🔖", price:null, url:"https://amzn.to/4na8kvc", img:"img/affiliate/ama2.jpg" },
-{ id:"af3", cat:"Empfehlungen", title:"Lahmacun Catering für Pausen, Events & Feste", price:null, url:"https://www.lahmacunexpress.de", img:"img/affiliate/lahmacunexpress.jpg" },
-{ id:"af4", cat:"Empfehlungen", title:"IT-Unterstützung", price:null, url:"https://www.veyfkon.de", img:"img/affiliate/veyfkon.jpg" },
-  { id:"af5", cat:"Empfehlungen", title:"Entrümpelung leicht gemacht", price:null, url:"wohnung.html", img:"img/wohnung/wohnung.jpg" },
-];
-
-const TAX = 0.19;
-const DELIVERY = 0.00;
-const MIN_ORDER = 15.0;
-
-/* ===== State & DOM refs ===== */
-const state = {
-  cat: 'alle',
-  cart: JSON.parse(localStorage.getItem('cart') || '{}'),
-  q: ''
-};
-
-const grid = document.getElementById('grid');
-const tabsRow = document.getElementById('tabs');
-const search = document.getElementById('search');
-const cartCount = document.getElementById('cartCount');
-const cartTotal = document.getElementById('cartTotal');
-const drawer = document.getElementById('drawer');
-const openCartBtn = document.getElementById('openCart');
-const openCheckout = document.getElementById('openCheckout');
-const openCheckoutTop = document.getElementById('openCheckoutTop');
-const closeDrawerBtn = document.getElementById('closeDrawer');
-
-const cartList = document.getElementById('cartList');
-const sumSubtotal = document.getElementById('sumSubtotal');
-const sumTax = document.getElementById('sumTax');
-const sumShip = document.getElementById('sumShip');
-const sumTotal = document.getElementById('sumTotal');
-const checkoutForm = document.getElementById('checkoutForm');
-const submitBtn = document.getElementById('submitBtn');
-const orderDetails = document.getElementById('orderDetails');
-
-/* ===== Helpers ===== */
-const formatEUR = n => new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(n);
-
-/* ===== Categories (auto) ===== */
-function getCategories(){
-  const cats = new Set(PRODUCTS.map(p=>p.cat));
-  return ['alle', ...cats];
-}
-function renderTabs(){
-  const cats = getCategories();
-  tabsRow.innerHTML = '';
-  cats.forEach(c=>{
-    const btn = document.createElement('button');
-    btn.className = 'tab' + (c===state.cat ? ' active':'');
-    btn.dataset.cat = c;
-    btn.textContent = c.charAt(0).toUpperCase()+c.slice(1);
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      btn.classList.add('active');
-      state.cat = c;
-      renderGrid();
-    });
-    tabsRow.appendChild(btn);
-  });
-}
-
-/* ===== Grid render ===== */
-function filtered(){
-  return PRODUCTS.filter(p=>{
-    if(state.cat !== 'alle' && p.cat !== state.cat) return false;
-    if(state.q && !p.title.toLowerCase().includes(state.q)) return false;
-    return true;
-
-  });
-}
-
-function renderGrid(){
-  const items = filtered();
-  grid.innerHTML = '';
-  if(items.length===0){
-    const empty = document.createElement('div');
-    empty.className = 'card';
-    empty.innerHTML = `<div class="thumb">Keine Treffer</div><div style="padding:12px">Kein Produkt gefunden</div>`;
-    grid.appendChild(empty);
-    return;
-  }
-  items.forEach(p=>{
-    const card = document.createElement('article');
-    card.className = 'card';
-    card.innerHTML = `
-
-      <div class="thumb" aria-hidden="true">
-  ${p.img ? `<img src="${p.img}" alt="${p.title}" />` : '<div class="placeholder">extern</div>'}
-</div>
-
-      <div class="body">
-        <div>
-          <div class="title">${p.title}</div>
-          <div class="price">${p.price!==null ? formatEUR(p.price) : '<em>empfehlung</em>'}</div>
-        </div>
-        ${p.cat === 'Empfehlungen'
-          ? `<a class="link-ext" href="${p.url}" target="_blank" rel="noopener nofollow sponsored">Öffnen</a>`
-          : `<button class="add" data-id="${p.id}">+</button>`
-        }
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-
-  // bind add buttons + fly animation
-  grid.querySelectorAll('.add').forEach(btn=>{
-    btn.addEventListener('click',(e)=>{
-      const id = e.currentTarget.dataset.id;
-      addToCart(id);
-      flyToCart(e.currentTarget);
-    });
-  });
-}
-
-/* ===== Cart operations ===== */
-function addToCart(id){
-  const product = PRODUCTS.find(p=>p.id===id);
-  if(!product) return;
-  if(!state.cart[id]) state.cart[id] = { id:product.id, title:product.title, price:product.price, qty:0 };
-  state.cart[id].qty++;
-  bumpCount();
-  renderCart();
-}
-function changeQty(id, delta){
-  if(!state.cart[id]) return;
-  state.cart[id].qty = Math.max(0, state.cart[id].qty + delta);
-  if(state.cart[id].qty === 0) delete state.cart[id];
-  renderCart();
-}
-function removeItem(id){
-  delete state.cart[id];
-  renderCart();
-}
-function bumpCount(){
-  cartCount.classList.add('bump');
-  setTimeout(()=>cartCount.classList.remove('bump'),360);
-}
-
-/* ===== Render cart/drawer ===== */
-function renderCart(){
-  const lines = Object.values(state.cart);
-  cartList.innerHTML = '';
-  if(lines.length === 0){
-    cartList.innerHTML = `<div class="card" style="padding:12px;margin:6px 0">Ihr Warenkorb ist leer.</div>`;
-  } else {
-    lines.forEach(l=>{
-      const row = document.createElement('div');
-      row.className = 'cart-item';
-      row.innerHTML = `
-        <div>${l.title}</div>
-        <div class="qty">
-          <button aria-label="minus">−</button>
-          <span style="min-width:28px;text-align:center;font-weight:800">${l.qty}</span>
-          <button aria-label="plus">+</button>
-        </div>
-        <div class="line">${formatEUR(l.qty * l.price)}</div>
-      `;
-      const [btnMinus, btnPlus] = row.querySelectorAll('.qty button');
-      btnMinus.addEventListener('click', ()=> changeQty(l.id, -1));
-      btnPlus.addEventListener('click', ()=> changeQty(l.id, +1));
-      cartList.appendChild(row);
-    });
-  }
-
-  // totals
-  const subtotal = lines.reduce((s,l)=>s + l.qty * l.price, 0);
-  const tax = subtotal * TAX;
-  const total = subtotal + tax + (subtotal>0 ? DELIVERY : 0);
-
-  cartCount.textContent = lines.reduce((s,l)=>s + l.qty, 0);
-  cartTotal.textContent = formatEUR(total);
-
-  sumSubtotal.textContent = formatEUR(subtotal);
-  sumTax.textContent = formatEUR(tax);
-  sumShip.textContent = formatEUR(subtotal>0 ? DELIVERY : 0);
-  sumTotal.textContent = formatEUR(total);
-
-  // order details for Formspree + enable submit if >= min
-  orderDetails.value = lines.map(l=>`${l.qty}× ${l.title} = ${formatEUR(l.qty * l.price)}`).join(' | ') + (lines.length ? ' | ' : '') + `Gesamt: ${formatEUR(total)}`;
-  submitBtn.disabled = subtotal < MIN_ORDER;
-
-  // persist
-  localStorage.setItem('cart', JSON.stringify(state.cart));
-}
-
-/* ===== Drawer open/close ===== */
-function openDrawer(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); renderCart(); }
-function closeDrawer(){ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); }
-openCartBtn.addEventListener('click', openDrawer);
-openCheckout.addEventListener('click', openDrawer);
-openCheckoutTop.addEventListener('click', openDrawer);
-closeDrawerBtn.addEventListener('click', closeDrawer);
-drawer.addEventListener('click', e => { if(e.target === drawer) closeDrawer(); });
-
-/* ===== Search & tabs listeners ===== */
-search.addEventListener('input', (e) => { state.q = e.target.value.trim().toLowerCase(); renderGrid(); });
-function initTabs(){ renderTabs(); renderGrid(); }
-function renderTabs(){
-  const cats = getCategories();
-  tabsRow.innerHTML = '';
-  cats.forEach(c => {
-    const b = document.createElement('button');
-    b.className = 'tab' + (c === state.cat ? ' active' : '');
-    b.dataset.cat = c;
-    b.textContent = c === 'alle' ? 'Alle' : c.charAt(0).toUpperCase() + c.slice(1);
-    b.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      b.classList.add('active');
-      state.cat = c;
-      renderGrid();
-    });
-    tabsRow.appendChild(b);
-  });
-}
-
-/* ===== Fly-to-cart animation ===== */
-function flyToCart(sourceEl){
-  const src = sourceEl.getBoundingClientRect();
-  const dest = cartCount.getBoundingClientRect();
-  const ball = document.createElement('div');
-  ball.className = 'flyball';
-  document.body.appendChild(ball);
-  ball.style.left = (src.left + src.width/2) + 'px';
-  ball.style.top = (src.top + src.height/2) + 'px';
-
-  const animation = ball.animate([
-    { transform:'translate(-50%,-50%) scale(1)', offset:0 },
-    { transform:'translate(-50%,-50%) scale(1.2)', offset:0.25 },
-    { transform:`translate(${dest.left + dest.width/2 - (src.left + src.width/2)}px, ${dest.top + dest.height/2 - (src.top + src.height/2)}px) translate(-50%,-50%) scale(.4)`, offset:1 }
-  ], { duration: 520, easing: 'cubic-bezier(.2,.6,.2,1)' });
-
-  animation.onfinish = () => { ball.remove(); };
-}
-
-/* ===== Form submit guard ===== */
-checkoutForm.addEventListener('submit', (e) => {
-  const subtotal = Object.values(state.cart).reduce((s,l)=>s + l.qty * l.price, 0);
-  if(subtotal < MIN_ORDER){
-    e.preventDefault();
-    alert(`Mindestbestellwert ${formatEUR(MIN_ORDER)} nicht erreicht.`);
-    return;
-  }
-  // Let it submit to Formspree; optionally you can add more data or redirect
-  // close drawer to show success message after redirect
-});
-
-/* ===== Init ===== */
-initTabs();
-renderCart();
-renderGrid();
-</script>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Maler-Service – Alle Rechte vorbehalten</p>
+    <p>Neuhausen München, 80637 München
+    <p>Öffnungszeiten: Mo-Fr 8:00 – 18:00 Uhr</p>
+  </footer>
 </body>
 </html>
-
-
-
-
-
-
-
-
