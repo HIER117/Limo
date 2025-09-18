@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Druckshop mit Warenkorb</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- HEADER -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <img src="https://dummyimage.com/50x50/000/fff.png&text=Logo" alt="Logo" class="w-12 h-12 rounded-full">
+        <span class="text-xl font-bold text-orange-600">advanced kopie & druck</span>
+      </div>
+      <!-- Warenkorb Button -->
+      <div class="relative">
+        <button id="cartButton" class="flex items-center bg-orange-500 text-white px-4 py-2 rounded-lg shadow hover:bg-orange-600 transition">
+          🛒 Warenkorb (<span id="cartCount">0</span>)
+        </button>
+        <!-- Dropdown Warenkorb -->
+        <div id="cartDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4">
+          <h3 class="font-semibold mb-2">Ihr Warenkorb</h3>
+          <ul id="cartItems" class="space-y-2 text-sm"></ul>
+          <p class="font-bold mt-3">Gesamt: <span id="cartTotal">0.00</span> €</p>
+          <button onclick="openCheckout()" class="w-full mt-3 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">Zur Kasse</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PRODUKTE -->
+  <main class="max-w-7xl mx-auto p-6" id="produkte">
+    <h2 class="text-3xl font-bold mb-6">Produkte</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Produktkarte -->
+      <div class="bg-white rounded-2xl shadow hover:shadow-2xl transition transform hover:-translate-y-1 p-4 text-center">
+        <img src="https://dummyimage.com/200x120/e5e7eb/000000.png&text=Flyer" alt="Flyer" class="mx-auto mb-3 rounded">
+        <h3 class="text-lg font-semibold">Flyer</h3>
+        <p class="text-sm text-gray-500 mb-3">Ab 50 Stück</p>
+        <p class="font-bold text-orange-600 mb-3">0.20 € / Stück</p>
+        <button onclick="addToCart('Flyer', 0.20)" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+          In den Warenkorb
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow hover:shadow-2xl transition transform hover:-translate-y-1 p-4 text-center">
+        <img src="https://dummyimage.com/200x120/e5e7eb/000000.png&text=Visitenkarten" alt="Visitenkarten" class="mx-auto mb-3 rounded">
+        <h3 class="text-lg font-semibold">Visitenkarten</h3>
+        <p class="text-sm text-gray-500 mb-3">Ab 100 Stück</p>
+        <p class="font-bold text-orange-600 mb-3">0.10 € / Stück</p>
+        <button onclick="addToCart('Visitenkarten', 0.10)" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+          In den Warenkorb
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow hover:shadow-2xl transition transform hover:-translate-y-1 p-4 text-center">
+        <img src="https://dummyimage.com/200x120/e5e7eb/000000.png&text=Plakate" alt="Plakate" class="mx-auto mb-3 rounded">
+        <h3 class="text-lg font-semibold">Plakate</h3>
+        <p class="text-sm text-gray-500 mb-3">A3 bis A0</p>
+        <p class="font-bold text-orange-600 mb-3">2.50 € / Stück</p>
+        <button onclick="addToCart('Plakate', 2.50)" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+          In den Warenkorb
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- KALKULATOR -->
+  <section class="max-w-3xl mx-auto p-6 my-10 bg-white rounded-xl shadow">
+    <h2 class="text-2xl font-bold mb-4">Preis-Kalkulator</h2>
+    <label class="block mb-2 font-medium">Produkt auswählen:</label>
+    <select id="calcProduct" class="w-full p-2 border rounded mb-4">
+      <option value="0.20">Flyer (0.20 €/Stück)</option>
+      <option value="0.10">Visitenkarten (0.10 €/Stück)</option>
+      <option value="2.50">Plakate (2.50 €/Stück)</option>
+    </select>
+    <label class="block mb-2 font-medium">Menge:</label>
+    <input type="number" id="calcQty" value="100" min="1" class="w-full p-2 border rounded mb-4">
+    <button onclick="calculatePrice()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">Berechnen</button>
+    <p class="mt-4 font-bold">Gesamtpreis: <span id="calcResult">0.00</span> €</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 mt-10">
+    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h3 class="text-white font-bold mb-3">Rechtliches</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-orange-400">AGB</a></li>
+          <li><a href="#" class="hover:text-orange-400">Widerrufsrecht</a></li>
+          <li><a href="#" class="hover:text-orange-400">Datenschutz</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-3">Kontakt</h3>
+        <p class="text-sm">Filiale Neuhausen<br>Nymphenburger Straße 154<br>
+          <a href="mailto:info@kopie-druck-muenchen.de" class="text-blue-400">info@kopie-druck-muenchen.de</a>
+        </p>
+        <p class="text-sm mt-3">Filiale Sendling<br>Implerstraße 48-52<br>
+          <a href="mailto:info.sendling@kopie-druck-muenchen.de" class="text-blue-400">info.sendling@kopie-druck-muenchen.de</a>
+        </p>
+      </div>
+      <div>
+        <h3 class="text-white font-bold mb-3">Über uns</h3>
+        <p class="text-sm">Wir bieten hochwertige Drucklösungen, von Digital- über Offsetdruck bis hin zu Bindungen, Textildruck und mehr.</p>
+      </div>
+    </div>
+    <div class="bg-gray-800 py-4 text-center text-sm text-gray-400">
+      © 2025 advanced kopie & druck – Alle Rechte vorbehalten
+    </div>
+  </footer>
+
+  <!-- CHECKOUT SECTION -->
+  <div id="checkout" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-4">Zur Kasse</h2>
+      <div id="checkoutItems" class="mb-4 text-sm"></div>
+      <p class="font-bold mb-4">Gesamt: <span id="checkoutTotal">0.00</span> €</p>
+
+      <h3 class="font-semibold mb-2">Zahlungsmethode wählen:</h3>
+      <div class="space-y-3 mb-6">
+        <label class="flex items-center space-x-2">
+          <input type="radio" name="payment" value="paypal" checked> <span>PayPal</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="radio" name="payment" value="applepay"> <span>Apple Pay (über Stripe)</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="radio" name="payment" value="bar"> <span>Barzahlung bei Abholung</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="radio" name="payment" value="ueberweisung"> <span>Vorkasse / Überweisung</span>
+        </label>
+      </div>
+
+      <div id="paypal-button-container" class="mb-6"></div>
+
+      <div class="flex justify-between">
+        <button onclick="closeCheckout()" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Abbrechen</button>
+        <button onclick="finishOrder()" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Bestellung abschicken</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYPAL SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=EUR"></script>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    let cart = [];
+    
+    function addToCart(product, price) {
+      const item = cart.find(i => i.product === product);
+      if (item) {
+        item.qty++;
+      } else {
+        cart.push({ product, price, qty: 1 });
+      }
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById("cartItems");
+      const cartCount = document.getElementById("cartCount");
+      const cartTotal = document.getElementById("cartTotal");
+
+      cartItems.innerHTML = "";
+      let total = 0;
+      let count = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        count += item.qty;
+        cartItems.innerHTML += `<li>${item.product} x ${item.qty} – ${(item.price * item.qty).toFixed(2)} €</li>`;
+      });
+
+      cartCount.textContent = count;
+      cartTotal.textContent = total.toFixed(2);
+    }
+
+    // Toggle Warenkorb Dropdown
+    document.getElementById("cartButton").addEventListener("click", () => {
+      document.getElementById("cartDropdown").classList.toggle("hidden");
+    });
+
+    // Kalkulator
+    function calculatePrice() {
+      const price = parseFloat(document.getElementById("calcProduct").value);
+      const qty = parseInt(document.getElementById("calcQty").value);
+      const result = price * qty;
+      document.getElementById("calcResult").textContent = result.toFixed(2);
+    }
+
+    // Checkout öffnen
+    function openCheckout() {
+      document.getElementById("checkout").classList.remove("hidden");
+      const checkoutItems = document.getElementById("checkoutItems");
+      const checkoutTotal = document.getElementById("checkoutTotal");
+      checkoutItems.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        checkoutItems.innerHTML += `<p>${item.product} x ${item.qty} – ${(item.price * item.qty).toFixed(2)} €</p>`;
+        total += item.price * item.qty;
+      });
+      checkoutTotal.textContent = total.toFixed(2);
+    }
+
+    // Checkout schließen
+    function closeCheckout() {
+      document.getElementById("checkout").classList.add("hidden");
+    }
+
+    // Bestellung abschließen
+    function finishOrder() {
+      const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+      alert("Bestellung abgeschlossen mit: " + paymentMethod);
+      closeCheckout();
+    }
+
+    // PayPal Buttons
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: { value: document.getElementById("checkoutTotal").textContent }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert("Danke, " + details.payer.name.given_name + "! Zahlung erfolgreich.");
+          closeCheckout();
+        });
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>
