@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Affiliate Portal</title>
+<title>Lieferautomat.de – Restposten Superstar</title>
 <style>
   :root {
     --bg:#f9fafb;
@@ -52,6 +52,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .price{font-weight:700;color:#111827;font-size:0.95rem;margin-top:2px}
   .btn{align-self:flex-start;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;font-size:0.9rem;color:#fff;transition:.2s}
   .btn:hover{opacity:.9}
+
+  /* Restposten Superstar Style */
+  .restposten{
+    grid-column: span 2;
+    transform:scale(1.05);
+    border:2px solid #e11d48 !important;
+    box-shadow:0 0 25px rgba(225,29,72,.4) !important;
+  }
+  @media(max-width:700px){
+    .restposten{grid-column:span 1;transform:scale(1.02);}
+  }
 
   /* Footer */
   footer{background:var(--footer-bg);color:#d1d5db;padding:28px 20px;margin-top:40px}
@@ -115,15 +126,15 @@ const CATEGORY_COLORS = {
   "Angebote & Deals":"#f59e0b"    // Orange
 };
 
-// === Produktliste (mit optionalem Preis) ===
+// === Produktliste ===
 const PRODUCTS = [
   { id:"p1", cat:"Empfehlungen", title:"Amazon Bestseller", desc:"Top bewertete Produkte direkt von Amazon.", url:"https://amzn.to/4mHElLl", price:"19,99 €" },
   { id:"p2", cat:"Empfehlungen", title:"Amazon Angebote", desc:"Täglich neue Rabatte & Aktionen bei Amazon entdecken.", url:"https://amzn.to/4na8kvc" },
   { id:"p3", cat:"Technik", title:"IT-Unterstützung", desc:"Professionelle Hilfe bei Netzwerken & IT-Sicherheit & Website.", url:"https://www.veyfkon.de", price:"ab 49 €" },
   { id:"p4", cat:"Haushalt & Services", title:"Catering für Events", desc:"Lahmacun Express liefert frisch & zuverlässig.", url:"https://www.lahmacunexpress.de" },
   { id:"p5", cat:"Haushalt & Services", title:"Entrümpelung leicht gemacht", desc:"Schnelle und professionelle Entrümpelung von Wohnungen & Häusern.", url:"wohnung.html", price:"ab 99 €" },
-  { id:"p6", cat:"Angebote & Deals", title:"Restposten Paket 100g", desc:"Überraschungsware zum kleinen Preis.", url:"https://www.paypal.com/ncp/payment/K8TXGZBGB7G78", price:"15 € €" },
-  { id:"p4", cat:"Technik", title:"Webseite selber erstellen", desc:"Domain, Hosting & E-Mail-Lösungen für Privat & Business – zuverlässig, schnell und sicher.", url:"https://www.checkdomain.de/?pid=dce65367", price:"" },
+  { id:"p6", cat:"Angebote & Deals", title:"Restposten Paket 100g", desc:"Überraschungsware zum kleinen Preis. ⭐", url:"https://www.paypal.com/ncp/payment/K8TXGZBGB7G78", price:"15 €" },
+  { id:"p7", cat:"Technik", title:"Webseite selber erstellen", desc:"Domain, Hosting & E-Mail-Lösungen für Privat & Business – zuverlässig, schnell und sicher.", url:"https://www.checkdomain.de/?pid=dce65367" },
 ];
 
 // === State ===
@@ -152,25 +163,35 @@ function renderTabs(){
 
 // === Grid generieren ===
 function renderGrid(){
-  const items = PRODUCTS.filter(p=>
-    (activeCat==="Alle" || p.cat===activeCat) &&
-    (p.title.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  // Restposten nach oben sortieren
+  const items = PRODUCTS
+    .filter(p=>
+      (activeCat==="Alle" || p.cat===activeCat) &&
+      (p.title.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase()))
+    )
+    .sort((a,b)=>{
+      if(a.title.toLowerCase().includes("restposten")) return -1;
+      if(b.title.toLowerCase().includes("restposten")) return 1;
+      return 0;
+    });
+
   gridEl.innerHTML = "";
   if(items.length === 0){
     gridEl.innerHTML = `<p style="grid-column:1/-1;color:#6b7280">Keine Ergebnisse gefunden.</p>`;
     return;
   }
+
   items.forEach(p=>{
-    const color = CATEGORY_COLORS[p.cat] || "#2563eb";
+    const isRestposten = p.title.toLowerCase().includes("restposten");
+    const color = isRestposten ? "#e11d48" : (CATEGORY_COLORS[p.cat] || "#2563eb");
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card" + (isRestposten ? " restposten" : "");
     card.innerHTML = `
       <div class="badge" style="background:${color}20;color:${color}">${p.cat}</div>
       <div class="card-title">${p.title}</div>
       <div class="card-desc">${p.desc}</div>
       ${p.price ? `<div class="price">${p.price}</div>` : ""}
-      <a class="btn" style="background:${color}" href="${p.url}" target="_blank" rel="noopener nofollow sponsored">Mehr erfahren</a>
+      <a class="btn" style="background:${color}" href="${p.url}" target="_blank" rel="noopener nofollow sponsored">${isRestposten ? "Jetzt sichern" : "Mehr erfahren"}</a>
     `;
     gridEl.appendChild(card);
   });
@@ -188,10 +209,3 @@ renderGrid();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
