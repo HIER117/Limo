@@ -1,211 +1,94 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WKS5G4C7');</script>
-<!-- End Google Tag Manager -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lieferautomat.de – Restposten Superstar</title>
-<style>
-  :root {
-    --bg:#f9fafb;
-    --text:#111827;
-    --muted:#6b7280;
-    --card:#fff;
-    --shadow:0 6px 20px rgba(0,0,0,.08);
-    --header-bg:#ffffff;
-    --footer-bg:#1f2937;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
-
-  /* Header */
-  header{background:var(--header-bg);border-bottom:1px solid #e5e7eb;padding:12px 20px;position:sticky;top:0;z-index:100}
-  .head-wrap{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px}
-  .logo{font-size:1.3rem;font-weight:700;color:var(--text);flex:0 0 auto}
-  .search-bar{flex:1;display:flex}
-  .search-bar input{flex:1;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:0.95rem}
-  .nav-links{flex:0 0 auto;display:flex;gap:18px}
-  .nav-links a{text-decoration:none;color:var(--muted);font-weight:500;font-size:0.95rem}
-  .nav-links a:hover{color:var(--text)}
-
-  /* Tabs */
-  nav{background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:56px;z-index:99}
-  .tabs{display:flex;overflow-x:auto;gap:8px;padding:10px 16px;scrollbar-width:none}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;padding:8px 14px;border-radius:999px;border:1px solid #e5e7eb;background:#f3f4f6;cursor:pointer;font-weight:600;font-size:0.95rem;transition:.2s}
-  .tab.active{color:#fff}
-
-  /* Grid / Cards */
-  .container{max-width:1100px;margin:0 auto;padding:16px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:16px}
-  .card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:16px;display:flex;flex-direction:column;gap:10px;transition:.25s}
-  .card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
-  .badge{display:inline-block;font-size:0.75rem;font-weight:600;padding:4px 8px;border-radius:6px;margin-bottom:4px}
-  .card-title{font-weight:700;font-size:1.1rem;line-height:1.4}
-  .card-desc{color:var(--muted);font-size:0.9rem;line-height:1.4;flex-grow:1}
-  .price{font-weight:700;color:#111827;font-size:0.95rem;margin-top:2px}
-  .btn{align-self:flex-start;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;font-size:0.9rem;color:#fff;transition:.2s}
-  .btn:hover{opacity:.9}
-
-  /* Restposten Superstar Style */
-  .restposten{
-    grid-column: span 2;
-    transform:scale(1.05);
-    border:2px solid #e11d48 !important;
-    box-shadow:0 0 25px rgba(225,29,72,.4) !important;
-  }
-  @media(max-width:700px){
-    .restposten{grid-column:span 1;transform:scale(1.02);}
-  }
-
-  /* Footer */
-  footer{background:var(--footer-bg);color:#d1d5db;padding:28px 20px;margin-top:40px}
-  .foot-wrap{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
-  .foot-links{display:flex;gap:16px}
-  .foot-links a{color:#d1d5db;text-decoration:none;font-size:0.9rem}
-  .foot-links a:hover{color:#fff}
-  .copy{font-size:0.85rem;color:#9ca3af}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lieferautomat.de – Restposten</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#f9fafb;color:#111827;margin:0}
+    header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
+    header h1{margin:0;font-size:1.5rem;font-weight:700;color:#e11d48}
+    .container{max-width:900px;margin:0 auto;padding:24px}
+    h2{font-size:1.3rem;margin:20px 0 10px}
+    p{line-height:1.6;margin:8px 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:20px 0}
+    .card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .card h3{margin:0 0 10px;font-size:1.2rem;color:#e11d48}
+    .btn{display:inline-block;margin-top:12px;padding:10px 16px;background:#e11d48;color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
+    .btn:hover{opacity:.9}
+    footer{background:#1f2937;color:#d1d5db;padding:24px;text-align:center;margin-top:40px}
+    footer a{color:#d1d5db;text-decoration:none;margin:0 8px}
+    footer a:hover{color:#fff}
+    .highlight{background:#fff3f4;border-left:4px solid #e11d48;padding:12px 16px;margin:16px 0;border-radius:8px}
+  </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKS5G4C7"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<!-- Header -->
+
 <header>
-  <div class="head-wrap">
-    <div class="logo">Lieferautomat.de</div>
-    <div class="search-bar">
-      <input type="text" id="search" placeholder="Produkte & Angebote durchsuchen...">
-    </div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Kategorien</a>
-      <a href="#">Kontakt</a>
-    </div>
-  </div>
+  <h1>🔥 Restposten-Angebote bei Lieferautomat.de</h1>
 </header>
 
-<!-- Tabs -->
-<nav>
-  <div id="tabs" class="tabs"></div>
-</nav>
-
-<!-- Content -->
 <main class="container">
-  <section id="grid" class="grid"></section>
+
+  <section>
+    <h2>Was sind Restposten?</h2>
+    <p>Restposten sind Warenüberschüsse, Sonderproduktionen oder Auslaufartikel, die wir in begrenzter Menge besonders günstig anbieten. 
+    Für dich bedeutet das: <strong>Top-Qualität zum kleinen Preis</strong> – aber nur solange der Vorrat reicht.</p>
+  </section>
+
+  <section>
+    <h2>Warum so günstig?</h2>
+    <p>Wir geben diese Artikel direkt aus dem Lager weiter. Das spart Kosten für Zwischenhändler und ermöglicht dir 
+    <strong>bis zu 70 % Preisvorteil</strong> gegenüber dem normalen Marktpreis.</p>
+  </section>
+
+  <section class="highlight">
+    <strong>Hinweis:</strong> Restposten sind oft Einzelstücke oder begrenzte Chargen. 
+    Nachverkauf oder Nachbestellung ist <u>nicht möglich</u>. Wer zuerst kauft, sichert sich den Deal!
+  </section>
+
+  <section>
+    <h2>Ablauf der Bestellung</h2>
+    <ol>
+      <li>Restposten-Angebot auswählen</li>
+      <li>Mit Klick auf „Jetzt sichern“ direkt bestellen</li>
+      <li>Bezahlung bequem über PayPal oder Überweisung</li>
+      <li>Schnelle Lieferung direkt aus unserem Lager</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Unsere aktuellen Restposten</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Restposten Paket 100g ⭐</h3>
+        <p>Überraschungsware zum kleinen Preis – ideal zum Testen.</p>
+        <p><strong>Preis: 15 €</strong></p>
+        <a class="btn" href="https://www.paypal.com/ncp/payment/K8TXGZBGB7G78" target="_blank" rel="noopener">Jetzt sichern</a>
+      </div>
+  </section>
+
+  <section>
+    <h2>Risiken & Hinweise</h2>
+    <p>Wir möchten offen und ehrlich sein:</p>
+    <ul>
+      <li>🔹 Restposten sind <strong>nicht nachbestellbar</strong></li>
+      <li>🔹 Es kann sich um <strong>gemischte Ware</strong> handeln</li>
+      <li>🔹 Keine Garantie auf zukünftige Verfügbarkeit</li>
+    </ul>
+    <p>Dafür profitierst du von echten <strong>Schnäppchenpreisen</strong> und sofortiger Lieferung.</p>
+  </section>
+
 </main>
 
-<!-- Footer -->
 <footer>
-  <div class="foot-wrap">
-    <div class="foot-links">
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
-      <a href="#">Kontakt</a>
-    </div>
-    <div class="copy">© 2025 Affiliate Portal – Alle Rechte vorbehalten.<br>
-      <small>Hinweis: Einige Links sind Affiliate-Links. Dir entstehen keine Mehrkosten.</small>
-    </div>
-  </div>
+  <p>
+    <a href="impressum.html">Impressum</a> | 
+    <a href="datenschutz.html">Datenschutz</a> | 
+    <a href="#">Kontakt</a>
+  </p>
+  <p style="margin-top:8px">© 2025 Lieferautomat.de – Alle Rechte vorbehalten.</p>
 </footer>
 
-<script>
-// === Kategorien mit Farben ===
-const CATEGORY_COLORS = {
-  "Empfehlungen":"#2563eb",       // Blau
-  "Technik":"#9333ea",            // Violett
-  "Haushalt & Services":"#10b981",// Grün
-  "Angebote & Deals":"#f59e0b"    // Orange
-};
-
-// === Produktliste ===
-const PRODUCTS = [
-  { id:"p1", cat:"Empfehlungen", title:"Amazon Bestseller", desc:"Top bewertete Produkte direkt von Amazon.", url:"https://amzn.to/4mHElLl", price:"19,99 €" },
-  { id:"p2", cat:"Empfehlungen", title:"Amazon Angebote", desc:"Täglich neue Rabatte & Aktionen bei Amazon entdecken.", url:"https://amzn.to/4na8kvc" },
-  { id:"p3", cat:"Technik", title:"IT-Unterstützung", desc:"Professionelle Hilfe bei Netzwerken & IT-Sicherheit & Website.", url:"https://www.veyfkon.de", price:"ab 49 €" },
-  { id:"p4", cat:"Haushalt & Services", title:"Catering für Events", desc:"Lahmacun Express liefert frisch & zuverlässig.", url:"https://www.lahmacunexpress.de" },
-  { id:"p5", cat:"Haushalt & Services", title:"Entrümpelung leicht gemacht", desc:"Schnelle und professionelle Entrümpelung von Wohnungen & Häusern.", url:"wohnung.html", price:"ab 99 €" },
-  { id:"p6", cat:"Angebote & Deals", title:"Restposten Paket 100g", desc:"Überraschungsware zum kleinen Preis. ⭐", url:"https://www.paypal.com/ncp/payment/K8TXGZBGB7G78", price:"15 €" },
-  { id:"p7", cat:"Technik", title:"Webseite selber erstellen", desc:"Domain, Hosting & E-Mail-Lösungen für Privat & Business – zuverlässig, schnell und sicher.", url:"https://www.checkdomain.de/?pid=dce65367" },
-];
-
-// === State ===
-let activeCat = "Alle";
-let searchTerm = "";
-const tabsEl = document.getElementById("tabs");
-const gridEl = document.getElementById("grid");
-const searchInput = document.getElementById("search");
-
-// === Tabs generieren ===
-function renderTabs(){
-  const cats = ["Alle", ...Object.keys(CATEGORY_COLORS)];
-  tabsEl.innerHTML = "";
-  cats.forEach(cat=>{
-    const btn = document.createElement("button");
-    btn.textContent = cat;
-    btn.className = "tab" + (cat===activeCat?" active":"");
-    if(cat !== "Alle"){
-      btn.style.borderColor = CATEGORY_COLORS[cat];
-      if(cat===activeCat) btn.style.background = CATEGORY_COLORS[cat];
-    }
-    btn.onclick = ()=>{ activeCat = cat; renderTabs(); renderGrid(); };
-    tabsEl.appendChild(btn);
-  });
-}
-
-// === Grid generieren ===
-function renderGrid(){
-  // Restposten nach oben sortieren
-  const items = PRODUCTS
-    .filter(p=>
-      (activeCat==="Alle" || p.cat===activeCat) &&
-      (p.title.toLowerCase().includes(searchTerm.toLowerCase()) || p.desc.toLowerCase().includes(searchTerm.toLowerCase()))
-    )
-    .sort((a,b)=>{
-      if(a.title.toLowerCase().includes("restposten")) return -1;
-      if(b.title.toLowerCase().includes("restposten")) return 1;
-      return 0;
-    });
-
-  gridEl.innerHTML = "";
-  if(items.length === 0){
-    gridEl.innerHTML = `<p style="grid-column:1/-1;color:#6b7280">Keine Ergebnisse gefunden.</p>`;
-    return;
-  }
-
-  items.forEach(p=>{
-    const isRestposten = p.title.toLowerCase().includes("restposten");
-    const color = isRestposten ? "#e11d48" : (CATEGORY_COLORS[p.cat] || "#2563eb");
-    const card = document.createElement("div");
-    card.className = "card" + (isRestposten ? " restposten" : "");
-    card.innerHTML = `
-      <div class="badge" style="background:${color}20;color:${color}">${p.cat}</div>
-      <div class="card-title">${p.title}</div>
-      <div class="card-desc">${p.desc}</div>
-      ${p.price ? `<div class="price">${p.price}</div>` : ""}
-      <a class="btn" style="background:${color}" href="${p.url}" target="_blank" rel="noopener nofollow sponsored">${isRestposten ? "Jetzt sichern" : "Mehr erfahren"}</a>
-    `;
-    gridEl.appendChild(card);
-  });
-}
-
-// === Suche ===
-searchInput.addEventListener("input", e=>{
-  searchTerm = e.target.value;
-  renderGrid();
-});
-
-// === Init ===
-renderTabs();
-renderGrid();
-</script>
 </body>
 </html>
