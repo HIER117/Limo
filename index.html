@@ -1,94 +1,407 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lieferautomat.de – Restposten</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#f9fafb;color:#111827;margin:0}
-    header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
-    header h1{margin:0;font-size:1.5rem;font-weight:700;color:#e11d48}
-    .container{max-width:900px;margin:0 auto;padding:24px}
-    h2{font-size:1.3rem;margin:20px 0 10px}
-    p{line-height:1.6;margin:8px 0}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin:20px 0}
-    .card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
-    .card h3{margin:0 0 10px;font-size:1.2rem;color:#e11d48}
-    .btn{display:inline-block;margin-top:12px;padding:10px 16px;background:#e11d48;color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
-    .btn:hover{opacity:.9}
-    footer{background:#1f2937;color:#d1d5db;padding:24px;text-align:center;margin-top:40px}
-    footer a{color:#d1d5db;text-decoration:none;margin:0 8px}
-    footer a:hover{color:#fff}
-    .highlight{background:#fff3f4;border-left:4px solid #e11d48;padding:12px 16px;margin:16px 0;border-radius:8px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>lieferautomat — Master (kombiniert)</title>
+<style>
+:root{
+  --bg:#f6f7f9;
+  --card:#fff;
+  --muted:#667085;
+  --accent:#ff9900;
+  --accent-2:#0b63a5;
+  --radius:12px;
+  --shadow:0 8px 24px rgba(12,20,40,0.06);
+  --maxw:1100px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#0b1720}
+.container{max-width:var(--maxw);margin:18px auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+
+/* header */
+.header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.title h1{margin:0;font-size:18px}
+.title p{margin:0;color:var(--muted);font-size:13px}
+
+/* controls */
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search{display:flex;gap:8px;align-items:center}
+.search input{padding:10px 12px;border-radius:10px;border:1px solid #e6eef6;background:#fff;min-width:220px}
+.search button{padding:10px 12px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-weight:700}
+.select{padding:8px;border-radius:10px;border:1px solid #e6eef6;background:#fff}
+
+/* top chips (reduced, simple) */
+.top-strip{display:flex;gap:10px;overflow:auto;padding:10px 0}
+.chip{flex:0 0 auto;background:var(--card);border-radius:10px;padding:8px 10px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;cursor:pointer;min-width:150px}
+.chip img{width:72px;height:56px;object-fit:cover;border-radius:8px}
+.chip .t{font-weight:700;font-size:13px}
+.chip .s{font-size:12px;color:var(--muted)}
+
+/* main layout */
+.main{display:flex;gap:14px}
+.left{flex:1;min-width:320px}
+.right{width:340px;min-width:260px;display:flex;flex-direction:column;gap:12px}
+
+/* shorts cards - lean version */
+.shorts{display:flex;flex-direction:column;gap:14px;overflow:auto;padding-bottom:8px}
+.card{width:96%;max-width:680px;height:66vh;border-radius:14px;background:var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .28s}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.meta{position:relative;z-index:2;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 70%)}
+.meta h3{margin:0;font-size:20px}
+.meta .sub{margin-top:6px;color:var(--muted);font-size:13px}
+.cta{display:inline-block;margin-top:10px;background:var(--accent);color:#fff;padding:9px 14px;border-radius:10px;text-decoration:none;font-weight:800}
+
+/* small thumbnail row */
+.small-row{display:flex;gap:10px;overflow:auto;padding:8px 0}
+
+/* right: sidebar boxes */
+.box{background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow)}
+.bf{background:linear-gradient(180deg,#fff7f0,#fffdfa);padding:12px;border-radius:12px;box-shadow:var(--shadow)}
+.bf .tag{display:inline-block;background:#ffe6cc;color:#6b2b00;padding:6px 10px;border-radius:999px;font-weight:800}
+
+/* news */
+.news-list{display:flex;flex-direction:column;gap:10px;max-height:44vh;overflow:auto;padding-right:6px}
+.news-item{display:flex;gap:10px;align-items:flex-start}
+.news-item img{width:84px;height:60px;object-fit:cover;border-radius:8px}
+.news-item a{font-weight:700;color:var(--accent-2);text-decoration:none}
+.news-item a:hover{text-decoration:underline}
+
+/* trends */
+.trend-list{display:flex;flex-direction:column;gap:8px}
+.trend-item{display:flex;gap:8px;align-items:center}
+.trend-item img{width:68px;height:48px;object-fit:cover;border-radius:8px}
+.trend-item a{font-weight:700;color:var(--accent);text-decoration:none}
+
+/* restposten */
+.rest{background:#fff7f7;padding:10px;border-radius:10px;border:1px solid #ffdede}
+.rest a{color:#b33;font-weight:700;text-decoration:none}
+
+/* banners */
+.banner-wrap{overflow:hidden;border-radius:10px}
+.banner-track{display:flex;transition:transform .5s ease}
+.banner-track img{width:100%;flex:0 0 100%;object-fit:cover}
+
+/* footer */
+.footer{font-size:13px;color:var(--muted);text-align:center;padding:8px}
+
+/* responsive */
+@media (max-width:980px){
+  .main{flex-direction:column}
+  .right{width:100%}
+  .card{height:58vh}
+}
+</style>
 </head>
 <body>
+<div class="container">
 
-<header>
-  <h1>🔥 Restposten-Angebote bei Lieferautomat.de</h1>
-</header>
-
-<main class="container">
-
-  <section>
-    <h2>Was sind Restposten?</h2>
-    <p>Restposten sind Warenüberschüsse, Sonderproduktionen oder Auslaufartikel, die wir in begrenzter Menge besonders günstig anbieten. 
-    Für dich bedeutet das: <strong>Top-Qualität zum kleinen Preis</strong> – aber nur solange der Vorrat reicht.</p>
-  </section>
-
-  <section>
-    <h2>Warum so günstig?</h2>
-    <p>Wir geben diese Artikel direkt aus dem Lager weiter. Das spart Kosten für Zwischenhändler und ermöglicht dir 
-    <strong>bis zu 70 % Preisvorteil</strong> gegenüber dem normalen Marktpreis.</p>
-  </section>
-
-  <section class="highlight">
-    <strong>Hinweis:</strong> Restposten sind oft Einzelstücke oder begrenzte Chargen. 
-    Nachverkauf oder Nachbestellung ist <u>nicht möglich</u>. Wer zuerst kauft, sichert sich den Deal!
-  </section>
-
-  <section>
-    <h2>Ablauf der Bestellung</h2>
-    <ol>
-      <li>Restposten-Angebot auswählen</li>
-      <li>Mit Klick auf „Jetzt sichern“ direkt bestellen</li>
-      <li>Bezahlung bequem über PayPal oder Überweisung</li>
-      <li>Schnelle Lieferung direkt aus unserem Lager</li>
-    </ol>
-  </section>
-
-  <section>
-    <h2>Unsere aktuellen Restposten</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Restposten Paket 100g ⭐</h3>
-        <p>Überraschungsware zum kleinen Preis – ideal zum Testen.</p>
-        <p><strong>Preis: 15 €</strong></p>
-        <a class="btn" href="https://www.paypal.com/ncp/payment/K8TXGZBGB7G78" target="_blank" rel="noopener">Jetzt sichern</a>
+  <!-- header -->
+  <div class="header">
+    <div class="brand">
+      <div class="logo">LF</div>
+      <div class="title">
+        <h1>lieferautomat.de</h1>
+        <p>Portal · Deals · News</p>
       </div>
-  </section>
+    </div>
 
-  <section>
-    <h2>Risiken & Hinweise</h2>
-    <p>Wir möchten offen und ehrlich sein:</p>
-    <ul>
-      <li>🔹 Restposten sind <strong>nicht nachbestellbar</strong></li>
-      <li>🔹 Es kann sich um <strong>gemischte Ware</strong> handeln</li>
-      <li>🔹 Keine Garantie auf zukünftige Verfügbarkeit</li>
-    </ul>
-    <p>Dafür profitierst du von echten <strong>Schnäppchenpreisen</strong> und sofortiger Lieferung.</p>
-  </section>
+    <div class="controls">
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Suchbegriff (Enter → Amazon)" />
+        <button id="searchBtn">Suchen</button>
+      </div>
+      <select id="catSelect" class="select">
+        <option value="all">Alle Kategorien</option>
+        <option value="Amazon Fashion">Amazon Fashion</option>
+        <option value="Amazon Haul">Amazon Haul</option>
+        <option value="Uhren">Uhren</option>
+        <option value="Haushalt">Haushalt & Kosmetik</option>
+        <option value="Schmuck">Schmuck</option>
+        <option value="Elektronik">Elektronik & Smartphones</option>
+      </select>
+    </div>
+  </div>
 
-</main>
+  <!-- top chips -->
+  <div id="topStrip" class="top-strip"></div>
 
-<footer>
-  <p>
-    <a href="impressum.html">Impressum</a> | 
-    <a href="datenschutz.html">Datenschutz</a> | 
-    <a href="#">Kontakt</a>
-  </p>
-  <p style="margin-top:8px">© 2025 Lieferautomat.de – Alle Rechte vorbehalten.</p>
-</footer>
+  <!-- main -->
+  <div class="main">
+    <div class="left">
+      <div id="shorts" class="shorts" tabindex="0"></div>
+      <div id="smallRow" class="small-row"></div>
+    </div>
 
+    <div class="right">
+      <div class="box bf">
+        <div class="tag">BLACK FRIDAY 50%</div>
+        <h3 style="margin:8px 0 6px 0">Blitz-Deals</h3>
+        <p style="margin:0;color:var(--muted)">Direkt zu Amazon (Tag: <strong>veyfkon-21</strong>).</p>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <a id="bf1" href="#" target="_blank" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Top-TVs</a>
+          <a id="bf2" href="#" target="_blank" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Smartphones</a>
+          <a id="bf3" href="#" target="_blank" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Kopfhörer</a>
+        </div>
+      </div>
+
+      <div class="box">
+        <h4 style="margin:0 0 10px 0">Trends</h4>
+        <div id="trends" class="trend-list"></div>
+        <div class="rest" style="margin-top:10px">
+          <div style="font-size:13px;color:var(--muted)">Restposten</div>
+          <a href="https://www.paypal.com/ncp/payment/K8TXGZBGB7G78" target="_blank">Restposten (reduziert) →</a>
+          <a href="https://www.amazon.de/s?k=warehouse+deals&tag=veyfkon-21" target="_blank">Amazon Warehouse →</a>
+        </div>
+      </div>
+
+      <div class="box">
+        <h4 style="margin:0 0 10px 0">Live News</h4>
+        <div id="news" class="news-list">Lade News…</div>
+      </div>
+
+      <div class="box">
+        <h4 style="margin:0 0 10px 0">Partner Werbung</h4>
+        <div class="banner-wrap">
+          <div id="bannerTrack" class="banner-track">
+            <img src="lieferando.png" alt="Lieferando" />
+            <img src="uber.png" alt="Uber Eats" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">© lieferautomat.de — Merk dir die Seite: Strg/Cmd + D</div>
+</div>
+
+<script>
+/* ---------- config ---------- */
+const PARTNER = "veyfkon-21";
+const NEWS_FEEDS = ["https://www.tagesschau.de/xml/rss2/","https://www.heise.de/newsticker/heise-atom.xml"];
+
+/* TOP CHIPS (simpler) */
+const TOP_CHIPS = [
+  {title:"Fashion", img:"jacke.png", url:`https://amzn.to/4nr3o5o`},
+  {title:"Elektronik", img:"elektro.png", url:`https://amzn.to/4pNP9sY`},
+  {title:"Haushalt", img:"haushalt.png", url:`https://amzn.to/4o0gXcc`},
+  {title:"Amazon beute", img:"haul.png", url:`https://amzn.to/42k3QtU`},
+  {title:"Uhren", img:"uhren.png", url:`https://amzn.to/46HKWyq`},
+  {title:"Mode", img:"mode.png", url:`https://amzn.to/4pN7gPV`},
+  {title:"Baumarkt", img:"baumarkt.png", url:`https://amzn.to/42dC9TC`},
+  {title:"Schmuck", img:"schmuck.png", url:`https://amzn.to/471xZkj`},
+  {title:"Sport", img:"sport.png", url:`https://amzn.to/4nWd3Rs`},
+];
+
+/* TRENDS (sidebar) */
+const TRENDS = [
+  {title:"Echo Dot (5. Gen)", img:"https://m.media-amazon.com/images/I/71j8damPo5L._AC_UL320_.jpg", url:`https://www.amazon.de/s?k=echo+dot&tag=${PARTNER}`},
+  {title:"PS5 Bundles", img:"https://m.media-amazon.com/images/I/81aot0jAfFL._AC_UL320_.jpg", url:`https://www.amazon.de/s?k=PlayStation+5&tag=${PARTNER}`},
+  {title:"AirPods", img:"airpods.png", url:`https://www.amazon.de/s?k=airpods&tag=${PARTNER}`}
+];
+
+/* SAMPLE DEALS (15 übersichtlichere Items) */
+const SAMPLE_DEALS = [
+  {id:"d1",title:"Wildleder Jacke",img:"wildlederjacke1.png",category:"amazon fashion",link:`https://amzn.to/3WglpYe`},];
+
+/* ---------- refs ---------- */
+const topStrip = document.getElementById('topStrip');
+const shorts = document.getElementById('shorts');
+const smallRow = document.getElementById('smallRow');
+const news = document.getElementById('news');
+const trendsBox = document.getElementById('trends');
+const catSelect = document.getElementById('catSelect');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const bannerTrack = document.getElementById('bannerTrack');
+const bf1 = document.getElementById('bf1'), bf2 = document.getElementById('bf2'), bf3 = document.getElementById('bf3');
+
+/* helpers */
+function tagUrl(u){ try{ const U=new URL(u); if(!U.searchParams.get('tag')) U.searchParams.set('tag', PARTNER); return U.toString(); }catch(e){ return u + (u.includes('?')? '&':'?') + 'tag='+PARTNER }}
+function el(t){ return document.createElement(t) }
+
+/* render top chips */
+function renderTopStrip(){
+  topStrip.innerHTML='';
+  TOP_CHIPS.forEach(c=>{
+    const ch = el('div'); ch.className='chip';
+    ch.innerHTML = `<img src="${c.img}" alt=""><div><div class="t">${c.title}</div><div class="s">Top Deals</div></div>`;
+    ch.addEventListener('click', ()=> window.open(c.url,'_blank'));
+    topStrip.appendChild(ch);
+  });
+}
+
+/* make card */
+function makeCard(item){
+  const card = el('div'); card.className='card';
+  card.dataset.id = item.id || item.title;
+  if(item.category) card.dataset.category = item.category;
+  const expiry = new Date(Date.now() + (8 + Math.floor(Math.random()*40))*60*1000);
+  card.dataset.expiry = expiry.toISOString();
+  const a = el('a'); a.href = tagUrl(item.link); a.target='_blank'; a.rel='noopener';
+  const img = el('img'); img.src = item.img; img.alt = item.title;
+  const meta = el('div'); meta.className='meta';
+  const h = el('h3'); h.textContent = item.title;
+  const sub = el('div'); sub.className='sub'; sub.textContent = item.category || '';
+  const cta = el('a'); cta.className='cta'; cta.href = tagUrl(item.link); cta.target='_blank'; cta.textContent = 'Zum Deal';
+  meta.appendChild(h); meta.appendChild(sub); meta.appendChild(cta);
+  a.appendChild(img); a.appendChild(meta);
+  card.appendChild(a);
+  return card;
+}
+
+/* load left feed & small row */
+function loadShorts(){
+  shorts.innerHTML=''; smallRow.innerHTML='';
+  SAMPLE_DEALS.forEach(d => shorts.appendChild(makeCard(d)));
+  SAMPLE_DEALS.forEach(d=>{
+    const s = el('div'); s.style.minWidth='120px'; s.style.flex='0 0 auto';
+    s.innerHTML = `<a href="${tagUrl(d.link)}" target="_blank" style="text-decoration:none;color:inherit"><img src="${d.img}" style="width:120px;height:80px;object-fit:cover;border-radius:8px"><div style="font-size:13px;margin-top:6px">${d.title}</div></a>`;
+    smallRow.appendChild(s);
+  });
+}
+
+/* swipe / keyboard */
+let cardIndex = 0;
+function focusCard(i){
+  const cards = Array.from(document.querySelectorAll('.card'));
+  if(!cards.length) return;
+  cardIndex = Math.max(0, Math.min(i, cards.length-1));
+  cards[cardIndex].scrollIntoView({behavior:'smooth',block:'center'});
+  cards[cardIndex].classList.add('pulse');
+  setTimeout(()=>cards[cardIndex]?.classList.remove('pulse'),600);
+}
+document.addEventListener('keydown',(e)=>{ if(e.key==='ArrowDown') focusCard(cardIndex+1); if(e.key==='ArrowUp') focusCard(cardIndex-1); });
+
+/* touch swipe fast */
+let tStart = null; const SW=30;
+shorts.addEventListener('touchstart',e=> tStart = e.touches[0].clientY);
+shorts.addEventListener('touchend',e=>{
+  if(tStart===null) return;
+  const delta = e.changedTouches[0].clientY - tStart;
+  if(delta < -SW) focusCard(cardIndex+1);
+  if(delta > SW) focusCard(cardIndex-1);
+  tStart = null;
+});
+
+/* update/remove expired cards */
+function tick(){
+  const now = Date.now();
+  document.querySelectorAll('.card').forEach(c=>{
+    const exp = new Date(c.dataset.expiry).getTime();
+    if(exp <= now) c.remove();
+  });
+}
+
+/* live rotation gentle */
+function liveRotation(){
+  if(Math.random() < 0.45){
+    const pick = SAMPLE_DEALS[Math.floor(Math.random()*SAMPLE_DEALS.length)];
+    if(!document.querySelector(`[data-id="${CSS.escape(pick.id)}"]`)) shorts.appendChild(makeCard(pick));
+  }
+}
+
+/* load news (only items that include an image) */
+async function loadNews(){
+  news.innerHTML = 'Lade News…';
+  const collected = [];
+  for(const feed of NEWS_FEEDS){
+    try{
+      const proxy = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed);
+      const res = await fetch(proxy);
+      if(!res.ok) continue;
+      const text = await res.text();
+      const xml = new DOMParser().parseFromString(text,'application/xml');
+      const items = Array.from(xml.querySelectorAll('item, entry'));
+      for(const it of items){
+        const title = it.querySelector('title')?.textContent?.trim() || '';
+        let link = '';
+        const lnode = it.querySelector('link');
+        if(lnode) link = lnode.getAttribute('href') || lnode.textContent || '';
+        let img = null;
+        const media = it.querySelector('media\\:content, enclosure, media\\:thumbnail');
+        if(media) img = media.getAttribute('url') || media.getAttribute('href') || null;
+        if(!img){
+          const imgTag = it.querySelector('image')?.textContent || null;
+          if(imgTag) img = imgTag;
+        }
+        if(!img){
+          const encoded = it.querySelector('content\\:encoded, encoded')?.textContent || '';
+          const m = encoded && encoded.match(/<img[^>]*src=["']([^"']+)["']/i);
+          if(m) img = m[1];
+        }
+        if(img && title && link) collected.push({title,link,img});
+        if(collected.length >= 8) break;
+      }
+    }catch(e){ console.warn('feed error',feed,e) }
+    if(collected.length >= 8) break;
+  }
+  news.innerHTML = '';
+  if(collected.length === 0){ news.textContent = 'Keine News mit Bildern gefunden.'; return; }
+  collected.slice(0,8).forEach(item=>{
+    const n = el('div'); n.className = 'news-item';
+    n.innerHTML = `<img src="${item.img}" alt=""><div><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></div>`;
+    news.appendChild(n);
+  });
+}
+
+/* render trends */
+function renderTrends(){
+  trendsBox.innerHTML = '';
+  TRENDS.forEach(t=>{
+    const d = el('div'); d.className = 'trend-item';
+    d.innerHTML = `<img src="${t.img}" alt=""><div><a href="${t.url}" target="_blank" rel="noopener">${t.title}</a></div>`;
+    trendsBox.appendChild(d);
+  });
+}
+
+/* banner rotate */
+let bidx = 0;
+function rotateBanners(){
+  if(!bannerTrack) return;
+  bidx = (bidx + 1) % bannerTrack.children.length;
+  bannerTrack.style.transform = `translateX(-${bidx*100}%)`;
+}
+
+/* search & categories */
+function doSearch(q){ if(!q) return; window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=${PARTNER}`,'_blank') }
+document.getElementById('searchBtn').addEventListener('click', ()=> doSearch(searchInput.value.trim()));
+searchInput.addEventListener('keydown', e=>{ if(e.key==='Enter') doSearch(searchInput.value.trim()) });
+catSelect.addEventListener('change', ()=>{
+  const cat = catSelect.value;
+  if(cat === 'all') loadShorts();
+  else {
+    const filtered = SAMPLE_DEALS.filter(d => (d.category||'').toLowerCase().includes(cat.toLowerCase()));
+    shorts.innerHTML = '';
+    if(filtered.length) filtered.forEach(d => shorts.appendChild(makeCard(d)));
+    else { window.open(`https://www.amazon.de/s?k=${encodeURIComponent(cat)}&tag=${PARTNER}`,'_blank'); loadShorts(); }
+  }
+});
+
+/* bf links */
+function initBFLinks(){
+  bf1.href = tagUrl('https://www.amazon.de/s?k=tv');
+  bf2.href = tagUrl('https://www.amazon.de/s?k=smartphone');
+  bf3.href = tagUrl('https://www.amazon.de/s?k=kopfhörer');
+}
+
+/* init */
+function init(){
+  renderTopStrip();
+  loadShorts();
+  renderTrends();
+  initBFLinks();
+  loadNews();
+
+  setInterval(tick,1000);
+  setInterval(liveRotation,7000);
+  setInterval(rotateBanners,3600);
+  setInterval(loadNews,60*1000);
+}
+init();
+</script>
 </body>
 </html>
