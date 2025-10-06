@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="de">
 <head>
@@ -93,6 +92,13 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
 .banner-track a{width:100%;flex:0 0 100%;display:block}
 .banner-track img{width:100%;height:100%;object-fit:cover;display:block}
 
+/* newest list (under Partner Werbung) */
+.newest-box h4{margin:0 0 10px 0}
+.newest-list{display:flex;flex-direction:column;gap:8px;max-height:180px;overflow:auto}
+.newest-item{display:flex;gap:8px;align-items:center}
+.newest-item img{width:64px;height:48px;object-fit:cover;border-radius:8px}
+.newest-item a{font-weight:700;color:var(--accent-2);text-decoration:none}
+
 /* partner box (Amazon PartnerNet Hinweis) */
 .partner-box{background:linear-gradient(180deg,#fffaf0,#fff);padding:12px;border-radius:12px;box-shadow:var(--shadow);border:1px solid #fde7c8}
 .partner-box h4{margin:0 0 8px 0}
@@ -159,16 +165,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="right">
 
-      <!-- AMAZON PARTNERNET HINWEIS (eingefügt) -->
-      <div class="box partner-box" aria-label="Amazon PartnerNet Hinweis">
-        <h4>Partner werden — Amazon PartnerNet</h4>
-        <p>Als Amazon-Partner (PartnerNet / Associates) kannst du für Verkäufe über deine Affiliate-Links Provisionen verdienen. Kostenlos anmelden und eigene Partnerlinks erstellen.</p>
-        <div class="partner-actions">
-          <a class="primary" href="https://partnernet.amazon.de/" target="_blank" rel="noopener">Partner werden</a>
-          <a class="secondary" href="https://partnernet.amazon.de/" target="_blank" rel="noopener">Mehr Infos</a>
-        </div>
-      </div>
-
       <div class="box bf">
         <div class="tag">BLACK FRIDAY 50%</div>
         <h3 style="margin:8px 0 6px 0">Blitz-Deals</h3>
@@ -210,6 +206,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
+      <!-- NEUESTE ARTIKEL (immer unter Partner Werbung) -->
+      <div class="box newest-box" aria-label="Neueste Deals">
+        <h4>Neueste</h4>
+        <div id="newestList" class="newest-list">
+          <!-- dynamisch befüllt -->
+        </div>
+      </div>
+
+      <!-- AMAZON PARTNERNET HINWEIS (ganz unten) -->
+      <div class="box partner-box" aria-label="Amazon PartnerNet Hinweis">
+        <h4>Partner werden — Amazon PartnerNet</h4>
+        <p>Als Amazon-Partner (PartnerNet / Associates) kannst du für Verkäufe über deine Affiliate-Links Provisionen verdienen. Kostenlos anmelden und eigene Partnerlinks erstellen.</p>
+        <div class="partner-actions">
+          <a class="primary" href="https://partnernet.amazon.de/" target="_blank" rel="noopener">Partner werden</a>
+          <a class="secondary" href="https://partnernet.amazon.de/" target="_blank" rel="noopener">Mehr Infos</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -241,12 +255,13 @@ const TRENDS = [
   {title:"AirPods", img:"bild/airpods.png", url:`https://www.amazon.de/s?k=airpods&tag=${PARTNER}`}
 ];
 
-/* SAMPLE DEALS (15 übersichtlichere Items) */
+/* SAMPLE DEALS (initial) */
 const SAMPLE_DEALS = [
   {id:"d3",title:"Feuerwehr Set",img:"bild/Feuerwehr.png",category:"Amazon Fashion",link:`https://amzn.to/46CiMGq`},
   {id:"d2",title:"professioneller Haarschneider Trimmer Set",img:"bild/Haare.png",category:"Elektronik",link:`https://amzn.to/4nz3hoF`},
   {id:"d5",title:"Indoor Sauna",img:"bild/sauna.png",category:"haushalt",link:`https://amzn.to/3WglpYe`},
-  {id:"d1",title:"Wildleder Jacke",img:"bild/wildlederjacke1.png",category:"amazon fashion",link:`https://amzn.to/3WglpYe`},];
+  {id:"d1",title:"Wildleder Jacke",img:"bild/wildlederjacke1.png",category:"amazon fashion",link:`https://amzn.to/3WglpYe`},
+];
 
 /* ---------- refs ---------- */
 const topStrip = document.getElementById('topStrip');
@@ -259,10 +274,40 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const bannerTrack = document.getElementById('bannerTrack');
 const bf1 = document.getElementById('bf1'), bf2 = document.getElementById('bf2'), bf3 = document.getElementById('bf3');
+const newestListEl = document.getElementById('newestList');
+
+/* RECENT buffer (für Neueste) */
+let RECENT = [];
 
 /* helpers */
 function tagUrl(u){ try{ const U=new URL(u); if(!U.searchParams.get('tag')) U.searchParams.set('tag', PARTNER); return U.toString(); }catch(e){ return u + (u.includes('?')? '&':'?') + 'tag='+PARTNER }}
 function el(t){ return document.createElement(t) }
+
+/* RECENT helper: neue Items vorn einfügen, Duplikate vermeiden, Länge limitieren */
+function addRecent(item){
+  if(!item) return;
+  const id = item.id || item.link || item.title;
+  RECENT = RECENT.filter(i => (i.id || i.link || i.title) !== id); // vorherige entfernen
+  RECENT.unshift(item);
+  if(RECENT.length > 8) RECENT.pop();
+  renderNewest();
+}
+
+/* render newest box */
+function renderNewest(){
+  if(!newestListEl) return;
+  newestListEl.innerHTML = '';
+  if(RECENT.length === 0){
+    newestListEl.innerHTML = '<div style="color:var(--muted)">Keine Einträge.</div>';
+    return;
+  }
+  RECENT.forEach(item=>{
+    const n = el('div'); n.className = 'newest-item';
+    n.innerHTML = `<a href="${tagUrl(item.link || '#')}" target="_blank" rel="noopener"><img src="${item.img}" alt="${item.title}"></a>
+                   <div><a href="${tagUrl(item.link || '#')}" target="_blank" rel="noopener">${item.title}</a><div style="font-size:12px;color:var(--muted)">${item.category || ''}</div></div>`;
+    newestListEl.appendChild(n);
+  });
+}
 
 /* render top chips */
 function renderTopStrip(){
@@ -275,7 +320,7 @@ function renderTopStrip(){
   });
 }
 
-/* make card */
+/* make card - ruft addRecent auf, damit Neueste immer aktuell bleibt */
 function makeCard(item){
   const card = el('div'); card.className='card';
   card.dataset.id = item.id || item.title;
@@ -291,6 +336,10 @@ function makeCard(item){
   meta.appendChild(h); meta.appendChild(sub); meta.appendChild(cta);
   a.appendChild(img); a.appendChild(meta);
   card.appendChild(a);
+
+  // Neueste aktualisieren (einmal pro erzeugtem Card-Item)
+  addRecent(item);
+
   return card;
 }
 
@@ -337,11 +386,14 @@ function tick(){
   });
 }
 
-/* live rotation gentle */
+/* live rotation gentle - wenn neue Karte eingefügt wird, aktualisiert makeCard automatisch RECENT */
 function liveRotation(){
   if(Math.random() < 0.45){
     const pick = SAMPLE_DEALS[Math.floor(Math.random()*SAMPLE_DEALS.length)];
-    if(!document.querySelector(`[data-id="${CSS.escape(pick.id)}"]`)) shorts.appendChild(makeCard(pick));
+    if(!document.querySelector(`[data-id="${CSS.escape(pick.id)}"]`)){
+      const card = makeCard(pick);
+      shorts.appendChild(card);
+    }
   }
 }
 
@@ -436,6 +488,7 @@ function init(){
   renderTrends();
   initBFLinks();
   loadNews();
+  renderNewest(); // initial render (wird durch addRecent beim makeCard gefüllt)
 
   setInterval(tick,1000);
   setInterval(liveRotation,7000);
