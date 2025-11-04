@@ -482,8 +482,8 @@ window.addEventListener('scroll', showBackToTop);
 backToTop.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
 logo.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-searchBtn.addEventListener('click', ()=> { const q = searchInput.value.trim(); if(!q) return; window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=${PARTNER}`,'_blank'); });
-searchInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ const q = searchInput.value.trim(); if(q) window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=${PARTNER}`,'_blank'); }});
+searchBtn.addEventListener('click', ()=> { const q = searchInput.value.trim(); if(!q) return; window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=$veyfkon-21`,'_blank'); });
+searchInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ const q = searchInput.value.trim(); if(q) window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=$veyfkon-21`,'_blank'); }});
 catSelect.addEventListener('change', ()=> {
   const cat = catSelect.value;
   if(cat === 'all') loadShorts();
@@ -546,5 +546,6 @@ if(document.readyState === 'loading') document.addEventListener('DOMContentLoade
 </script>
 </body>
 </html>
+
 
 
