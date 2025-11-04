@@ -1,224 +1,153 @@
-
 <!doctype html>
 <html lang="de">
 <head>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WKS5G4C7');</script>
-<!-- End Google Tag Manager -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>lieferautomat — Master (kombiniert)</title>
+<title>lieferautomat — Final (kombiniert) — Footer-Popup & stabile News</title>
 <style>
-:root{
-  --bg:#f6f7f9;
-  --card:#fff;
-  --muted:#667085;
-  --accent:#ff9900;
-  --accent-2:#0b63a5;
-  --radius:12px;
-  --shadow:0 8px 24px rgba(12,20,40,0.06);
-  --maxw:1100px;
-}
-*{box-sizing:border-box}
+:root{ --bg:#f6f7f9; --card:#fff; --muted:#667085; --accent:#ff9900; --accent-2:#0b63a5; --radius:12px; --shadow:0 8px 24px rgba(12,20,40,0.06); --maxw:1100px; }
+*{box-sizing:border-box} html{scroll-behavior:smooth}
 body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#0b1720}
-.container{max-width:var(--maxw);margin:18px auto;padding:14px;display:flex;flex-direction:column;gap:12px}
-
-/* header */
+.container{max-width:var(--maxw);margin:18px auto;padding:14px;display:flex;flex-direction:column;gap:12px;min-height:calc(100vh - 36px)}
 .header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px}
-.logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;cursor:pointer}
 .title h1{margin:0;font-size:18px}
 .title p{margin:0;color:var(--muted);font-size:13px}
-
-/* controls */
 .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .search{display:flex;gap:8px;align-items:center}
 .search input{padding:10px 12px;border-radius:10px;border:1px solid #e6eef6;background:#fff;min-width:220px}
 .search button{padding:10px 12px;border-radius:10px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-weight:700}
 .select{padding:8px;border-radius:10px;border:1px solid #e6eef6;background:#fff}
-
-/* top chips (reduced, simple) */
 .top-strip{display:flex;gap:10px;overflow:auto;padding:10px 0}
 .chip{flex:0 0 auto;background:var(--card);border-radius:10px;padding:8px 10px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;cursor:pointer;min-width:150px}
 .chip img{width:72px;height:56px;object-fit:cover;border-radius:8px}
+
+
 .chip .t{font-weight:700;font-size:13px}
 .chip .s{font-size:12px;color:var(--muted)}
-
-/* main layout */
 .main{display:flex;gap:14px}
 .left{flex:1;min-width:320px}
 .right{width:340px;min-width:260px;display:flex;flex-direction:column;gap:12px}
-
-/* shorts cards - lean version */
 .shorts{display:flex;flex-direction:column;gap:14px;overflow:auto;padding-bottom:8px}
-.card{width:96%;max-width:680px;height:66vh;border-radius:14px;background:var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .28s}
+.card{width:96%;max-width:680px;height:66vh;border-radius:14px;background:var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .28s,box-shadow .18s}
 .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .meta{position:relative;z-index:2;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.96) 70%)}
 .meta h3{margin:0;font-size:20px}
 .meta .sub{margin-top:6px;color:var(--muted);font-size:13px}
 .cta{display:inline-block;margin-top:10px;background:var(--accent);color:#fff;padding:9px 14px;border-radius:10px;text-decoration:none;font-weight:800}
-
-/* small thumbnail row */
 .small-row{display:flex;gap:10px;overflow:auto;padding:8px 0}
-
-/* right: sidebar boxes */
 .box{background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow)}
 .bf{background:linear-gradient(180deg,#fff7f0,#fffdfa);padding:12px;border-radius:12px;box-shadow:var(--shadow)}
 .bf .tag{display:inline-block;background:#ffe6cc;color:#6b2b00;padding:6px 10px;border-radius:999px;font-weight:800}
-
-/* news */
 .news-list{display:flex;flex-direction:column;gap:10px;max-height:44vh;overflow:auto;padding-right:6px}
 .news-item{display:flex;gap:10px;align-items:flex-start}
 .news-item img{width:84px;height:60px;object-fit:cover;border-radius:8px}
 .news-item a{font-weight:700;color:var(--accent-2);text-decoration:none}
-.news-item a:hover{text-decoration:underline}
-
-/* trends */
 .trend-list{display:flex;flex-direction:column;gap:8px}
 .trend-item{display:flex;gap:8px;align-items:center}
 .trend-item img{width:68px;height:48px;object-fit:cover;border-radius:8px}
-.trend-item a{font-weight:700;color:var(--accent);text-decoration:none}
-
-/* restposten */
 .rest{background:#fff7f7;padding:10px;border-radius:10px;border:1px solid #ffdede}
-.rest a{color:#b33;font-weight:700;text-decoration:none}
-
-/* banners */
 .banner-wrap{overflow:hidden;border-radius:10px}
 .banner-track{display:flex;transition:transform .5s ease}
 .banner-track a{width:100%;flex:0 0 100%;display:block}
 .banner-track img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* newest list (under Partner Werbung) */
-.newest-box h4{margin:0 0 10px 0}
 .newest-list{display:flex;flex-direction:column;gap:8px;max-height:180px;overflow:auto}
 .newest-item{display:flex;gap:8px;align-items:center}
 .newest-item img{width:64px;height:48px;object-fit:cover;border-radius:8px}
-.newest-item a{font-weight:700;color:var(--accent-2);text-decoration:none}
-
-/* partner box (Amazon PartnerNet Hinweis) */
 .partner-box{background:linear-gradient(180deg,#fffaf0,#fff);padding:12px;border-radius:12px;box-shadow:var(--shadow);border:1px solid #fde7c8}
-.partner-box h4{margin:0 0 8px 0}
-.partner-box p{margin:0;color:var(--muted);font-size:13px}
-.partner-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.partner-actions a{padding:8px 10px;border-radius:8px;text-decoration:none;font-weight:800}
-.partner-actions .primary{background:var(--accent);color:#fff}
-.partner-actions .secondary{background:#fff;border:1px solid #e6eef6;color:var(--accent-2)}
-
-/* footer */
-.footer{font-size:13px;color:var(--muted);text-align:center;padding:8px}
-
-/* responsive */
-@media (max-width:980px){
-  .main{flex-direction:column}
-  .right{width:100%}
-  .card{height:58vh}
-}
+.site-footer{background:#fff;padding:20px 14px;border-top:1px solid #eee;margin-top:18px;border-radius:10px}
+.footer-links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+.footer-links a{color:var(--accent-2);text-decoration:none;font-weight:700;cursor:pointer}
+.footer-note{font-size:13px;color:var(--muted);text-align:center;padding:8px}
+.back-to-top{position:fixed;right:18px;bottom:96px;background:var(--accent);color:#fff;border:none;padding:10px 12px;border-radius:999px;box-shadow:var(--shadow);cursor:pointer;display:none;z-index:1200}
+.popup{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:2000;padding:18px}
+.popup .panel{background:#fff;width:100%;max-width:980px;border-radius:10px;padding:18px;max-height:84vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.popup .close{float:right;background:#eee;border:none;padding:6px 8px;border-radius:8px;cursor:pointer}
+.small-muted{font-size:13px;color:var(--muted)}
+.btn{padding:8px 10px;border-radius:8px;border:none;cursor:pointer}
+@media (max-width:980px){ .main{flex-direction:column} .right{width:100%} .card{height:58vh} .back-to-top{right:12px;bottom:80px} .popup{padding:10px} .popup .panel{padding:12px} }
 </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKS5G4C7"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<div class="container">
-
-  <!-- header -->
-  <div class="header">
-    <div class="brand">
-      <div class="logo">LF</div>
-      <div class="title">
-        <h1>lieferautomat.de</h1>
-        <p>Portal · Deals · News</p>
+  <div class="container">
+    <!-- header -->
+    <div class="header">
+      <div class="brand">
+        <div id="logo" class="logo" title="Zur Startseite">LF</div>
+        <div class="title"><h1>lieferautomat.de</h1><p>Portal · Deals · News</p></div>
       </div>
-    </div>
 
-    <div class="controls">
-      <div class="search">
-        <input id="searchInput" type="search" placeholder="Suchbegriff (Enter → Amazon)" />
-        <button id="searchBtn">Suchen</button>
-      </div>
-      <select id="catSelect" class="select">
-        <option value="all">Alle Kategorien</option>
-        <option value="Amazon Fashion">Amazon Fashion</option>
-        <option value="Amazon Haul">Amazon Haul</option>
-        <option value="Uhren">Uhren</option>
-        <option value="Haushalt">Haushalt & Kosmetik</option>
-        <option value="Schmuck">Schmuck</option>
-        <option value="Elektronik">Elektronik & Smartphones</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- top chips -->
-  <div id="topStrip" class="top-strip"></div>
-
-  <!-- main -->
-  <div class="main">
-    <div class="left">
-      <div id="shorts" class="shorts" tabindex="0"></div>
-      <div id="smallRow" class="small-row"></div>
-    </div>
-
-    <div class="right">
-
-      <div class="box bf">
-        <div class="tag">BLACK FRIDAY 50%</div>
-        <h3 style="margin:8px 0 6px 0">Blitz-Deals</h3>
-        <p style="margin:0;color:var(--muted)">Direkt zu Amazon: <strong></strong>).</p>
-        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-          <a id="bf1" href="#" target="_blank" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Top-TVs</a>
-          <a id="bf2" href="#" target="_blank" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Smartphones</a>
-          <a id="bf3" href="#" target="_blank" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Kopfhörer</a>
+      <div class="controls">
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="Suchbegriff (Enter → Amazon)" />
+          <button id="searchBtn">Suchen</button>
         </div>
+        <select id="catSelect" class="select">
+          <option value="all">Alle Kategorien</option>
+          <option value="Amazon Fashion">Amazon Fashion</option>
+          <option value="Amazon Haul">Amazon Haul</option>
+          <option value="Uhren">Uhren</option>
+          <option value="Haushalt">Haushalt & Kosmetik</option>
+          <option value="Schmuck">Schmuck</option>
+          <option value="Elektronik">Elektronik & Smartphones</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="topStrip" class="top-strip"></div>
+
+    <div class="main">
+      <div class="left">
+        <div id="shorts" class="shorts" tabindex="0"></div>
+        <div id="smallRow" class="small-row"></div>
       </div>
 
-      <div class="box">
-        <h4 style="margin:0 0 10px 0">Trends</h4>
-        <div id="trends" class="trend-list"></div>
-        <div class="rest" style="margin-top:10px">
-          <div style="font-size:13px;color:var(--muted)">Restposten</div>
-          <a href="https://www.paypal.com/ncp/payment/K8TXGZBGB7G78" target="_blank">Restposten (reduziert) →</a>
-          <a href="https://www.amazon.de/s?k=warehouse+deals&tag=veyfkon-21" target="_blank">Amazon Warehouse →</a>
-        </div>
-      </div>
-
-      <div class="box">
-        <h4 style="margin:0 0 10px 0">Live News</h4>
-        <div id="news" class="news-list">Lade News…</div>
-      </div>
-
-      <div class="box">
-        <h4 style="margin:0 0 10px 0">Partner Werbung</h4>
-        <div class="banner-wrap">
-          <div id="bannerTrack" class="banner-track">
-            <!-- echte Portal-Links: Lieferando & Uber Eats -->
-            <a href="https://www.lieferando.de" target="_blank" rel="noopener">
-              <img src="bild/lieferando.png" alt="Lieferando - Essen bestellen" />
-            </a>
-            <a href="https://www.ubereats.com/de" target="_blank" rel="noopener">
-              <img src="bild/uber.png" alt="Uber Eats - Essen bestellen" />
-            </a>
-            <a href="https://www.checkdomain.de/?pid=dce65367" target="_blank" rel="noopener">
-              <img src="bild/check.png" alt="" />
-            </a>
+      <div class="right">
+        <div class="box bf">
+          <div class="tag">BLACK FRIDAY 50%</div>
+          <h3 style="margin:8px 0 6px 0">Blitz-Deals</h3>
+          <p style="margin:0;color:var(--muted)">Direkt zu Amazon.</p>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            <a id="bf1" href="#" target="_blank" rel="noopener" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Top-TVs</a>
+            <a id="bf2" href="#" target="_blank" rel="noopener" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Smartphones</a>
+            <a id="bf3" href="#" target="_blank" rel="noopener" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Kopfhörer</a>
           </div>
         </div>
-      </div>
 
-      <!-- NEUESTE ARTIKEL (immer unter Partner Werbung) -->
-      <div class="box newest-box" aria-label="Neueste Deals">
-        <h4>Neueste</h4>
-        <div id="newestList" class="newest-list">
-          <!-- dynamisch befüllt -->
+        <div class="box">
+          <h4 style="margin:0 0 10px 0">Trends</h4>
+          <div id="trends" class="trend-list"></div>
+          <div class="rest" style="margin-top:10px">
+            <div style="font-size:13px;color:var(--muted)"><strong>Restposten</strong> — reduzierte Waren, Lagerbereinigung, Outlet-Deals.</div>
+            <div style="margin-top:8px"><a href="https://www.paypal.com/ncp/payment/K8TXGZBGB7G78" target="_blank">Restposten (PayPal)</a> · <a href="https://www.amazon.de/s?k=warehouse+deals&tag=veyfkon-21" target="_blank">Amazon Warehouse</a></div>
+          </div>
         </div>
-      </div>
 
-      <!-- AMAZON PARTNERNET HINWEIS (ganz unten) -->
+        <div class="box">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <h4 style="margin:0">Live News</h4>
+            <div>
+              <button id="reloadNews" class="btn">Neu laden</button>
+            </div>
+          </div>
+          <div id="news" class="news-list">Lade News…</div>
+        </div>
+
+        <div class="box">
+          <h4 style="margin:0 0 10px 0">Partner Werbung</h4>
+          <div class="banner-wrap"><div id="bannerTrack" class="banner-track">
+            <a href="https://www.lieferando.de" target="_blank" rel="noopener"><img src="bild/lieferando.png" alt="Lieferando" loading="lazy"></a>
+            <a href="https://www.ubereats.com/de" target="_blank" rel="noopener"><img src="bild/uber.png" alt="Uber Eats" loading="lazy"></a>
+            <a href="https://www.checkdomain.de/?pid=dce65367" target="_blank" rel="noopener"><img src="bild/check.png" alt="Checkdomain" loading="lazy"></a>
+          </div></div>
+        </div>
+
+        <div class="box newest-box">
+          <h4>Neueste</h4>
+          <div id="newestList" class="newest-list"></div>
+        </div>
+
       <div class="box partner-box" aria-label="Amazon PartnerNet Hinweis">
         <h4>Partner werden — Amazon PartnerNet</h4>
         <p>Als Amazon-Partner (PartnerNet / Associates) kannst du für Verkäufe über deine Affiliate-Links Provisionen verdienen. Kostenlos anmelden und eigene Partnerlinks erstellen.</p>
@@ -228,18 +157,71 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
+      </div>
     </div>
+
+    <footer class="site-footer">
+      <div class="footer-links">
+        <a id="openFooterPopup">Start / Impressum / Datenschutz / </a>
+        <a id="openFaqSmall">FAQ</a>
+        <a href="" target="_blank" rel="noopener"></a>
+      </div>
+      <div class="footer-note">© lieferautomat.de — Affiliate Disclosure: Wir erhalten ggf. Provision bei Kauf über unsere Links.</div>
+    </footer>
   </div>
 
-  <div class="footer">© lieferautomat.de — Merk dir die Seite: Strg/Shift + D</div>
-</div>
+  <button class="back-to-top" id="backToTop" title="Nach oben">↑</button>
+
+  <!-- Footer Popup: enthält alles aus Fußbereich + Rechtliches + FAQ -->
+  <div id="footerPopup" class="popup" role="dialog" aria-hidden="true" aria-label="Footer Informationen">
+    <div class="panel" role="document">
+      <button id="closeFooterPopup" class="close" aria-label="Schließen">✕</button>
+      <h2>lieferautomat.de — Info & Rechtliches</h2>
+
+      <section>
+        <h3></h3>
+        <ul>
+          
+          <li><strong>Kontakt:</strong> kontakt@veyfkon.de </li>
+          <li><strong>Über uns / Impressum / Datenschutz:</strong></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Impressum</h3>
+        <p>Lieferautomat.de 80637 München Neuhausen-Moosach, Seyfi, kontakt@veyfkon.de</p>
+      </section>
+
+      <section>
+        <h3>Datenschutz </h3>
+        <p>Wir nutzen ggf. Google Tag Manager und Affiliate-Links. Keine Zahlungsdaten werden bei uns gespeichert. Nutzer können Cookies ablehnen.</p>
+      </section>
+
+      <section>
+        <h3>FAQ — Wie funktioniert die Seite?</h3>
+        <ol>
+          <li>Wir listen Deals und Restposten. Klick auf "Zum Deal" leitet zu Händler (z. B. Amazon) weiter.</li>
+          <li>Verfügbarkeit & Preise werden vom Händler gestellt.</li>
+          <li>Wir können Provision bei Verkauf erhalten (Affiliate).</li>
+        </ol>
+      </section>
+
+      <section>
+        <h3>Restposten — Erklärung</h3>
+        <p>Restposten sind Lagerbestände, Retouren oder Artikel, die Händler abverkaufen möchten. Versand & Gewährleistung sind beim Händler geregelt.</p>
+      </section>
+
+      <section style="margin-top:12px;">
+        <button id="openImpressum" class="btn" style="background:var(--accent);color:#fff"></button>
+        <button id="openDatenschutz" class="btn" style="margin-left:8px;border:1px solid #ddd"></button>
+      </section>
+    </div>
+  </div>
 
 <script>
 /* ---------- config ---------- */
 const PARTNER = "veyfkon-21";
 const NEWS_FEEDS = ["https://www.tagesschau.de/xml/rss2/","https://www.heise.de/newsticker/heise-atom.xml"];
-
-/* TOP CHIPS (simpler) */
 const TOP_CHIPS = [
   {title:"Fashion", img:"bild/jacke.png", url:`https://amzn.to/4nr3o5o`},
   {title:"Elektronik", img:"bild/elektro.png", url:`https://amzn.to/4pNP9sY`},
@@ -249,150 +231,238 @@ const TOP_CHIPS = [
   {title:"Mode", img:"bild/mode.png", url:`https://amzn.to/4pN7gPV`},
   {title:"Baumarkt", img:"bild/baumarkt.png", url:`https://amzn.to/42dC9TC`},
   {title:"Schmuck", img:"bild/schmuck.png", url:`https://amzn.to/471xZkj`},
-  {title:"Sport", img:"bild/sport.png", url:`https://amzn.to/4nWd3Rs`},
+  {title:"Sport", img:"bild/sport.png", url:`https://amzn.to/4nWd3Rs`}
 ];
-
-/* TRENDS (sidebar) */
 const TRENDS = [
-  {title:"Echo Dot (5. Gen)", img:"https://m.media-amazon.com/images/I/71j8damPo5L._AC_UL320_.jpg", url:`https://www.amazon.de/s?k=echo+dot&tag=${PARTNER}`},
-  {title:"PS5 Bundles", img:"https://m.media-amazon.com/images/I/81aot0jAfFL._AC_UL320_.jpg", url:`https://www.amazon.de/s?k=PlayStation+5&tag=${PARTNER}`},
-  {title:"AirPods", img:"bild/airpods.png", url:`https://www.amazon.de/s?k=airpods&tag=${PARTNER}`}
+  {title:"Echo Dot (5. Gen)", img:"bild/echo.png", url:`https://amzn.to/4oMqi7G`},
+  {title:"PS5 Bundles", img:"bild/ps5.png", url:`https://amzn.to/47AGjXh`},
+  {title:"AirPods", img:"bild/airpods.png", url:`https://amzn.to/3JJORTS`}
 ];
-
-/* SAMPLE DEALS (initial) */
 const SAMPLE_DEALS = [
-  {id:"d3",title:"OBEST 360°Action",img:"bild/obest.png",category:"Elektronik",link:`https://amzn.to/4ht860E`},
-  {id:"d3",title:"DJI Osmo 7P",img:"bild/osmo.png",category:"Elektronik",link:`https://amzn.to/42QuKKc`},
-  {id:"d3",title:"Feuerwehr Set",img:"bild/Feuerwehr.png",category:"Amazon Fashion",link:`https://amzn.to/46CiMGq`},
-  {id:"d2",title:"Trimmer Set",img:"bild/Haare.png",category:"Elektronik",link:`https://amzn.to/4nz3hoF`},
-  {id:"d5",title:"Indoor Sauna",img:"bild/sauna.png",category:"haushalt",link:`https://amzn.to/49qajHS`},
-  {id:"d1",title:"Wildleder Jacke",img:"bild/wildlederjacke1.png",category:"amazon fashion",link:`https://amzn.to/3WglpYe`},
+  {id:"d1",title:"Wildleder Jacke",img:"bild/wildlederjacke1.png",category:"amazon fashion",link:"https://amzn.to/3WglpYe"}
 ];
 
-/* ---------- refs ---------- */
+/* ---------- DOM refs ---------- */
 const topStrip = document.getElementById('topStrip');
 const shorts = document.getElementById('shorts');
 const smallRow = document.getElementById('smallRow');
-const news = document.getElementById('news');
 const trendsBox = document.getElementById('trends');
-const catSelect = document.getElementById('catSelect');
-const searchInput = document.getElementById('searchInput');
-const searchBtn = document.getElementById('searchBtn');
-const bannerTrack = document.getElementById('bannerTrack');
-const bf1 = document.getElementById('bf1'), bf2 = document.getElementById('bf2'), bf3 = document.getElementById('bf3');
+const newsEl = document.getElementById('news');
 const newestListEl = document.getElementById('newestList');
+const reloadNewsBtn = document.getElementById('reloadNews');
+const backToTop = document.getElementById('backToTop');
+const logo = document.getElementById('logo');
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('searchInput');
+const catSelect = document.getElementById('catSelect');
+const bannerTrack = document.getElementById('bannerTrack');
 
-/* RECENT buffer (für Neueste) */
-let RECENT = [];
+const openFooterPopup = document.getElementById('openFooterPopup');
+const footerPopup = document.getElementById('footerPopup');
+const closeFooterPopup = document.getElementById('closeFooterPopup');
+const openFaqSmall = document.getElementById('openFaqSmall'); // small FAQ trigger
 
-/* helpers */
-function tagUrl(u){ try{ const U=new URL(u); if(!U.searchParams.get('tag')) U.searchParams.set('tag', PARTNER); return U.toString(); }catch(e){ return u + (u.includes('?')? '&':'?') + 'tag='+PARTNER }}
-function el(t){ return document.createElement(t) }
+/* small utilities */
+function el(t){ return document.createElement(t); }
+function tagUrl(u){ try{ const U=new URL(u); if(!U.searchParams.get('tag')) U.searchParams.set('tag', PARTNER); return U.toString(); }catch(e){ return u + (u.includes('?') ? '&' : '?') + 'tag=' + PARTNER; } }
 
-/* RECENT helper: neue Items vorn einfügen, Duplikate vermeiden, Länge limitieren */
-function addRecent(item){
-  if(!item) return;
-  const id = item.id || item.link || item.title;
-  RECENT = RECENT.filter(i => (i.id || i.link || i.title) !== id); // vorherige entfernen
-  RECENT.unshift(item);
-  if(RECENT.length > 8) RECENT.pop();
-  renderNewest();
-}
-
-/* render newest box */
-function renderNewest(){
-  if(!newestListEl) return;
-  newestListEl.innerHTML = '';
-  if(RECENT.length === 0){
-    newestListEl.innerHTML = '<div style="color:var(--muted)">Keine Einträge.</div>';
-    return;
-  }
-  RECENT.forEach(item=>{
-    const n = el('div'); n.className = 'newest-item';
-    n.innerHTML = `<a href="${tagUrl(item.link || '#')}" target="_blank" rel="noopener"><img src="${item.img}" alt="${item.title}"></a>
-                   <div><a href="${tagUrl(item.link || '#')}" target="_blank" rel="noopener">${item.title}</a><div style="font-size:12px;color:var(--muted)">${item.category || ''}</div></div>`;
-    newestListEl.appendChild(n);
-  });
-}
-
-/* render top chips */
+/* ---------- Top chips ---------- */
 function renderTopStrip(){
-  topStrip.innerHTML='';
-  TOP_CHIPS.forEach(c=>{
-    const ch = el('div'); ch.className='chip';
-    ch.innerHTML = `<img src="${c.img}" alt=""><div><div class="t">${c.title}</div><div class="s">Top Deals</div></div>`;
-    ch.addEventListener('click', ()=> window.open(c.url,'_blank'));
+  topStrip.innerHTML = '';
+  TOP_CHIPS.forEach(c => {
+    const ch = el('div'); ch.className = 'chip';
+    ch.innerHTML = `<img src="${c.img}" alt="${c.title}" loading="lazy"><div><div class="t">${c.title}</div><div class="s">Top Deals</div></div>`;
+    ch.addEventListener('click', ()=> window.open(c.url,'_blank'), {passive:true});
     topStrip.appendChild(ch);
   });
 }
 
-/* make card - ruft addRecent auf, damit Neueste immer aktuell bleibt */
+/* ---------- Cards ---------- */
+let RECENT = [];
+function addRecent(item){
+  if(!item) return;
+  const id = item.id || item.link || item.title;
+  RECENT = RECENT.filter(i => (i.id || i.link || i.title) !== id);
+  RECENT.unshift(item);
+  if(RECENT.length > 8) RECENT.pop();
+  renderNewest();
+}
+function renderNewest(){
+  newestListEl.innerHTML = '';
+  if(RECENT.length === 0){ newestListEl.innerHTML = '<div class="small-muted">Keine Einträge.</div>'; return; }
+  RECENT.forEach(item => {
+    const n = el('div'); n.className = 'newest-item';
+    n.innerHTML = `<a href="${tagUrl(item.link||'#')}" target="_blank" rel="noopener"><img src="${item.img}" alt="${item.title}" loading="lazy"></a>
+                   <div><a href="${tagUrl(item.link||'#')}" target="_blank" rel="noopener">${item.title}</a><div class="small-muted">${item.category||''}</div></div>`;
+    newestListEl.appendChild(n);
+  });
+}
 function makeCard(item){
-  const card = el('div'); card.className='card';
+  const card = el('div'); card.className = 'card';
   card.dataset.id = item.id || item.title;
   if(item.category) card.dataset.category = item.category;
   const expiry = new Date(Date.now() + (8 + Math.floor(Math.random()*40))*60*1000);
   card.dataset.expiry = expiry.toISOString();
-  const a = el('a'); a.href = tagUrl(item.link); a.target='_blank'; a.rel='noopener';
-  const img = el('img'); img.src = item.img; img.alt = item.title;
-  const meta = el('div'); meta.className='meta';
+  const a = el('a'); a.href = tagUrl(item.link); a.target = '_blank'; a.rel = 'noopener';
+  const img = el('img'); img.src = item.img; img.alt = item.title; img.loading='lazy';
+  const meta = el('div'); meta.className = 'meta';
   const h = el('h3'); h.textContent = item.title;
-  const sub = el('div'); sub.className='sub'; sub.textContent = item.category || '';
-  const cta = el('a'); cta.className='cta'; cta.href = tagUrl(item.link); cta.target='_blank'; cta.textContent = 'Zum Deal';
+  const sub = el('div'); sub.className = 'sub'; sub.textContent = item.category || '';
+  const cta = el('a'); cta.className = 'cta'; cta.href = tagUrl(item.link); cta.target = '_blank'; cta.textContent = 'Zum Deal';
   meta.appendChild(h); meta.appendChild(sub); meta.appendChild(cta);
-  a.appendChild(img); a.appendChild(meta);
-  card.appendChild(a);
-
-  // Neueste aktualisieren (einmal pro erzeugtem Card-Item)
+  a.appendChild(img); a.appendChild(meta); card.appendChild(a);
   addRecent(item);
-
   return card;
 }
-
-/* load left feed & small row */
 function loadShorts(){
   shorts.innerHTML=''; smallRow.innerHTML='';
   SAMPLE_DEALS.forEach(d => shorts.appendChild(makeCard(d)));
   SAMPLE_DEALS.forEach(d=>{
     const s = el('div'); s.style.minWidth='120px'; s.style.flex='0 0 auto';
-    s.innerHTML = `<a href="${tagUrl(d.link)}" target="_blank" style="text-decoration:none;color:inherit"><img src="${d.img}" style="width:120px;height:80px;object-fit:cover;border-radius:8px"><div style="font-size:13px;margin-top:6px">${d.title}</div></a>`;
+    s.innerHTML = `<a href="${tagUrl(d.link)}" target="_blank" style="text-decoration:none;color:inherit"><img src="${d.img}" loading="lazy" style="width:120px;height:80px;object-fit:cover;border-radius:8px"><div style="font-size:13px;margin-top:6px">${d.title}</div></a>`;
     smallRow.appendChild(s);
   });
 }
 
-/* swipe / keyboard */
-let cardIndex = 0;
-function focusCard(i){
-  const cards = Array.from(document.querySelectorAll('.card'));
-  if(!cards.length) return;
-  cardIndex = Math.max(0, Math.min(i, cards.length-1));
-  cards[cardIndex].scrollIntoView({behavior:'smooth',block:'center'});
-  cards[cardIndex].classList.add('pulse');
-  setTimeout(()=>cards[cardIndex]?.classList.remove('pulse'),600);
-}
-document.addEventListener('keydown',(e)=>{ if(e.key==='ArrowDown') focusCard(cardIndex+1); if(e.key==='ArrowUp') focusCard(cardIndex-1); });
-
-/* touch swipe fast */
-let tStart = null; const SW=30;
-shorts.addEventListener('touchstart',e=> tStart = e.touches[0].clientY);
-shorts.addEventListener('touchend',e=>{
-  if(tStart===null) return;
-  const delta = e.changedTouches[0].clientY - tStart;
-  if(delta < -SW) focusCard(cardIndex+1);
-  if(delta > SW) focusCard(cardIndex-1);
-  tStart = null;
-});
-
-/* update/remove expired cards */
-function tick(){
-  const now = Date.now();
-  document.querySelectorAll('.card').forEach(c=>{
-    const exp = new Date(c.dataset.expiry).getTime();
-    if(exp <= now) c.remove();
+/* ---------- Trends ---------- */
+function renderTrends(){
+  trendsBox.innerHTML = '';
+  TRENDS.forEach(t=>{
+    const d = el('div'); d.className = 'trend-item';
+    d.innerHTML = `<img src="${t.img}" alt="${t.title}" loading="lazy"><div><a href="${t.url}" target="_blank" rel="noopener">${t.title}</a></div>`;
+    trendsBox.appendChild(d);
   });
 }
 
-/* live rotation gentle - wenn neue Karte eingefügt wird, aktualisiert makeCard automatisch RECENT */
+/* ---------- Banner Rotate ---------- */
+let bidx = 0, bannerTimer = null;
+function rotateBanners(){
+  if(!bannerTrack || bannerTrack.children.length === 0) return;
+  bidx = (bidx + 1) % bannerTrack.children.length;
+  bannerTrack.style.transform = `translateX(-${bidx*100}%)`;
+  clearTimeout(bannerTimer);
+  bannerTimer = setTimeout(rotateBanners, 3600);
+}
+
+/* ---------- News loading with robust fallback ---------- */
+
+/*
+ Strategy:
+ 1) Try public CORS proxy allorigins.
+ 2) If that fails, try another lightweight proxy endpoint (if wanted add here).
+ 3) If all fail, show a helpful error message + buttons to open original feeds in a new tab.
+ Also cache small result in-memory for a short time to avoid repeated hits.
+*/
+let _newsCache = { ts: 0, items: [] };
+
+async function fetchWithTimeout(url, timeout = 8000){
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  try{
+    const res = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+    clearTimeout(id);
+    return res;
+  }catch(e){
+    clearTimeout(id);
+    throw e;
+  }
+}
+
+async function loadNews(force=false){
+  newsEl.innerHTML = '<div class="small-muted">Lade News…</div>';
+  try{
+    // quick cache (4 minutes)
+    if(!force && _newsCache.ts && (Date.now() - _newsCache.ts) < (4*60*1000) && _newsCache.items.length){
+      renderNewsItems(_newsCache.items);
+      return;
+    }
+
+    const collected = [];
+
+    // try proxies in order
+    const proxies = [
+      u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+      // second fallback: textise dot iitty? We avoid unknown proxies; fallback will be to show original feed links
+    ];
+
+    for(const feed of NEWS_FEEDS){
+      let success = false;
+      for(const proxyFn of proxies){
+        try{
+          const proxyUrl = proxyFn(feed);
+          const res = await fetchWithTimeout(proxyUrl, 9000);
+          if(!res.ok) continue;
+          const text = await res.text();
+          const xml = new DOMParser().parseFromString(text, 'application/xml');
+          const items = Array.from(xml.querySelectorAll('item, entry'));
+          for(const it of items){
+            const title = it.querySelector('title')?.textContent?.trim() || '';
+            let link = '';
+            const lnode = it.querySelector('link');
+            if(lnode) link = lnode.getAttribute('href') || lnode.textContent || '';
+            let img = null;
+            const media = it.querySelector('media\\:content, enclosure, media\\:thumbnail');
+            if(media) img = media.getAttribute('url') || media.getAttribute('href') || null;
+            if(!img){ const imgTag = it.querySelector('image')?.textContent || null; if(imgTag) img = imgTag; }
+            if(!img){ const encoded = it.querySelector('content\\:encoded, encoded')?.textContent || ''; const m = encoded && encoded.match(/<img[^>]*src=["']([^"']+)["']/i); if(m) img = m[1]; }
+            if(img){ try{ new URL(img); }catch(e){ img = 'bild/news-placeholder.png'; } } else img = 'bild/news-placeholder.png';
+            if(title && link) collected.push({ title, link, img });
+            if(collected.length >= 8) break;
+          }
+          success = true;
+          break;
+        }catch(e){
+          console.warn('proxy failed for', feed, e);
+          // try next proxy
+        }
+      }
+      if(collected.length >= 8) break;
+    }
+
+    _newsCache = { ts: Date.now(), items: collected };
+    if(collected.length === 0){
+      renderNewsError('Keine News gefunden — versuche "Neu laden" oder öffne den Feed manuell.');
+    } else {
+      renderNewsItems(collected);
+    }
+  }catch(e){
+    console.error('loadNews error', e);
+    renderNewsError('News konnten nicht geladen werden. Bitte "Neu laden" versuchen oder Feed öffnen.');
+  }
+}
+
+function renderNewsItems(items){
+  newsEl.innerHTML = '';
+  if(!items || items.length === 0){ newsEl.innerHTML = '<div class="small-muted">Keine News mit Bildern gefunden.</div>'; return; }
+  items.slice(0,8).forEach(item=>{
+    const n = el('div'); n.className = 'news-item';
+    const img = item.img || 'bild/news-placeholder.png';
+    n.innerHTML = `<img src="${img}" alt="" loading="lazy"><div><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></div>`;
+    newsEl.appendChild(n);
+  });
+}
+
+function renderNewsError(message){
+  newsEl.innerHTML = `<div class="small-muted">${message}</div>`;
+  // show manual buttons
+  const ctl = el('div'); ctl.style.marginTop='8px';
+  const btnReload = el('button'); btnReload.className='btn'; btnReload.textContent='Neu laden'; btnReload.onclick = ()=> loadNews(true);
+  const btnOpenFeeds = el('button'); btnOpenFeeds.className='btn'; btnOpenFeeds.textContent=''; btnOpenFeeds.style.marginLeft='8px';
+  btnOpenFeeds.onclick = ()=> {
+    NEWS_FEEDS.forEach(f => window.open(f,'_blank'));
+  };
+  ctl.appendChild(btnReload); ctl.appendChild(btnOpenFeeds);
+  newsEl.appendChild(ctl);
+}
+
+/* ---------- housekeeping ---------- */
+function tick(){
+  const now = Date.now();
+  document.querySelectorAll('.card').forEach(c=>{
+    const exp = new Date(c.dataset.expiry || 0).getTime();
+    if(exp && exp <= now) c.remove();
+  });
+}
 function liveRotation(){
   if(Math.random() < 0.45){
     const pick = SAMPLE_DEALS[Math.floor(Math.random()*SAMPLE_DEALS.length)];
@@ -403,73 +473,18 @@ function liveRotation(){
   }
 }
 
-/* load news (only items that include an image) */
-async function loadNews(){
-  news.innerHTML = 'Lade News…';
-  const collected = [];
-  for(const feed of NEWS_FEEDS){
-    try{
-      const proxy = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed);
-      const res = await fetch(proxy);
-      if(!res.ok) continue;
-      const text = await res.text();
-      const xml = new DOMParser().parseFromString(text,'application/xml');
-      const items = Array.from(xml.querySelectorAll('item, entry'));
-      for(const it of items){
-        const title = it.querySelector('title')?.textContent?.trim() || '';
-        let link = '';
-        const lnode = it.querySelector('link');
-        if(lnode) link = lnode.getAttribute('href') || lnode.textContent || '';
-        let img = null;
-        const media = it.querySelector('media\\:content, enclosure, media\\:thumbnail');
-        if(media) img = media.getAttribute('url') || media.getAttribute('href') || null;
-        if(!img){
-          const imgTag = it.querySelector('image')?.textContent || null;
-          if(imgTag) img = imgTag;
-        }
-        if(!img){
-          const encoded = it.querySelector('content\\:encoded, encoded')?.textContent || '';
-          const m = encoded && encoded.match(/<img[^>]*src=["']([^"']+)["']/i);
-          if(m) img = m[1];
-        }
-        if(img && title && link) collected.push({title,link,img});
-        if(collected.length >= 8) break;
-      }
-    }catch(e){ console.warn('feed error',feed,e) }
-    if(collected.length >= 8) break;
-  }
-  news.innerHTML = '';
-  if(collected.length === 0){ news.textContent = 'Keine News mit Bildern gefunden.'; return; }
-  collected.slice(0,8).forEach(item=>{
-    const n = el('div'); n.className = 'news-item';
-    n.innerHTML = `<img src="${item.img}" alt=""><div><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></div>`;
-    news.appendChild(n);
-  });
+/* ---------- UI interactions ---------- */
+function showBackToTop(){
+  const y = window.scrollY || window.pageYOffset;
+  backToTop.style.display = y > 300 ? 'block' : 'none';
 }
+window.addEventListener('scroll', showBackToTop);
+backToTop.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
+logo.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-/* render trends */
-function renderTrends(){
-  trendsBox.innerHTML = '';
-  TRENDS.forEach(t=>{
-    const d = el('div'); d.className = 'trend-item';
-    d.innerHTML = `<img src="${t.img}" alt=""><div><a href="${t.url}" target="_blank" rel="noopener">${t.title}</a></div>`;
-    trendsBox.appendChild(d);
-  });
-}
-
-/* banner rotate */
-let bidx = 0;
-function rotateBanners(){
-  if(!bannerTrack) return;
-  bidx = (bidx + 1) % bannerTrack.children.length;
-  bannerTrack.style.transform = `translateX(-${bidx*100}%)`;
-}
-
-/* search & categories */
-function doSearch(q){ if(!q) return; window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=${PARTNER}`,'_blank') }
-document.getElementById('searchBtn').addEventListener('click', ()=> doSearch(searchInput.value.trim()));
-searchInput.addEventListener('keydown', e=>{ if(e.key==='Enter') doSearch(searchInput.value.trim()) });
-catSelect.addEventListener('change', ()=>{
+searchBtn.addEventListener('click', ()=> { const q = searchInput.value.trim(); if(!q) return; window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=${PARTNER}`,'_blank'); });
+searchInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ const q = searchInput.value.trim(); if(q) window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=${PARTNER}`,'_blank'); }});
+catSelect.addEventListener('change', ()=> {
   const cat = catSelect.value;
   if(cat === 'all') loadShorts();
   else {
@@ -480,32 +495,54 @@ catSelect.addEventListener('change', ()=>{
   }
 });
 
-/* bf links */
-function initBFLinks(){
-  bf1.href = tagUrl('https://www.amazon.de/s?k=tv');
-  bf2.href = tagUrl('https://www.amazon.de/s?k=smartphone');
-  bf3.href = tagUrl('https://www.amazon.de/s?k=kopfhörer');
-}
+/* Footer popup open/close */
+openFooterPopup.addEventListener('click', ()=> {
+  footerPopup.style.display = 'flex';
+  footerPopup.setAttribute('aria-hidden','false');
+});
+closeFooterPopup.addEventListener('click', ()=> {
+  footerPopup.style.display = 'none';
+  footerPopup.setAttribute('aria-hidden','true');
+});
+openFaqSmall.addEventListener('click', ()=> { // open same footer popup and scroll to FAQ
+  footerPopup.style.display = 'flex';
+  footerPopup.setAttribute('aria-hidden','false');
+  setTimeout(()=> {
+    const h3s = footerPopup.querySelectorAll('h3');
+    let faq = null;
+    h3s.forEach(h=>{ if(h.textContent && h.textContent.toLowerCase().includes('faq')) faq = h; });
+    if(faq) faq.scrollIntoView({behavior:'smooth',block:'center'});
+  }, 60);
+});
+
+/* Black Friday quick links */
+document.getElementById('bf1').href = tagUrl('https://www.amazon.de/s?k=tv');
+document.getElementById('bf2').href = tagUrl('https://www.amazon.de/s?k=smartphone');
+document.getElementById('bf3').href = tagUrl('https://www.amazon.de/s?k=kopfhörer');
+
+/* Reload news button */
+document.getElementById('reloadNews').addEventListener('click', ()=> {
+  reloadNewsBtn.disabled = true;
+  reloadNewsBtn.textContent = 'Lädt…';
+  loadNews(true).finally(()=> {
+    setTimeout(()=> { reloadNewsBtn.disabled = false; reloadNewsBtn.textContent = 'Neu laden'; }, 500);
+  });
+});
 
 /* init */
 function init(){
   renderTopStrip();
   loadShorts();
   renderTrends();
-  initBFLinks();
+  rotateBanners();
   loadNews();
-  renderNewest(); // initial render (wird durch addRecent beim makeCard gefüllt)
-
-  setInterval(tick,1000);
-  setInterval(liveRotation,7000);
-  setInterval(rotateBanners,3600);
-  setInterval(loadNews,60*1000);
+  renderNewest();
+  setInterval(tick, 5000);
+  setInterval(liveRotation, 7000);
+  setInterval(rotateBanners, 3600);
+  setInterval(()=> loadNews(false), 5*60*1000);
 }
-init();
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 </script>
 </body>
 </html>
-
-
-
-
