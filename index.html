@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>lieferautomat — Final (kombiniert) — Footer-Popup & stabile News</title>
+<title>lieferautomat — Footer-Popup & stabile News</title>
 <style>
 :root{ --bg:#f6f7f9; --card:#fff; --muted:#667085; --accent:#ff9900; --accent-2:#0b63a5; --radius:12px; --shadow:0 8px 24px rgba(12,20,40,0.06); --maxw:1100px; }
 *{box-sizing:border-box} html{scroll-behavior:smooth}
@@ -109,7 +109,7 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
           <h3 style="margin:8px 0 6px 0">Blitz-Deals</h3>
           <p style="margin:0;color:var(--muted)">Direkt zu Amazon.</p>
           <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-            <a id="bf1" href="#" target="_blank" rel="noopener" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Top-TVs</a>
+            <a id="bf1" href="#" target="_blank" rel="noopener" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Top-s</a>
             <a id="bf2" href="#" target="_blank" rel="noopener" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Smartphones</a>
             <a id="bf3" href="#" target="_blank" rel="noopener" style="background:var(--accent);color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none">Kopfhörer</a>
           </div>
@@ -120,7 +120,7 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
           <div id="trends" class="trend-list"></div>
           <div class="rest" style="margin-top:10px">
             <div style="font-size:13px;color:var(--muted)"><strong>Restposten</strong> — reduzierte Waren, Lagerbereinigung, Outlet-Deals.</div>
-            <div style="margin-top:8px"><a href="https://www.paypal.com/ncp/payment/K8TXGZBGB7G78" target="_blank">Restposten (PayPal)</a> · <a href="https://amzn.to/3XaOEfz" target="_blank">Amazon Warehouse</a></div>
+            <div style="margin-top:8px"><a href="https://www.paypal.com/ncp/payment/K8TXGZBGB7G78" target="_blank">Restposten (PayPal)</a> · <a href="https://amzn.to/47AhwCM" target="_blank">Amazon Warehouse</a></div>
           </div>
         </div>
 
@@ -164,7 +164,7 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
       <div class="footer-links">
         <a id="openFooterPopup">Start / Impressum / Datenschutz / </a>
         <a id="openFaqSmall">FAQ</a>
-        <a href="" target="_blank" rel="noopener"></a>
+        <a href="/kontakt.html" target="_blank" rel="noopener"></a>
       </div>
       <div class="footer-note">© lieferautomat.de — Affiliate Disclosure: Wir erhalten ggf. Provision bei Kauf über unsere Links.</div>
     </footer>
@@ -182,18 +182,17 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
         <h3></h3>
         <ul>
           
-          <li><strong>Kontakt:</strong> kontakt@veyfkon.de </li>
-          <li><strong>Über uns / Impressum / Datenschutz:</strong></li>
+
         </ul>
       </section>
 
       <section>
         <h3>Impressum</h3>
-        <p>Lieferautomat.de 80637 München Neuhausen-Moosach, Seyfi, kontakt@veyfkon.de</p>
+        <p>veyfkon Lieferautomat.de Seyfi 80637 München Neuhausen/Moosach</p>
       </section>
 
       <section>
-        <h3>Datenschutz </h3>
+        <h3>Datenschutz</h3>
         <p>Wir nutzen ggf. Google Tag Manager und Affiliate-Links. Keine Zahlungsdaten werden bei uns gespeichert. Nutzer können Cookies ablehnen.</p>
       </section>
 
@@ -212,8 +211,7 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
       </section>
 
       <section style="margin-top:12px;">
-        <button id="openImpressum" class="btn" style="background:var(--accent);color:#fff"></button>
-        <button id="openDatenschutz" class="btn" style="margin-left:8px;border:1px solid #ddd"></button>
+
       </section>
     </div>
   </div>
@@ -234,13 +232,12 @@ const TOP_CHIPS = [
   {title:"Sport", img:"bild/sport.png", url:`https://amzn.to/4nWd3Rs`}
 ];
 const TRENDS = [
-  {title:"Echo Dot (5. Gen)", img:"bild/echo.png", url:`https://amzn.to/4oMqi7G`},
-  {title:"PS5 Bundles", img:"bild/ps5.png", url:`https://amzn.to/47AGjXh`},
-  {title:"AirPods", img:"bild/airpods.png", url:`https://amzn.to/3JJORTS`}
+  {title:"Echo Dot (5. Gen)", img:"bild/echo.png", url:`https://amzn.to/4i1Q6e5`},
+  {title:"PS5 Bundles", img:"bild/ps5.png", url:`https://amzn.to/3LkPtzT`},
+  {title:"AirPods", img:"bild/airpods.png", url:`https://amzn.to/4oTALym`}
 ];
 const SAMPLE_DEALS = [
-  {id:"d1",title:"Kartenfach geldbeutel",img:"bild/geldbeutel.png",category:"",link:"https://www.paypal.com/ncp/payment/B3878727RHTUN
-"}
+  {id:"d1",title:"Geldbeutel",img:"bild/Geldbeutel.png",category:"amazon fashion",link:"https://www.paypal.com/ncp/payment/B3878727RHTUN"}
 ];
 
 /* ---------- DOM refs ---------- */
@@ -448,7 +445,7 @@ function renderNewsError(message){
   // show manual buttons
   const ctl = el('div'); ctl.style.marginTop='8px';
   const btnReload = el('button'); btnReload.className='btn'; btnReload.textContent='Neu laden'; btnReload.onclick = ()=> loadNews(true);
-  const btnOpenFeeds = el('button'); btnOpenFeeds.className='btn'; btnOpenFeeds.textContent=''; btnOpenFeeds.style.marginLeft='8px';
+  const btnOpenFeeds = el('button'); btnOpenFeeds.className='btn'; btnOpenFeeds.textContent='Feeds öffnen'; btnOpenFeeds.style.marginLeft='8px';
   btnOpenFeeds.onclick = ()=> {
     NEWS_FEEDS.forEach(f => window.open(f,'_blank'));
   };
@@ -492,7 +489,7 @@ catSelect.addEventListener('change', ()=> {
     const filtered = SAMPLE_DEALS.filter(d => (d.category||'').toLowerCase().includes(cat.toLowerCase()));
     shorts.innerHTML = '';
     if(filtered.length) filtered.forEach(d => shorts.appendChild(makeCard(d)));
-    else { window.open(`https://www.amazon.de/s?k=${encodeURIComponent(cat)}&tag=${PARTNER}`,'_blank'); loadShorts(); }
+    else { window.open(`https://www.amazon.de/s?k=${encodeURIComponent(cat)}&tag=$veyfkon-21`,'_blank'); loadShorts(); }
   }
 });
 
@@ -517,9 +514,9 @@ openFaqSmall.addEventListener('click', ()=> { // open same footer popup and scro
 });
 
 /* Black Friday quick links */
-document.getElementById('bf1').href = tagUrl('https://amzn.to/4orv1Mr');
-document.getElementById('bf2').href = tagUrl('https://amzn.to/47JO4dK');
-document.getElementById('bf3').href = tagUrl('https://amzn.to/4nzkOvV');
+document.getElementById('bf1').href = tagUrl('https://amzn.to/4qPmWCT');
+document.getElementById('bf2').href = tagUrl('https://amzn.to/3LJS8mE');
+document.getElementById('bf3').href = tagUrl('https://amzn.to/4oWc8RC');
 
 /* Reload news button */
 document.getElementById('reloadNews').addEventListener('click', ()=> {
@@ -547,8 +544,3 @@ if(document.readyState === 'loading') document.addEventListener('DOMContentLoade
 </script>
 </body>
 </html>
-
-
-
-
-
