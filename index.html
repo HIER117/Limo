@@ -162,8 +162,8 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
 
     <footer class="site-footer">
       <div class="footer-links">
-        <a id="openFooterPopup">Start / Impressum / Datenschutz / </a>
-        <a id="openFaqSmall">FAQ</a>
+        <a id="openFooterPopup"></a>
+        <a id="openFaqSmall"></a>
         <a href="/kontakt.html" target="_blank" rel="noopener"></a>
       </div>
       <div class="footer-note">© lieferautomat.de — Affiliate Disclosure: Wir erhalten ggf. Provision bei Kauf über unsere Links.</div>
@@ -218,26 +218,28 @@ body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
 
 <script>
 /* ---------- config ---------- */
-const PARTNER = "veyfkon-21";
-const NEWS_FEEDS = ["https://www.tagesschau.de/xml/rss2/","https://www.heise.de/newsticker/heise-atom.xml"];
+const PARTNER = 'veyfkon-21';
+const NEWS_FEEDS = ['https://www.tagesschau.de/xml/rss2/','https://www.heise.de/newsticker/heise-atom.xml'];
 const TOP_CHIPS = [
-  {title:"Fashion", img:"bild/jacke.png", url:`https://amzn.to/4nr3o5o`},
-  {title:"Elektronik", img:"bild/elektro.png", url:`https://amzn.to/4pNP9sY`},
-  {title:"Haushalt", img:"bild/haushalt.png", url:`https://amzn.to/4o0gXcc`},
-  {title:"Amazon beute", img:"bild/haul.png", url:`https://amzn.to/42k3QtU`},
-  {title:"Uhren", img:"bild/uhren.png", url:`https://amzn.to/46HKWyq`},
-  {title:"Mode", img:"bild/mode.png", url:`https://amzn.to/4pN7gPV`},
-  {title:"Baumarkt", img:"bild/baumarkt.png", url:`https://amzn.to/42dC9TC`},
-  {title:"Schmuck", img:"bild/schmuck.png", url:`https://amzn.to/471xZkj`},
-  {title:"Sport", img:"bild/sport.png", url:`https://amzn.to/4nWd3Rs`}
+  {title:'Fashion', img:'bild/jacke.png', url:`https://amzn.to/4nr3o5o`},
+  {title:'Elektronik', img:'bild/elektro.png', url:`https://amzn.to/4pNP9sY`},
+  {title:'Haushalt', img:'bild/haushalt.png', url:`https://amzn.to/4o0gXcc`},
+  {title:'Amazon beute', img:'bild/haul.png', url:`https://amzn.to/42k3QtU`},
+  {title:'Uhren', img:'bild/uhren.png', url:`https://amzn.to/46HKWyq`},
+  {title:'Mode', img:'bild/mode.png', url:`https://amzn.to/4pN7gPV`},
+  {title:'Baumarkt', img:'bild/baumarkt.png', url:`https://amzn.to/42dC9TC`},
+  {title:'Schmuck', img:'bild/schmuck.png', url:`https://amzn.to/471xZkj`},
+  {title:'Sport', img:'bild/sport.png', url:`https://amzn.to/4nWd3Rs`}
 ];
 const TRENDS = [
-  {title:"Echo Dot (5. Gen)", img:"bild/echo.png", url:`https://amzn.to/4i1Q6e5`},
-  {title:"PS5 Bundles", img:"bild/ps5.png", url:`https://amzn.to/3LkPtzT`},
-  {title:"AirPods", img:"bild/airpods.png", url:`https://amzn.to/4oTALym`}
+  {title:'Echo Dot (5. Gen)', img:'bild/echo.png', url:`https://amzn.to/4i1Q6e5`},
+  {title:'PS5 Bundles', img:'bild/ps5.png', url:`https://amzn.to/3LkPtzT`},
+  {title:'AirPods', img:'bild/airpods.png', url:`https://amzn.to/4oTALym`}
 ];
 const SAMPLE_DEALS = [
-  {id:"d1",title:"Herren Winterjacke Fleece",img:"bild/jacke1.jpg",category:"amazon fashion",link:"https://amzn.to/4o1oiru"}
+  {id:"d1",title:"Herren Winterjacke Fleece",img:"bilder/jacke/1.jpg",category:"Amazon Fashion",link:"https://amzn.to/4o1oiru"},
+  {id:"d2",title:"Bomberjacken Winter",img:"bilder/jacke1/3.jpg",category:"Amazon Fashion",link:"https://amzn.to/3LNtkdG"},
+  {id:"d3",title:"Outdoor Fleecejacken",img:"bilder/jacke2/1.jpg",category:"Amazon Fashion",link:"https://amzn.to/48lCqqL"},
 ];
 
 /* ---------- DOM refs ---------- */
@@ -255,10 +257,45 @@ const searchInput = document.getElementById('searchInput');
 const catSelect = document.getElementById('catSelect');
 const bannerTrack = document.getElementById('bannerTrack');
 
+// footer / popup controls (may be missing in some variants)
 const openFooterPopup = document.getElementById('openFooterPopup');
 const footerPopup = document.getElementById('footerPopup');
 const closeFooterPopup = document.getElementById('closeFooterPopup');
 const openFaqSmall = document.getElementById('openFaqSmall'); // small FAQ trigger
+// extra footer controls
+const startBtn = document.getElementById('startBtn');
+const impressumBtn = document.getElementById('impressumBtn');
+const datenschutzBtn = document.getElementById('datenschutzBtn');
+
+// start -> scroll to top
+if(startBtn){ startBtn.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' })); }
+
+// impressum & datenschutz -> open popup and scroll to the section
+function scrollToSectionInPopup(keyword){
+  if(!footerPopup) return; // guard
+  openPopup();
+  setTimeout(()=>{
+    const h3s = footerPopup.querySelectorAll('h3');
+    let target = null;
+    h3s.forEach(h=>{ if(h.textContent && h.textContent.toLowerCase().includes(keyword)) target = h; });
+    if(target) target.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 80);
+}
+if(impressumBtn) impressumBtn.addEventListener('click', ()=> scrollToSectionInPopup('impressum'));
+if(datenschutzBtn) datenschutzBtn.addEventListener('click', ()=> scrollToSectionInPopup('datenschutz'));
+
+// attach optional handlers only if elements exist (defensive)
+if(openFooterPopup) openFooterPopup.addEventListener('click', openPopup);
+if(openFaqSmall) openFaqSmall.addEventListener('click', ()=> { // open same footer popup and scroll to FAQ
+  openPopup();
+  setTimeout(()=> {
+    if(!footerPopup) return;
+    const h3s = footerPopup.querySelectorAll('h3');
+    let faq = null;
+    h3s.forEach(h=>{ if(h.textContent && h.textContent.toLowerCase().includes('faq')) faq = h; });
+    if(faq) faq.scrollIntoView({behavior:'smooth',block:'center'});
+  }, 60);
+});
 
 /* small utilities */
 function el(t){ return document.createElement(t); }
@@ -266,11 +303,12 @@ function tagUrl(u){ try{ const U=new URL(u); if(!U.searchParams.get('tag')) U.se
 
 /* ---------- Top chips ---------- */
 function renderTopStrip(){
+  if(!topStrip) return;
   topStrip.innerHTML = '';
   TOP_CHIPS.forEach(c => {
     const ch = el('div'); ch.className = 'chip';
-    ch.innerHTML = `<img src="${c.img}" alt="${c.title}" loading="lazy"><div><div class="t">${c.title}</div><div class="s">Top Deals</div></div>`;
-    ch.addEventListener('click', ()=> window.open(c.url,'_blank'), {passive:true});
+    ch.innerHTML = `<img src="${c.img}" alt="${c.title}" loading="lazy" decoding="async"><div><div class="t">${c.title}</div><div class="s">Top Deals</div></div>`;
+    ch.addEventListener('click', ()=> window.open(tagUrl(c.url),'_blank','noopener'), {passive:true});
     topStrip.appendChild(ch);
   });
 }
@@ -286,12 +324,13 @@ function addRecent(item){
   renderNewest();
 }
 function renderNewest(){
+  if(!newestListEl) return;
   newestListEl.innerHTML = '';
   if(RECENT.length === 0){ newestListEl.innerHTML = '<div class="small-muted">Keine Einträge.</div>'; return; }
   RECENT.forEach(item => {
     const n = el('div'); n.className = 'newest-item';
-    n.innerHTML = `<a href="${tagUrl(item.link||'#')}" target="_blank" rel="noopener"><img src="${item.img}" alt="${item.title}" loading="lazy"></a>
-                   <div><a href="${tagUrl(item.link||'#')}" target="_blank" rel="noopener">${item.title}</a><div class="small-muted">${item.category||''}</div></div>`;
+    n.innerHTML = `<a href="${tagUrl(item.link||'#')}" target="_blank" rel="noopener noreferrer"><img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async"></a>
+                   <div><a href="${tagUrl(item.link||'#')}" target="_blank" rel="noopener noreferrer">${item.title}</a><div class="small-muted">${item.category||''}</div></div>`;
     newestListEl.appendChild(n);
   });
 }
@@ -301,33 +340,36 @@ function makeCard(item){
   if(item.category) card.dataset.category = item.category;
   const expiry = new Date(Date.now() + (8 + Math.floor(Math.random()*40))*60*1000);
   card.dataset.expiry = expiry.toISOString();
-  const a = el('a'); a.href = tagUrl(item.link); a.target = '_blank'; a.rel = 'noopener';
-  const img = el('img'); img.src = item.img; img.alt = item.title; img.loading='lazy';
+  const a = el('a'); a.href = tagUrl(item.link); a.target = '_blank'; a.rel = 'noopener noreferrer';
+  const img = el('img'); img.src = item.img; img.alt = item.title; img.loading='lazy'; img.decoding='async';
   const meta = el('div'); meta.className = 'meta';
   const h = el('h3'); h.textContent = item.title;
   const sub = el('div'); sub.className = 'sub'; sub.textContent = item.category || '';
-  const cta = el('a'); cta.className = 'cta'; cta.href = tagUrl(item.link); cta.target = '_blank'; cta.textContent = 'Zum Deal';
+  const cta = el('a'); cta.className = 'cta'; cta.href = tagUrl(item.link); cta.target = '_blank'; cta.rel='noopener noreferrer'; cta.textContent = 'Zum Deal';
   meta.appendChild(h); meta.appendChild(sub); meta.appendChild(cta);
   a.appendChild(img); a.appendChild(meta); card.appendChild(a);
   addRecent(item);
   return card;
 }
 function loadShorts(){
-  shorts.innerHTML=''; smallRow.innerHTML='';
+  if(!shorts) return;
+  shorts.innerHTML=''; if(smallRow) smallRow.innerHTML='';
   SAMPLE_DEALS.forEach(d => shorts.appendChild(makeCard(d)));
   SAMPLE_DEALS.forEach(d=>{
+    if(!smallRow) return;
     const s = el('div'); s.style.minWidth='120px'; s.style.flex='0 0 auto';
-    s.innerHTML = `<a href="${tagUrl(d.link)}" target="_blank" style="text-decoration:none;color:inherit"><img src="${d.img}" loading="lazy" style="width:120px;height:80px;object-fit:cover;border-radius:8px"><div style="font-size:13px;margin-top:6px">${d.title}</div></a>`;
+    s.innerHTML = `<a href="${tagUrl(d.link)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit"><img src="${d.img}" loading="lazy" decoding="async" style="width:120px;height:80px;object-fit:cover;border-radius:8px"><div style="font-size:13px;margin-top:6px">${d.title}</div></a>`;
     smallRow.appendChild(s);
   });
 }
 
 /* ---------- Trends ---------- */
 function renderTrends(){
+  if(!trendsBox) return;
   trendsBox.innerHTML = '';
   TRENDS.forEach(t=>{
     const d = el('div'); d.className = 'trend-item';
-    d.innerHTML = `<img src="${t.img}" alt="${t.title}" loading="lazy"><div><a href="${t.url}" target="_blank" rel="noopener">${t.title}</a></div>`;
+    d.innerHTML = `<img src="${t.img}" alt="${t.title}" loading="lazy" decoding="async"><div><a href="${tagUrl(t.url)}" target="_blank" rel="noopener noreferrer">${t.title}</a></div>`;
     trendsBox.appendChild(d);
   });
 }
@@ -338,19 +380,9 @@ function rotateBanners(){
   if(!bannerTrack || bannerTrack.children.length === 0) return;
   bidx = (bidx + 1) % bannerTrack.children.length;
   bannerTrack.style.transform = `translateX(-${bidx*100}%)`;
-  clearTimeout(bannerTimer);
-  bannerTimer = setTimeout(rotateBanners, 3600);
 }
 
 /* ---------- News loading with robust fallback ---------- */
-
-/*
- Strategy:
- 1) Try public CORS proxy allorigins.
- 2) If that fails, try another lightweight proxy endpoint (if wanted add here).
- 3) If all fail, show a helpful error message + buttons to open original feeds in a new tab.
- Also cache small result in-memory for a short time to avoid repeated hits.
-*/
 let _newsCache = { ts: 0, items: [] };
 
 async function fetchWithTimeout(url, timeout = 8000){
@@ -367,6 +399,7 @@ async function fetchWithTimeout(url, timeout = 8000){
 }
 
 async function loadNews(force=false){
+  if(!newsEl) return;
   newsEl.innerHTML = '<div class="small-muted">Lade News…</div>';
   try{
     // quick cache (4 minutes)
@@ -380,11 +413,9 @@ async function loadNews(force=false){
     // try proxies in order
     const proxies = [
       u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-      // second fallback: textise dot iitty? We avoid unknown proxies; fallback will be to show original feed links
     ];
 
     for(const feed of NEWS_FEEDS){
-      let success = false;
       for(const proxyFn of proxies){
         try{
           const proxyUrl = proxyFn(feed);
@@ -399,19 +430,17 @@ async function loadNews(force=false){
             const lnode = it.querySelector('link');
             if(lnode) link = lnode.getAttribute('href') || lnode.textContent || '';
             let img = null;
-            const media = it.querySelector('media\\:content, enclosure, media\\:thumbnail');
+            const media = it.querySelector('media\:content, enclosure, media\:thumbnail');
             if(media) img = media.getAttribute('url') || media.getAttribute('href') || null;
             if(!img){ const imgTag = it.querySelector('image')?.textContent || null; if(imgTag) img = imgTag; }
-            if(!img){ const encoded = it.querySelector('content\\:encoded, encoded')?.textContent || ''; const m = encoded && encoded.match(/<img[^>]*src=["']([^"']+)["']/i); if(m) img = m[1]; }
+            if(!img){ const encoded = it.querySelector('content\:encoded, encoded')?.textContent || ''; const m = encoded && encoded.match(/<img[^>]*src=["']([^"']+)["']/i); if(m) img = m[1]; }
             if(img){ try{ new URL(img); }catch(e){ img = 'bild/news-placeholder.png'; } } else img = 'bild/news-placeholder.png';
             if(title && link) collected.push({ title, link, img });
             if(collected.length >= 8) break;
           }
-          success = true;
-          break;
+          break; // success for this feed
         }catch(e){
           console.warn('proxy failed for', feed, e);
-          // try next proxy
         }
       }
       if(collected.length >= 8) break;
@@ -430,25 +459,24 @@ async function loadNews(force=false){
 }
 
 function renderNewsItems(items){
+  if(!newsEl) return;
   newsEl.innerHTML = '';
   if(!items || items.length === 0){ newsEl.innerHTML = '<div class="small-muted">Keine News mit Bildern gefunden.</div>'; return; }
   items.slice(0,8).forEach(item=>{
     const n = el('div'); n.className = 'news-item';
     const img = item.img || 'bild/news-placeholder.png';
-    n.innerHTML = `<img src="${img}" alt="" loading="lazy"><div><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></div>`;
+    n.innerHTML = `<img src="${img}" alt="" loading="lazy" decoding="async"><div><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a></div>`;
     newsEl.appendChild(n);
   });
 }
 
 function renderNewsError(message){
+  if(!newsEl) return;
   newsEl.innerHTML = `<div class="small-muted">${message}</div>`;
-  // show manual buttons
   const ctl = el('div'); ctl.style.marginTop='8px';
   const btnReload = el('button'); btnReload.className='btn'; btnReload.textContent='Neu laden'; btnReload.onclick = ()=> loadNews(true);
   const btnOpenFeeds = el('button'); btnOpenFeeds.className='btn'; btnOpenFeeds.textContent='Feeds öffnen'; btnOpenFeeds.style.marginLeft='8px';
-  btnOpenFeeds.onclick = ()=> {
-    NEWS_FEEDS.forEach(f => window.open(f,'_blank'));
-  };
+  btnOpenFeeds.onclick = ()=> { NEWS_FEEDS.forEach(f => window.open(f,'_blank','noopener')); };
   ctl.appendChild(btnReload); ctl.appendChild(btnOpenFeeds);
   newsEl.appendChild(ctl);
 }
@@ -466,65 +494,96 @@ function liveRotation(){
     const pick = SAMPLE_DEALS[Math.floor(Math.random()*SAMPLE_DEALS.length)];
     if(!document.querySelector(`[data-id="${CSS.escape(pick.id)}"]`)){
       const card = makeCard(pick);
-      shorts.appendChild(card);
+      if(shorts) shorts.appendChild(card);
     }
   }
 }
 
 /* ---------- UI interactions ---------- */
-function showBackToTop(){
-  const y = window.scrollY || window.pageYOffset;
-  backToTop.style.display = y > 300 ? 'block' : 'none';
+function showBackToTop(show){
+  if(!backToTop) return;
+  backToTop.style.display = show ? 'block' : 'none';
 }
-window.addEventListener('scroll', showBackToTop);
-backToTop.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
-logo.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-searchBtn.addEventListener('click', ()=> { const q = searchInput.value.trim(); if(!q) return; window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=$veyfkon-21`,'_blank'); });
-searchInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ const q = searchInput.value.trim(); if(q) window.open(`https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=$veyfkon-21`,'_blank'); }});
-catSelect.addEventListener('change', ()=> {
+// use IntersectionObserver for performance
+const sentinel = document.createElement('div'); sentinel.style.position='absolute'; sentinel.style.top='400px'; document.body.appendChild(sentinel);
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => showBackToTop(!en.isIntersecting));
+}, {root:null,threshold:0});
+io.observe(sentinel);
+
+if(backToTop) backToTop.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
+if(logo) logo.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
+if(logo) logo.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+// debounce utility
+function debounce(fn, wait){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn.apply(this,a), wait); } }
+
+// fix: use PARTNER variable in searches
+function openAmazonSearch(q){ if(!q) return; const url = `https://www.amazon.de/s?k=${encodeURIComponent(q)}&tag=${encodeURIComponent(PARTNER)}`; window.open(url,'_blank','noopener'); }
+
+const debouncedSearch = debounce(()=>{ const q = (searchInput && searchInput.value) ? searchInput.value.trim() : ''; if(q) openAmazonSearch(q); }, 350);
+if(searchBtn) searchBtn.addEventListener('click', ()=> debouncedSearch());
+if(searchInput) searchInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ const q = searchInput.value.trim(); if(q) openAmazonSearch(q); } });
+
+if(catSelect) catSelect.addEventListener('change', ()=> {
   const cat = catSelect.value;
   if(cat === 'all') loadShorts();
   else {
     const filtered = SAMPLE_DEALS.filter(d => (d.category||'').toLowerCase().includes(cat.toLowerCase()));
-    shorts.innerHTML = '';
-    if(filtered.length) filtered.forEach(d => shorts.appendChild(makeCard(d)));
-    else { window.open(`https://www.amazon.de/s?k=${encodeURIComponent(cat)}&tag=$veyfkon-21`,'_blank'); loadShorts(); }
+    if(shorts) shorts.innerHTML = '';
+    if(filtered.length) filtered.forEach(d => { if(shorts) shorts.appendChild(makeCard(d)); });
+    else { window.open(`https://www.amazon.de/s?k=${encodeURIComponent(cat)}&tag=${encodeURIComponent(PARTNER)}`,'_blank','noopener'); loadShorts(); }
   }
 });
 
-/* Footer popup open/close */
-openFooterPopup.addEventListener('click', ()=> {
-  footerPopup.style.display = 'flex';
+/* Footer popup open/close with focus trap and ESC */
+let lastFocused = null;
+function trapFocus(modal){
+  if(!modal) return ()=>{};
+  const focusable = modal.querySelectorAll('a,button,input,select,textarea,[tabindex]');
+  if(!focusable || focusable.length === 0) return ()=>{};
+  const first = focusable[0]; const last = focusable[focusable.length-1];
+  function handle(e){
+    if(e.key === 'Tab'){
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+    if(e.key === 'Escape'){ closePopup(); }
+  }
+  modal.addEventListener('keydown', handle);
+  return ()=> modal.removeEventListener('keydown', handle);
+}
+let releaseTrap = null;
+function openPopup(){
+  if(!footerPopup) return;
+  lastFocused = document.activeElement;
   footerPopup.setAttribute('aria-hidden','false');
-});
-closeFooterPopup.addEventListener('click', ()=> {
-  footerPopup.style.display = 'none';
+  document.body.style.overflow = 'hidden';
+  releaseTrap = trapFocus(footerPopup);
+  const focusable = footerPopup.querySelector('button, a, [tabindex]');
+  if(focusable) focusable.focus();
+}
+function closePopup(){
+  if(!footerPopup) return;
   footerPopup.setAttribute('aria-hidden','true');
-});
-openFaqSmall.addEventListener('click', ()=> { // open same footer popup and scroll to FAQ
-  footerPopup.style.display = 'flex';
-  footerPopup.setAttribute('aria-hidden','false');
-  setTimeout(()=> {
-    const h3s = footerPopup.querySelectorAll('h3');
-    let faq = null;
-    h3s.forEach(h=>{ if(h.textContent && h.textContent.toLowerCase().includes('faq')) faq = h; });
-    if(faq) faq.scrollIntoView({behavior:'smooth',block:'center'});
-  }, 60);
-});
+  document.body.style.overflow = '';
+  if(releaseTrap) releaseTrap();
+  if(lastFocused) lastFocused.focus();
+}
+if(closeFooterPopup) closeFooterPopup.addEventListener('click', closePopup);
+if(footerPopup) footerPopup.addEventListener('click', (ev)=>{ if(ev.target === footerPopup) closePopup(); });
+window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && footerPopup && footerPopup.getAttribute('aria-hidden')==='false') closePopup(); });
 
 /* Black Friday quick links */
-document.getElementById('bf1').href = tagUrl('https://amzn.to/4qPmWCT');
-document.getElementById('bf2').href = tagUrl('https://amzn.to/3LJS8mE');
-document.getElementById('bf3').href = tagUrl('https://amzn.to/4oWc8RC');
+if(document.getElementById('bf1')) document.getElementById('bf1').href = tagUrl('https://amzn.to/4qPmWCT');
+if(document.getElementById('bf2')) document.getElementById('bf2').href = tagUrl('https://amzn.to/3LJS8mE');
+if(document.getElementById('bf3')) document.getElementById('bf3').href = tagUrl('https://amzn.to/4oWc8RC');
 
 /* Reload news button */
-document.getElementById('reloadNews').addEventListener('click', ()=> {
-  reloadNewsBtn.disabled = true;
-  reloadNewsBtn.textContent = 'Lädt…';
-  loadNews(true).finally(()=> {
-    setTimeout(()=> { reloadNewsBtn.disabled = false; reloadNewsBtn.textContent = 'Neu laden'; }, 500);
-  });
+if(reloadNewsBtn) reloadNewsBtn.addEventListener('click', ()=> {
+  reloadNewsBtn.disabled = true; reloadNewsBtn.textContent = 'Lädt…';
+  loadNews(true).finally(()=> { setTimeout(()=> { reloadNewsBtn.disabled = false; reloadNewsBtn.textContent = 'Neu laden'; }, 500); });
 });
 
 /* init */
@@ -532,25 +591,17 @@ function init(){
   renderTopStrip();
   loadShorts();
   renderTrends();
+  // start banner rotation with interval
   rotateBanners();
+  setInterval(rotateBanners, 3600);
   loadNews();
   renderNewest();
   setInterval(tick, 5000);
   setInterval(liveRotation, 7000);
-  setInterval(rotateBanners, 3600);
-  setInterval(()=> loadNews(false), 5*60*1000);
+  // refresh news less frequently to avoid API issues
+  setInterval(()=> loadNews(false), 6*60*1000);
 }
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
